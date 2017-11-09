@@ -30,3 +30,16 @@
 *.exe
 *.out
 *.app
+
+# Visual studio
+Debug
+ipch
+/SpaceInvaders.sdf
+ipch
+/SpaceInvaders/Release
+/Release
+/SpaceInvaders.VC.VC.opendb
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
