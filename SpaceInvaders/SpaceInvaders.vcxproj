@@ -75,7 +75,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\ExternalDependencies\SDL2-2.0.5;$(SolutionDir)\ExternalDependencies\SDL2_mixer-2.0.1\include;$(SolutionDir)\ExternalDependencies\SDL2_ttf-2.0.14;$(SolutionDir)\ExternalDependencies\SDL2_gfx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)\ExternalDependencies\SDL2-2.0.5\lib\x86;$(SolutionDir)\ExternalDependencies\SDL2_gfx\lib;$(SolutionDir)\ExternalDependencies\SDL2_mixer-2.0.1\lib\x86;$(SolutionDir)\ExternalDependencies\SDL2_ttf-2.0.14;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_net.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2main.lib;SDL2.lib;SDL2_mixer.lib;SDL2_gfx.lib;kernel32.lib;user32.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <SubSystem>Console</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -111,6 +119,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioLoader.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainScene.cpp" />
+    <ClCompile Include="Rect2d.cpp" />
+    <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="xorshift.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AudioLoader.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="GameConfig.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="MainScene.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="NotImplementedException.h" />
+    <ClInclude Include="NotSupportedException.h" />
+    <ClInclude Include="Rect2d.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="StartScene.h" />
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="xorshift.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
