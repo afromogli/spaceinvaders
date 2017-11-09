@@ -53,6 +53,9 @@
     <ClCompile Include="xorshift.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
+    <ClCompile Include="ECannon.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioLoader.h">
@@ -108,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="StartScene.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECannon.h">
+      <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
