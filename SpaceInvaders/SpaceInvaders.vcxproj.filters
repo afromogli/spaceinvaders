@@ -15,6 +15,12 @@
     <Filter Include="Source Files\Common">
       <UniqueIdentifier>{56e74f4d-4017-49dd-966d-1e978120f129}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Fonts">
+      <UniqueIdentifier>{66937d83-3edd-4db9-bcc0-9f050151ccb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Sounds">
+      <UniqueIdentifier>{b4653f73-77ed-445a-b758-53cf62490b7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -115,5 +121,10 @@
     <ClInclude Include="ECannon.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\Games.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

@@ -154,6 +154,9 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="xorshift.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\Games.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

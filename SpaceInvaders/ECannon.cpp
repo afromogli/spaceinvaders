@@ -20,7 +20,7 @@ namespace SpaceInvaders
 
    void ECannon::draw(Graphics & graphics)
    {
-      graphics.drawFilledBox(m_rect, Colors::DarkGrey);
+      graphics.drawFilledBox(m_rect, Colors::White);
    }
 
    //bool EPaddle::isColliding(const EBall& ball) const

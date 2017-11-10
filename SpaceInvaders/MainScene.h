@@ -4,7 +4,7 @@
 #include "AudioLoader.h"
 #include "Entity.h"
 //#include "Board.h"
-//#include "EPaddle.h"
+#include "ECannon.h"
 #include "Text.h"
 
 using namespace std;
@@ -28,28 +28,28 @@ namespace SpaceInvaders
       void updatePlayingState(const float deltaTime);
 
       vector<shared_ptr<Entity>> m_allEntities;
-      /*shared_ptr<EPaddle> m_paddle;
-      shared_ptr<EBall> m_ball;
+      shared_ptr<ECannon> m_cannon;
+	  /*shared_ptr<EBall> m_ball;
       Board m_board;*/
 
-      float m_paddleCooldown; // Millisecs, for collisions
+      //float m_paddleCooldown; // Millisecs, for collisions
 
       Graphics& m_graphics;
       AudioLoader& m_audioSystem;
 
-      void positionBallAbovePaddle() const;
+      //void positionBallAbovePaddle() const;
 
-      shared_ptr<AudioClip> m_brickSound;
+      /*shared_ptr<AudioClip> m_brickSound;
       shared_ptr<AudioClip> m_paddleSound;
       shared_ptr<AudioClip> m_winSound;
-      shared_ptr<AudioClip> m_gameoverSound;
+      shared_ptr<AudioClip> m_gameoverSound;*/
 
       GameState m_currentState = Playing;
 
-      Font m_font;
+     /* Font m_font;
       Text m_winText;
       Text m_gameoverText;
-      Text m_instructionsText;
+      Text m_instructionsText;*/
 
    };
 }

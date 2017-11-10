@@ -18,8 +18,8 @@ namespace SpaceInvaders
       void draw(Graphics& graphics) override;
 
    private:
-	   /*Font m_font;
-      Text m_SpaceInvadersText;
-      Text m_instructionsText;*/
+	  Font m_font;
+      Text m_spaceInvadersText;
+      Text m_instructionsText;
    };
 }

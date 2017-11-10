@@ -14,14 +14,14 @@ namespace SpaceInvaders
 
       // Main scene configuration
       static constexpr Vector2f PaddleSize = Vector2f(60, 30);
-      static constexpr Vector2f InitialPlayerPaddlePosition = Vector2f(GameConfig::WinSize.x/2, GameConfig::WinSize.y-(PaddleSize.y + 10));
+      static constexpr Vector2f InitialCannonPosition = Vector2f(GameConfig::WinSize.x/2, GameConfig::WinSize.y-(PaddleSize.y + 10));
       static constexpr float PaddleCooldown = 1000;
 
       //static constexpr float BallSpeed = 250.0f;
       //static constexpr float BallSpeedIncPerHit = 12.0f;
 
       //static constexpr int BallDiameter = 5;
-      //static constexpr float PaddleSpeed = 400.0; // Pixels per second;
+      static constexpr float CannonSpeed = 400.0; // Pixels per second;
 
       //static constexpr float BrickWidth = 40;
       //static constexpr float BrickHeight = 20;
