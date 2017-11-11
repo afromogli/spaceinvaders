@@ -130,6 +130,7 @@
     <ClCompile Include="Rect2d.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="xorshift.cpp" />
   </ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="xorshift.h" />
   </ItemGroup>
