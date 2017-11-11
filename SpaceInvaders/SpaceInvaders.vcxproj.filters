@@ -138,7 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\si_spritesheet.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>
 </Project>
