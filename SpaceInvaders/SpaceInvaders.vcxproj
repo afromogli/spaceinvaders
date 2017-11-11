@@ -159,6 +159,9 @@
   <ItemGroup>
     <Font Include="Fonts\Games.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\si_spritesheet.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

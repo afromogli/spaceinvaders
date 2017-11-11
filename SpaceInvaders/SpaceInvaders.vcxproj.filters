@@ -21,6 +21,9 @@
     <Filter Include="Resource Files\Sounds">
       <UniqueIdentifier>{b4653f73-77ed-445a-b758-53cf62490b7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{914a0d97-ba4c-4ad5-8c2d-4aa0aa67e88c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -132,5 +135,10 @@
     <Font Include="Fonts\Games.ttf">
       <Filter>Resource Files\Fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\si_spritesheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
