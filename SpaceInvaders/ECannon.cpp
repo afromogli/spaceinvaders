@@ -6,7 +6,7 @@ namespace SpaceInvaders
 {
    ECannon::ECannon() : Entity()
    {
-      m_rect.setSize(int(GameConfig::PaddleSize.x), int(GameConfig::PaddleSize.y));
+      m_rect.setSize(int(GameConfig::CannonSize.x), int(GameConfig::CannonSize.y));
    }
 
    void ECannon::update(const float & deltaTime)

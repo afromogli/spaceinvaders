@@ -168,7 +168,7 @@ namespace SpaceInvaders
 
   //void MainScene::positionBallAbovePaddle() const
   //{
-  //  //m_ball->setPosition(m_paddle->getPosition() + Vector2f(GameConfig::PaddleSize.x / 2.f, -float(GameConfig::BallDiameter)));
+  //  //m_ball->setPosition(m_paddle->getPosition() + Vector2f(GameConfig::CannonSize.x / 2.f, -float(GameConfig::BallDiameter)));
 
   //}
 }
