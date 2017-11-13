@@ -3,7 +3,7 @@
 
 namespace Common
 {
-  Texture::Texture(Graphics& graphics) : m_graphics{ graphics }
+  Texture::Texture(Graphics& graphics) : m_graphics{ graphics }, m_isLoaded{ false }
   {
     //Initialize
     m_texture = nullptr;
@@ -52,10 +52,12 @@ namespace Common
       //Get rid of old loaded surface
       SDL_FreeSurface(loadedSurface);
     }
-
     //Return success
     m_texture = newTexture;
-    return m_texture != nullptr;
+
+    m_isLoaded = m_texture != nullptr;
+
+    return m_isLoaded;
   }
 
   void Texture::free()
@@ -100,5 +102,10 @@ namespace Common
   int Texture::getHeight() const
   {
     return m_height;
+  }
+
+  bool Texture::isLoaded() const
+  {
+    return m_isLoaded;
   }
 }

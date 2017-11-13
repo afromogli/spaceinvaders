@@ -42,6 +42,8 @@ namespace Common
     int getWidth() const;
     int getHeight() const;
 
+    bool isLoaded() const;
+
   private:
     //Deallocates texture
     void free();
@@ -53,5 +55,7 @@ namespace Common
     //Image dimensions
     int m_width;
     int m_height;
+
+    bool m_isLoaded;
   };
 }

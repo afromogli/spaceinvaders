@@ -166,7 +166,7 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\si_spritesheet.png">
+    <Image Include="Textures\spritesheet.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
     </Image>

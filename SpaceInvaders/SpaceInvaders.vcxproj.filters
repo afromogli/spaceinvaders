@@ -146,7 +146,7 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\si_spritesheet.png">
+    <Image Include="Textures\spritesheet.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

@@ -9,27 +9,20 @@ using namespace Common;
 namespace SpaceInvaders
 {
   MainScene::MainScene(Graphics& graphics, AudioLoader& audioSystem) :
-    //m_board{ GameConfig::BoardUpperLeftPos },
     m_graphics{ graphics },
-    m_audioSystem{ audioSystem }//,
-   /* m_font("Fonts\\iomanoid.ttf", 100),
-    m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),
-    m_gameoverText("Game Over", Colors::Red, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),
-    m_instructionsText("Press enter to continue..", Colors::White, Vector2f(GameConfig::WinSize.x / 4 + 100, GameConfig::WinSize.y / 2), 300, 60, m_font, graphics)*/
+    m_audioSystem{ audioSystem },
+    m_spriteSheet(graphics)
+    /* m_font("Fonts\\iomanoid.ttf", 100),
+     m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
   {
     m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon));
-    //m_ball = std::dynamic_pointer_cast<EBall>(Engine::EntityFactoryInstance->createEntity(EntityType::Ball));
-
     m_cannon->setPosition(GameConfig::InitialCannonPosition);
-    //positionBallAbovePaddle();
-
+    
     m_allEntities.push_back(m_cannon);
-    /* m_allEntities.push_back(m_ball);
 
-     m_brickSound = audioSystem.createAndLoadAudioClip("Sounds\\arkbrick.wav");
-     m_paddleSound = audioSystem.createAndLoadAudioClip("Sounds\\arkpad.wav");
-     m_winSound = audioSystem.createAndLoadAudioClip("Sounds\\win.wav");
-     m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
+     /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
+
+    m_spriteSheet.loadFromFile("Textures\\spritesheet.png");
   }
 
   MainScene::~MainScene()
@@ -164,12 +157,6 @@ namespace SpaceInvaders
     //   m_paddleCooldown -= deltaTime;
     //}
   }
-
-  //void MainScene::positionBallAbovePaddle() const
-  //{
-  //  //m_ball->setPosition(m_paddle->getPosition() + Vector2f(GameConfig::CannonSize.x / 2.f, -float(GameConfig::BallDiameter)));
-
-  //}
 }
 
 

@@ -2,6 +2,8 @@
 
 #include "Vector2.h"
 
+using namespace Common;
+
 namespace SpaceInvaders
 {
   class GameConfig
@@ -20,11 +22,7 @@ namespace SpaceInvaders
     static constexpr Vector2f InvaderLeftVelocity = Vector2f(-1.f, 0.f);
     static constexpr Vector2f InvaderRightVelocity = Vector2f(1.f, 0.f);
 
-   //static constexpr float PaddleCooldown = 1000;
-    //static constexpr float BallSpeed = 250.0f;
-    //static constexpr float BallSpeedIncPerHit = 12.0f;
-    //static constexpr int BallDiameter = 5;
-    //static constexpr float WallThickness = 5.f;
+    static constexpr uint8_t InvaderAnimFramesCount = 2;
 
   private:
     GameConfig() {}

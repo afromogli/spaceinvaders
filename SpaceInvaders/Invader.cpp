@@ -1,15 +1,18 @@
+#include <cassert>
+
 #include "Invader.h"
 #include "GameConfig.h"
-#include <cassert>
+#include "NotSupportedException.h"
 
 namespace SpaceInvaders
 {
-  EInvader::EInvader(const EntityType invaderType, Graphics& graphics) : m_texture {graphics}
+  EInvader::EInvader(const EntityType invaderType, const Texture& spriteSheet) : m_spriteSheet{ spriteSheet }
   {
     m_rect.setSize(int(GameConfig::CannonSize.x), int(GameConfig::CannonSize.y));
     m_velocity = GameConfig::InvaderRightVelocity; // Initial speed
     m_invaderType = invaderType;
-    //m_texture.loadFromFile()
+    m_currentFrame = 0;
+    assert(spriteSheet.isLoaded());
   }
 
   void EInvader::update(const float & deltaTime)
@@ -22,7 +25,24 @@ namespace SpaceInvaders
 
   void EInvader::draw(Graphics & graphics)
   {
-    graphics.drawFilledBox(m_rect, Colors::White);
+    Rect2D *clip = nullptr;
+
+    switch (m_invaderType)
+    {
+    case EntityType::SmallInvader:
+      clip = &SmallInvaderClipFrames[m_currentFrame];
+      break;
+    case EntityType::MediumInvader:
+      clip = &MediumInvaderClipFrames[m_currentFrame];
+      break;
+    case EntityType::LargeInvader:
+      clip = &LargeInvaderClipFrames[m_currentFrame];
+      break;
+    default:
+      throw new NotSupportedException("The invader type: " + std::to_string(m_invaderType) + " is not supported.");
+    }
+
+    m_spriteSheet.render(getPosition(), *clip);
   }
 
   void EInvader::changeDirection()
@@ -36,4 +56,13 @@ namespace SpaceInvaders
       m_velocity = GameConfig::InvaderLeftVelocity;
     }
   }
+
+  void EInvader::changeAnimationFrame()
+  {
+    m_currentFrame = ++m_currentFrame % GameConfig::InvaderAnimFramesCount;
+  }
+
+  Rect2D EInvader::SmallInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(7.f, 18.f), 16, 16), Rect2D(Vector2f(40.f, 18.f), 16, 16) };
+  Rect2D EInvader::MediumInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(74.f, 18.f), 22, 16), Rect2D(Vector2f(107.f, 18.f), 22, 16) };
+  Rect2D EInvader::LargeInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(147.f, 19.f), 24, 16), Rect2D(Vector2f(179.f, 19.f), 24, 16) };
 }

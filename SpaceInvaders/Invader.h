@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Texture.h"
 #include "EntityType.h"
+#include "GameConfig.h"
 
 using namespace std;
 using namespace Common;
@@ -17,13 +18,16 @@ namespace SpaceInvaders
     void update(const float& deltaTime) override;
     void draw(Graphics& graphics) override;
     void changeDirection();
+    void changeAnimationFrame();
 
-    static Rect2D SmallInvaderClip;// = Rect2D(Vector2f(0, 0), 0, 0);
-    static Rect2D MediumInvaderClip;// = Rect2D(Vector2f(0, 0), 0, 0);
-    static Rect2D LargeInvaderClip;// = Rect2D(Vector2f(0, 0), 0, 0);
+    static Rect2D SmallInvaderClipFrames[GameConfig::InvaderAnimFramesCount];
+    static Rect2D MediumInvaderClipFrames[GameConfig::InvaderAnimFramesCount];
+    static Rect2D LargeInvaderClipFrames[GameConfig::InvaderAnimFramesCount];
+
   private:
-    EInvader(EntityType invaderType, Graphics& graphics);
-    Texture m_texture;
-    EntityType m_invaderType;    
+    EInvader(EntityType invaderType, const Texture& spriteSheet);
+    const Texture& m_spriteSheet; 
+    EntityType m_invaderType;
+    int m_currentFrame; // Is either 0 or 1
   };
 }
