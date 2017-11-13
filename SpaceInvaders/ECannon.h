@@ -1,25 +1,26 @@
 #pragma once
 
 #include "Entity.h"
-#include <memory>
-//#include "EBall.h"
+#include "Texture.h"
 
 using namespace std;
 using namespace Common;
 
-namespace SpaceInvaders 
+namespace SpaceInvaders
 {
-   class EntityFactory;
+  class EntityFactory;
 
-   class ECannon : public Entity {
-      friend class EntityFactory;
-   public:
-      void update(const float& deltaTime) override;
-      void draw(Graphics& graphics) override;
-  /*    bool isColliding(const EBall& ball) const;
-      void doBallCollision(EBall& ball) const;*/
-   private:
-      ECannon();
-   };
+  class ECannon : public Entity {
+    friend class EntityFactory;
+  public:
+    void update(const float& deltaTime) override;
+    void draw(Graphics& graphics) override;
+
+    static Rect2D CannonClip;
+
+  private:
+    ECannon(const Texture& spriteSheet);
+    const Texture& m_spriteSheet;
+  };
 }
 

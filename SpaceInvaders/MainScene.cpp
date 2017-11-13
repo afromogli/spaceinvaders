@@ -15,14 +15,15 @@ namespace SpaceInvaders
     /* m_font("Fonts\\iomanoid.ttf", 100),
      m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
   {
-    m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon));
+    m_spriteSheet.loadFromFile("Textures\\spritesheet.png");
+    
+    m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon, &m_spriteSheet));
     m_cannon->setPosition(GameConfig::InitialCannonPosition);
     
     m_allEntities.push_back(m_cannon);
 
      /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
 
-    m_spriteSheet.loadFromFile("Textures\\spritesheet.png");
   }
 
   MainScene::~MainScene()
