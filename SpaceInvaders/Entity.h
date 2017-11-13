@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Vector2.h"
 #include "Graphics.h"
 #include "Rect2d.h"
 

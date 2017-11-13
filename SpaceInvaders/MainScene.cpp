@@ -1,5 +1,4 @@
-#include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include "MainScene.h"
 #include "Engine.h"

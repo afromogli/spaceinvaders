@@ -3,7 +3,6 @@
 #include "NotSupportedException.h"
 #include "EntityFactory.h"
 
-//#include "EBall.h"
 #include "ECannon.h"
 
 namespace SpaceInvaders
@@ -13,9 +12,6 @@ namespace SpaceInvaders
       shared_ptr<Entity> entity = nullptr;
       switch (type)
       {
-     /* case EntityType::Ball:
-         entity = this->createBallEntity();
-         break;*/
       case EntityType::Cannon:
          entity = this->createPaddleEntity();
          break;
@@ -24,11 +20,6 @@ namespace SpaceInvaders
       }
       return entity;
    }
-
-   /*shared_ptr<Entity> EntityFactory::createBallEntity()
-   {
-      return shared_ptr<Entity>(new EBall());
-   }*/
 
    shared_ptr<Entity> EntityFactory::createPaddleEntity()
    {

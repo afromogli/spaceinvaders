@@ -1,10 +1,9 @@
 #include "Texture.h"
-#include <SDL2/SDL_image.h>
+#include <SDL_image.h>
 
 namespace Common
 {
-
-  Texture::Texture(Graphics& graphics) : m_graphics{graphics}
+  Texture::Texture(Graphics& graphics) : m_graphics{ graphics }
   {
     //Initialize
     m_texture = nullptr;
@@ -103,4 +102,3 @@ namespace Common
     return m_height;
   }
 }
-

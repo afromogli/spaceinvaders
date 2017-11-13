@@ -3,28 +3,26 @@
 #include <memory>
 #include "Graphics.h"
 #include "Entity.h"
+#include "EntityType.h"
 
 using namespace std;
 using namespace Common;
 
-namespace SpaceInvaders 
+namespace SpaceInvaders
 {
-   enum EntityType { Cannon, Alien, House };
+  class EntityFactory
+  {
+  public:
+    EntityFactory(Graphics& graphics) : m_graphics{ graphics }
+    {
+    }
+    shared_ptr<Entity> createEntity(const EntityType &type) const;
 
-   class EntityFactory
-   {
-   public:
-      EntityFactory(Graphics& graphics) : 
-         m_graphics{graphics}
-      {
-      }
-      shared_ptr<Entity> createEntity(const EntityType &type) const;
+  private:
+    //static shared_ptr<Entity> createBallEntity();
+    static shared_ptr<Entity> createPaddleEntity();
 
-   private:
-      //static shared_ptr<Entity> createBallEntity();
-      static shared_ptr<Entity> createPaddleEntity();
-
-      Graphics& m_graphics;
-   };
+    Graphics& m_graphics;
+  };
 }
 

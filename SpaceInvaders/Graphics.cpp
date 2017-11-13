@@ -1,10 +1,9 @@
-#include "Graphics.h"
-
 #include <iostream>
 #include <assert.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL_ttf.h>
 #include <SDL2_gfxPrimitives.h>
+
+#include "Graphics.h"
 
 namespace Common {
    Graphics::Graphics(const int& xWinPosition, const int& yWinPosition, const int& width, const int& height)

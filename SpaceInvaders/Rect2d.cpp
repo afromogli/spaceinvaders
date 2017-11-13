@@ -4,11 +4,11 @@ using namespace std;
 
 namespace Common {
    bool Rect2D::intersects(const Rect2D& otherBBox) const {
-      const float xDiff = fabs((m_position.x + m_width / 2)- (otherBBox.m_position.x + otherBBox.getWidth() / 2));
-      const float yDiff = fabs((m_position.y + m_height / 2) - (otherBBox.m_position.y+ otherBBox.getHeight() / 2));
+      const float xDiff = fabs( ( m_position.x + m_width / 2 )- ( otherBBox.m_position.x + otherBBox.getWidth() / 2 ));
+      const float yDiff = fabs( ( m_position.y + m_height / 2 ) - ( otherBBox.m_position.y+ otherBBox.getHeight() / 2 ));
 
-      const bool xIntersects = xDiff < (m_width/2 + otherBBox.getWidth()/2);
-      const bool yIntersects = yDiff < (m_height/2 + otherBBox.getHeight()/2);
+      const bool xIntersects = xDiff < ( m_width / 2 + otherBBox.getWidth() / 2);
+      const bool yIntersects = yDiff < ( m_height / 2 + otherBBox.getHeight() / 2);
 
 
      /* cout << "xDiff: " << xDiff << "\n";

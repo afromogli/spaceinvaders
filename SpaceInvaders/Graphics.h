@@ -1,6 +1,7 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
+
 #include "Vector2.h"
 #include "Color.h"
 #include "Rect2d.h"

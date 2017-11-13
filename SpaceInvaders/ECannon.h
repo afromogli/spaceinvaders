@@ -20,7 +20,6 @@ namespace SpaceInvaders
       void doBallCollision(EBall& ball) const;*/
    private:
       ECannon();
-
    };
 }
 

@@ -3,7 +3,7 @@
 
 #include "Scene.h"
 #include <random>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 
 
