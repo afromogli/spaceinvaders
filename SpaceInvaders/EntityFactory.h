@@ -32,6 +32,7 @@ namespace SpaceInvaders
   private:
     static shared_ptr<Entity> createCannonEntity(const Texture& spriteSheet);
     static shared_ptr<Entity> createInvaderEntity(const EntityType type, const Texture& spriteSheet);
+    static shared_ptr<Entity> createInvaderGroup(const shared_ptr<Texture> spriteSheet);
 
     Graphics& m_graphics;
   };

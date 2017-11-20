@@ -12,7 +12,8 @@ namespace SpaceInvaders
 {
   class EntityFactory;
 
-  class EInvader : public Entity {
+  class EInvader : public Entity
+  {
     friend class EntityFactory;
   public:
     void update(const float& deltaTime) override;
@@ -26,7 +27,7 @@ namespace SpaceInvaders
 
   private:
     EInvader(EntityType invaderType, const Texture& spriteSheet);
-    const Texture& m_spriteSheet; 
+    const Texture& m_spriteSheet;
     EntityType m_invaderType;
     int m_currentFrame; // Is either 0 or 1
   };

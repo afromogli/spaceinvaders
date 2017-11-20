@@ -5,6 +5,7 @@
 
 #include "ECannon.h"
 #include "EInvader.h"
+#include "EInvaderGroup.h"
 
 namespace SpaceInvaders
 {
@@ -21,6 +22,9 @@ namespace SpaceInvaders
     case EntityType::LargeInvader:
       entity = createInvaderEntity(type, *static_cast<Texture*>(data));
       break;
+    case EntityType::InvaderGroup:
+      entity = createInvaderGroup(shared_ptr<Texture>(static_cast<Texture*>(data)));
+      break;
     default:
       throw new NotSupportedException("The EntityType: " + std::to_string(type) + " is not supported");
     }
@@ -35,6 +39,11 @@ namespace SpaceInvaders
   shared_ptr<Entity> EntityFactory::createInvaderEntity(const EntityType type, const Texture& spriteSheet)
   {
     return shared_ptr<Entity>(new EInvader(type, spriteSheet));
+  }
+
+  shared_ptr<Entity> EntityFactory::createInvaderGroup(const shared_ptr<Texture> spriteSheet)
+  {
+    return shared_ptr<Entity>(new EInvaderGroup(spriteSheet));
   }
 }
 

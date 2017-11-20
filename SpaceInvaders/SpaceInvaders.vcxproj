@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="EInvader.cpp" />
     <ClCompile Include="AudioLoader.cpp" />
+    <ClCompile Include="EInvaderGroup.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="ECannon.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="EInvader.h" />
     <ClInclude Include="AudioLoader.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="EInvaderGroup.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />

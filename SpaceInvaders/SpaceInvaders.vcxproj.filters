@@ -71,6 +71,9 @@
     <ClCompile Include="EInvader.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="EInvaderGroup.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioLoader.h">
@@ -137,6 +140,9 @@
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="EInvader.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EInvaderGroup.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
