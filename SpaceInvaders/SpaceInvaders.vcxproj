@@ -119,7 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Invader.cpp" />
+    <ClCompile Include="EInvader.cpp" />
     <ClCompile Include="AudioLoader.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
@@ -136,7 +136,7 @@
     <ClCompile Include="xorshift.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Invader.h" />
+    <ClInclude Include="EInvader.h" />
     <ClInclude Include="AudioLoader.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Engine.h" />

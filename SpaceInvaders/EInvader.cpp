@@ -1,6 +1,6 @@
 #include <cassert>
 
-#include "Invader.h"
+#include "EInvader.h"
 #include "GameConfig.h"
 #include "NotSupportedException.h"
 

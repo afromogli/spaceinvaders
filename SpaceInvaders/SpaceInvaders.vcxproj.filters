@@ -68,7 +68,7 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Invader.cpp">
+    <ClCompile Include="EInvader.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -136,7 +136,7 @@
     <ClInclude Include="EntityType.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Invader.h">
+    <ClInclude Include="EInvader.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
