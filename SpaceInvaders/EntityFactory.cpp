@@ -13,7 +13,7 @@ namespace SpaceInvaders
       switch (type)
       {
       case EntityType::Cannon:
-         entity = this->createPaddleEntity(*static_cast<Texture*>(data));
+         entity = this->createCannonEntity(*static_cast<Texture*>(data));
          break;
       default:
          throw new NotSupportedException("The EntityType: " + std::to_string(type) + " is not supported");
@@ -21,7 +21,7 @@ namespace SpaceInvaders
       return entity;
    }
 
-   shared_ptr<Entity> EntityFactory::createPaddleEntity(const Texture& spriteSheet)
+   shared_ptr<Entity> EntityFactory::createCannonEntity(const Texture& spriteSheet)
    {
       return shared_ptr<Entity>(new ECannon(spriteSheet));
    }

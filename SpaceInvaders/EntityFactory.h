@@ -30,7 +30,7 @@ namespace SpaceInvaders
     shared_ptr<Entity> createEntity(const EntityType &type, void* data=nullptr) const;
 
   private:
-    static shared_ptr<Entity> createPaddleEntity(const Texture& spriteSheet);
+    static shared_ptr<Entity> createCannonEntity(const Texture& spriteSheet);
 
     Graphics& m_graphics;
   };
