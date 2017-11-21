@@ -25,5 +25,7 @@ namespace SpaceInvaders
     explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet);
 
     shared_ptr<EInvader> m_invaders[Rows*Columns];
+
+    const shared_ptr<Texture> m_spriteSheet;
   };
 }

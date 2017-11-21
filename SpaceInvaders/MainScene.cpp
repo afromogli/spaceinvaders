@@ -10,20 +10,23 @@ namespace SpaceInvaders
 {
   MainScene::MainScene(Graphics& graphics, AudioLoader& audioSystem) :
     m_graphics{ graphics },
-    m_audioSystem{ audioSystem },
-    m_spriteSheet(graphics)
+    m_audioSystem{ audioSystem }    
     /* m_font("Fonts\\iomanoid.ttf", 100),
      m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
   {
-    m_spriteSheet.loadFromFile("Textures\\spritesheet.png");
+    m_spriteSheet = std::make_shared<Texture>(graphics);
+    m_spriteSheet->loadFromFile("Textures\\spritesheet.png");
     
-    m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon, &m_spriteSheet));
+    const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetDataPtr = std::make_shared<CreateEntityWithSpritesheetData>(m_spriteSheet);
+   
+    m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon, spriteSheetDataPtr));
     m_cannon->setPosition(GameConfig::InitialCannonPosition);
     
+    m_invaderGroup = std::dynamic_pointer_cast<EInvaderGroup>(Engine::EntityFactoryInstance->createEntity(EntityType::InvaderGroup, spriteSheetDataPtr));
+
     m_allEntities.push_back(m_cannon);
-
+    m_allEntities.push_back(m_invaderGroup);
      /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
-
   }
 
   MainScene::~MainScene()

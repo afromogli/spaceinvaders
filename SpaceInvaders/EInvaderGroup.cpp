@@ -1,12 +1,15 @@
 #include "EInvaderGroup.h"
 #include "Engine.h"
+#include <iostream>
 
 using namespace Common;
 
 namespace SpaceInvaders
 {
-  EInvaderGroup::EInvaderGroup(const shared_ptr<Texture> spriteSheet)
+  EInvaderGroup::EInvaderGroup(const shared_ptr<Texture> spriteSheet) : m_spriteSheet{ spriteSheet }
   {
+    const auto spriteSheetDataPtr = std::make_shared<CreateEntityWithSpritesheetData>(m_spriteSheet);
+
     for (int y = 0; y < Rows; y++)
     {
       for (int x = 0; x < Columns; x++)
@@ -15,16 +18,17 @@ namespace SpaceInvaders
         if (y > 1 && y < 3)
         {
           type = EntityType::MediumInvader;
-        } 
+        }
         else if (y >= 3)
         {
           type = EntityType::LargeInvader;
         }
 
-        m_invaders[y*Columns + x] = std::dynamic_pointer_cast<EInvader>(Engine::EntityFactoryInstance->createEntity(type, spriteSheet.get()));
+        const int currIndex = y*Columns + x;
+        m_invaders[currIndex] = std::dynamic_pointer_cast<EInvader>(Engine::EntityFactoryInstance->createEntity(type, spriteSheetDataPtr));
+        m_invaders[currIndex]->setPosition(Vector2f(x*GameConfig::InvaderHorisontalSpacing, y*GameConfig::InvaderVerticalSpacing));
       }
     }
-    
   }
 
   void EInvaderGroup::update(const float& deltaTime)
@@ -42,6 +46,4 @@ namespace SpaceInvaders
       m_invaders[i]->draw(graphics);
     }
   }
-
-  
 }

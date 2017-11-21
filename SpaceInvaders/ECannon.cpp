@@ -4,7 +4,7 @@
 
 namespace SpaceInvaders
 {
-  ECannon::ECannon(const Texture& spriteSheet) : Entity(), m_spriteSheet{ spriteSheet }
+  ECannon::ECannon(const shared_ptr<Texture> spriteSheet) : Entity(), m_spriteSheet{ spriteSheet }
   {
     m_rect.setSize(int(GameConfig::CannonSize.x), int(GameConfig::CannonSize.y));
   }
@@ -20,7 +20,7 @@ namespace SpaceInvaders
 
   void ECannon::draw(Graphics& graphics)
   {
-    m_spriteSheet.render(getPosition(), CannonClip);
+    m_spriteSheet->render(getPosition(), CannonClip);
   }
 
   Rect2D ECannon::CannonClip = Rect2D(Vector2f(277, 21), 26, 16);

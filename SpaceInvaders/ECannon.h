@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Texture.h"
+#include <memory>
 
 using namespace std;
 using namespace Common;
@@ -19,8 +20,8 @@ namespace SpaceInvaders
     static Rect2D CannonClip;
 
   private:
-    ECannon(const Texture& spriteSheet);
-    const Texture& m_spriteSheet;
+    ECannon(const shared_ptr<Texture> spriteSheet);
+    const shared_ptr<Texture> m_spriteSheet;
   };
 }
 

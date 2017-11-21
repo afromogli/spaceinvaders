@@ -6,13 +6,13 @@
 
 namespace SpaceInvaders
 {
-  EInvader::EInvader(const EntityType invaderType, const Texture& spriteSheet) : m_spriteSheet{ spriteSheet }
+  EInvader::EInvader(const EntityType invaderType, const shared_ptr<Texture> spriteSheet) : m_spriteSheet{ spriteSheet }
   {
     m_rect.setSize(int(GameConfig::CannonSize.x), int(GameConfig::CannonSize.y));
     m_velocity = GameConfig::InvaderRightVelocity; // Initial speed
     m_invaderType = invaderType;
     m_currentFrame = 0;
-    assert(spriteSheet.isLoaded());
+    assert(spriteSheet->isLoaded());
   }
 
   void EInvader::update(const float & deltaTime)
@@ -42,7 +42,7 @@ namespace SpaceInvaders
       throw new NotSupportedException("The invader type: " + std::to_string(m_invaderType) + " is not supported.");
     }
 
-    m_spriteSheet.render(getPosition(), *clip);
+    m_spriteSheet->render(getPosition(), *clip);
   }
 
   void EInvader::changeDirection()

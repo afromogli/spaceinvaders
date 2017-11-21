@@ -145,6 +145,9 @@
     <ClInclude Include="EInvaderGroup.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fonts\Games.ttf">

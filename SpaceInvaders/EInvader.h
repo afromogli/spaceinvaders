@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "EntityType.h"
 #include "GameConfig.h"
+#include <memory>
 
 using namespace std;
 using namespace Common;
@@ -26,8 +27,8 @@ namespace SpaceInvaders
     static Rect2D LargeInvaderClipFrames[GameConfig::InvaderAnimFramesCount];
 
   private:
-    EInvader(EntityType invaderType, const Texture& spriteSheet);
-    const Texture& m_spriteSheet;
+    EInvader(EntityType invaderType, const shared_ptr<Texture> spriteSheet);
+    const shared_ptr<Texture> m_spriteSheet;
     EntityType m_invaderType;
     int m_currentFrame; // Is either 0 or 1
   };

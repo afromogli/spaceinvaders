@@ -1,5 +1,6 @@
 #include "Texture.h"
 #include <SDL_image.h>
+#include "String.h"
 
 namespace Common
 {
@@ -34,7 +35,11 @@ namespace Common
     else
     {
       //Color key image
-      SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+      // Png:s have own alpha channel so don't need to set color key (transparent pixel)
+      if (ends_with(to_lower(path), ".png") == false)
+      {
+        SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+      }
 
       //Create texture from surface pixels
       newTexture = SDL_CreateTextureFromSurface(m_graphics.getRenderer(), loadedSurface);
@@ -75,11 +80,11 @@ namespace Common
   void Texture::render(const Vector2f position, const Rect2D& clip) const
   {
     //Set rendering space and render to screen
-    SDL_Rect renderQuad = { int(position.x), int(position.y), m_width, m_height };
+    SDL_Rect renderQuad = { int(position.x), int(position.y), clip.getWidth(), clip.getHeight() };
 
-    //Set clip rendering dimensions
-    renderQuad.w = clip.getWidth();
-    renderQuad.h = clip.getHeight();
+    ////Set clip rendering dimensions
+    //renderQuad.w = clip.getWidth();
+    //renderQuad.h = clip.getHeight();
 
     SDL_Rect sdlClip = { int(clip.getPosition().x), int(clip.getPosition().y), clip.getWidth(), clip.getHeight() };
     //Render to screen

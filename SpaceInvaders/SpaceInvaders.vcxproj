@@ -156,6 +156,7 @@
     <ClInclude Include="Rect2d.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="StartScene.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector2.h" />
@@ -170,7 +171,6 @@
   <ItemGroup>
     <Image Include="Textures\spritesheet.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
     </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -9,21 +9,29 @@
 
 namespace SpaceInvaders
 {
-  shared_ptr<Entity> EntityFactory::createEntity(const EntityType& type, void* data) const
+  CreateEntityData::~CreateEntityData()
   {
-    shared_ptr<Entity> entity = nullptr;
+  }
+
+  CreateEntityWithSpritesheetData::CreateEntityWithSpritesheetData(const shared_ptr<Texture> spriteSheet) : SpriteSheet{spriteSheet}
+  {
+  }
+
+  shared_ptr<Entity> EntityFactory::createEntity(const EntityType type, const shared_ptr<CreateEntityData> data) const
+  {
+    shared_ptr<Entity> entity;
     switch (type)
     {
     case EntityType::Cannon:
-      entity = createCannonEntity(*static_cast<Texture*>(data));
+      entity = createCannonEntity(std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data)->SpriteSheet);
       break;
     case EntityType::SmallInvader:
     case EntityType::MediumInvader:
     case EntityType::LargeInvader:
-      entity = createInvaderEntity(type, *static_cast<Texture*>(data));
+      entity = createInvaderEntity(type, std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data)->SpriteSheet);
       break;
     case EntityType::InvaderGroup:
-      entity = createInvaderGroup(shared_ptr<Texture>(static_cast<Texture*>(data)));
+      entity = createInvaderGroup(std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data)->SpriteSheet);
       break;
     default:
       throw new NotSupportedException("The EntityType: " + std::to_string(type) + " is not supported");
@@ -31,12 +39,12 @@ namespace SpaceInvaders
     return entity;
   }
 
-  shared_ptr<Entity> EntityFactory::createCannonEntity(const Texture& spriteSheet)
+  shared_ptr<Entity> EntityFactory::createCannonEntity(const shared_ptr<Texture> spriteSheet)
   {
     return shared_ptr<Entity>(new ECannon(spriteSheet));
   }
 
-  shared_ptr<Entity> EntityFactory::createInvaderEntity(const EntityType type, const Texture& spriteSheet)
+  shared_ptr<Entity> EntityFactory::createInvaderEntity(const EntityType type, const shared_ptr<Texture> spriteSheet)
   {
     return shared_ptr<Entity>(new EInvader(type, spriteSheet));
   }
