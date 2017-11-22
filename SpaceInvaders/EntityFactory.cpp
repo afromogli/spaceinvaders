@@ -6,6 +6,7 @@
 #include "ECannon.h"
 #include "EInvader.h"
 #include "EInvaderGroup.h"
+#include "InvalidCastException.h"
 
 namespace SpaceInvaders
 {
@@ -14,6 +15,11 @@ namespace SpaceInvaders
   }
 
   CreateEntityWithSpritesheetData::CreateEntityWithSpritesheetData(const shared_ptr<Texture> spriteSheet) : SpriteSheet{spriteSheet}
+  {
+  }
+
+  CreateInvaderGroupEntityData::CreateInvaderGroupEntityData(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos) : 
+    CreateEntityWithSpritesheetData(spriteSheet), UpperLeftStartPos{upperLeftStartPos}
   {
   }
 
@@ -31,8 +37,15 @@ namespace SpaceInvaders
       entity = createInvaderEntity(type, std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data)->SpriteSheet);
       break;
     case EntityType::InvaderGroup:
-      entity = createInvaderGroup(std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data)->SpriteSheet);
-      break;
+      {
+        const shared_ptr<CreateInvaderGroupEntityData> invaderGroupData = std::dynamic_pointer_cast<CreateInvaderGroupEntityData>(data);
+        if (invaderGroupData.use_count() == 0)
+        {
+          throw new InvalidCastException("Invalid CreateEntityData type provided");
+        }
+        entity = createInvaderGroup(invaderGroupData->SpriteSheet, invaderGroupData->UpperLeftStartPos);
+        break;
+      }      
     default:
       throw new NotSupportedException("The EntityType: " + std::to_string(type) + " is not supported");
     }
@@ -49,9 +62,9 @@ namespace SpaceInvaders
     return shared_ptr<Entity>(new EInvader(type, spriteSheet));
   }
 
-  shared_ptr<Entity> EntityFactory::createInvaderGroup(const shared_ptr<Texture> spriteSheet)
+  shared_ptr<Entity> EntityFactory::createInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos)
   {
-    return shared_ptr<Entity>(new EInvaderGroup(spriteSheet));
+    return shared_ptr<Entity>(new EInvaderGroup(spriteSheet, upperLeftStartPos));
   }
 }
 

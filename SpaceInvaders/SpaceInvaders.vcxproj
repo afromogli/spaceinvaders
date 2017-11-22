@@ -153,6 +153,7 @@
     <ClInclude Include="Math.h" />
     <ClInclude Include="NotImplementedException.h" />
     <ClInclude Include="NotSupportedException.h" />
+    <ClInclude Include="InvalidCastException.h" />
     <ClInclude Include="Rect2d.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="StartScene.h" />

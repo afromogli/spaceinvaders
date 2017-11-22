@@ -25,6 +25,9 @@ namespace SpaceInvaders
     static constexpr uint8_t InvaderAnimFramesCount = 2;
     static constexpr float InvaderHorisontalSpacing = 30.f;
     static constexpr float InvaderVerticalSpacing = 20.f;
+    static constexpr int InvaderRows = 5;
+    static constexpr int InvaderColumns = 11;
+    static constexpr Vector2f InvaderGroupStartPos = Vector2f(50.f, 50.f);
 
   private:
     GameConfig() {}

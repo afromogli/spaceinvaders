@@ -24,6 +24,9 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{914a0d97-ba4c-4ad5-8c2d-4aa0aa67e88c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Common\Exceptions">
+      <UniqueIdentifier>{b71b299c-aabf-4f21-a777-937d0a1d5740}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -100,12 +103,6 @@
     <ClInclude Include="Math.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
-    <ClInclude Include="NotImplementedException.h">
-      <Filter>Source Files\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="NotSupportedException.h">
-      <Filter>Source Files\Common</Filter>
-    </ClInclude>
     <ClInclude Include="GameConfig.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -147,6 +144,15 @@
     </ClInclude>
     <ClInclude Include="String.h">
       <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="NotImplementedException.h">
+      <Filter>Source Files\Common\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="NotSupportedException.h">
+      <Filter>Source Files\Common\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="InvalidCastException.h">
+      <Filter>Source Files\Common\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

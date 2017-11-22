@@ -33,6 +33,16 @@ namespace SpaceInvaders
     const shared_ptr<Texture> SpriteSheet;
   };
 
+  /**
+  * @brief Used for creating invader group
+  */
+  class CreateInvaderGroupEntityData : public CreateEntityWithSpritesheetData
+  {
+  public:
+    CreateInvaderGroupEntityData(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
+    const Vector2f UpperLeftStartPos;
+  };
+
 
 
   class EntityFactory
@@ -53,7 +63,7 @@ namespace SpaceInvaders
   private:
     static shared_ptr<Entity> createCannonEntity(const shared_ptr<Texture> spriteSheet);
     static shared_ptr<Entity> createInvaderEntity(const EntityType type, const shared_ptr<Texture> spriteSheet);
-    static shared_ptr<Entity> createInvaderGroup(const shared_ptr<Texture> spriteSheet);
+    static shared_ptr<Entity> createInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
 
     Graphics& m_graphics;
   };

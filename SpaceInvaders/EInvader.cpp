@@ -6,6 +6,7 @@
 
 namespace SpaceInvaders
 {
+  // TODO: add initial upperLeft position param
   EInvader::EInvader(const EntityType invaderType, const shared_ptr<Texture> spriteSheet) : m_spriteSheet{ spriteSheet }
   {
     m_rect.setSize(int(GameConfig::CannonSize.x), int(GameConfig::CannonSize.y));

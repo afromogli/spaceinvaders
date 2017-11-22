@@ -17,14 +17,10 @@ namespace SpaceInvaders
     void update(const float& deltaTime) override;
     void draw(Graphics& graphics) override;
 
-
-    static constexpr int Rows = 5;
-    static constexpr int Columns = 11;
-
   private:
-    explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet);
+    explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
 
-    shared_ptr<EInvader> m_invaders[Rows*Columns];
+    shared_ptr<EInvader> m_invaders[GameConfig::InvaderRows* GameConfig::InvaderColumns];
 
     const shared_ptr<Texture> m_spriteSheet;
   };

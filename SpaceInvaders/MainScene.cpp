@@ -21,8 +21,8 @@ namespace SpaceInvaders
    
     m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon, spriteSheetDataPtr));
     m_cannon->setPosition(GameConfig::InitialCannonPosition);
-    
-    m_invaderGroup = std::dynamic_pointer_cast<EInvaderGroup>(Engine::EntityFactoryInstance->createEntity(EntityType::InvaderGroup, spriteSheetDataPtr));
+
+    m_invaderGroup = std::dynamic_pointer_cast<EInvaderGroup>(Engine::EntityFactoryInstance->createEntity(EntityType::InvaderGroup, std::make_shared<CreateInvaderGroupEntityData>(m_spriteSheet, GameConfig::InvaderGroupStartPos)));
 
     m_allEntities.push_back(m_cannon);
     m_allEntities.push_back(m_invaderGroup);
