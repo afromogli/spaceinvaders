@@ -19,6 +19,8 @@ namespace SpaceInvaders
 
   private:
     explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
+    bool isAnimationFrameChangeNeeded(const float& deltaTime);
+    bool isChangeDirectionNeeded(const float& deltaTime);
 
     shared_ptr<EInvader> m_invaders[GameConfig::InvaderRows* GameConfig::InvaderColumns];
 

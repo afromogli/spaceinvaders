@@ -1,6 +1,5 @@
 #include "EInvaderGroup.h"
 #include "Engine.h"
-#include <iostream>
 
 using namespace Common;
 
@@ -34,7 +33,7 @@ namespace SpaceInvaders
     }
   }
 
-  void EInvaderGroup::update(const float& deltaTime)
+  bool EInvaderGroup::isAnimationFrameChangeNeeded(const float& deltaTime)
   {
     m_timeLeftInAnimationFrame -= deltaTime;
     const bool changeAnimFrame = m_timeLeftInAnimationFrame <= 0.f;
@@ -42,10 +41,15 @@ namespace SpaceInvaders
     {
       m_timeLeftInAnimationFrame = GameConfig::InvaderAnimFrameLength;
     }
+    return changeAnimFrame;
+  }
+
+  bool EInvaderGroup::isChangeDirectionNeeded(const float& deltaTime)
+  {
     const shared_ptr<EInvader> bottomLeftInvader = m_invaders[(GameConfig::InvaderRows - 1) * GameConfig::InvaderColumns];
     const shared_ptr<EInvader> bottomRightInvader = m_invaders[(GameConfig::InvaderRows - 1) * GameConfig::InvaderColumns + GameConfig::InvaderColumns - 1];
-    
-    const bool changeDirection = m_changeDirectionCooldown <= 0 && 
+
+    const bool changeDirection = m_changeDirectionCooldown <= 0 &&
       (bottomLeftInvader->getPosition().x <= GameConfig::InvaderGroupLeftWall || bottomRightInvader->getPosition().x + bottomRightInvader->getRect().getWidth() >= GameConfig::InvaderGroupRightWall);
 
     if (changeDirection)
@@ -56,6 +60,14 @@ namespace SpaceInvaders
     {
       m_changeDirectionCooldown -= deltaTime;
     }
+
+    return changeDirection;
+  }
+
+  void EInvaderGroup::update(const float& deltaTime)
+  {
+    const bool changeAnimFrame = isAnimationFrameChangeNeeded(deltaTime);
+    const bool changeDirection = isChangeDirectionNeeded(deltaTime);
 
     for (int i = 0; i < GameConfig::InvaderTotalCount; i++)
     {
