@@ -6,44 +6,41 @@
 
 namespace SpaceInvaders
 {
-  // TODO: add initial upperLeft position param
-  EInvader::EInvader(const EntityType invaderType, const shared_ptr<Texture> spriteSheet) : m_spriteSheet{ spriteSheet }
+  EInvader::EInvader(const EntityType invaderType, const shared_ptr<Texture> spriteSheet) : m_spriteSheet{ spriteSheet }, m_invaderType{invaderType}, m_currentFrame{0}
   {
-    m_rect.setSize(int(GameConfig::CannonSize.x), int(GameConfig::CannonSize.y));
+    Rect2D clip = getAnimationClipForType(invaderType, m_currentFrame);
+    m_rect.setSize(clip.getWidth(), clip.getHeight());
     m_velocity = GameConfig::InvaderRightVelocity; // Initial speed
-    m_invaderType = invaderType;
-    m_currentFrame = 0;
+    
     assert(spriteSheet->isLoaded());
+  }
+
+  Rect2D& EInvader::getAnimationClipForType(const EntityType invaderType, const int currentFrame)
+  {
+    switch (invaderType)
+    {
+    case EntityType::SmallInvader:
+      return SmallInvaderClipFrames[currentFrame];
+    case EntityType::MediumInvader:
+      return MediumInvaderClipFrames[currentFrame];
+    case EntityType::LargeInvader:
+      return LargeInvaderClipFrames[currentFrame];
+    default:
+      throw new NotSupportedException("The invader type: " + std::to_string(invaderType) + " is not supported.");
+    }
   }
 
   void EInvader::update(const float & deltaTime)
   {
     const float deltaSeconds = deltaTime / 1000; // ms -> s conversion
     const Vector2f nextPosition = getPosition() + m_velocity*deltaSeconds;
-    assert(nextPosition.x >= 0 && nextPosition.x + m_rect.getWidth() < GameConfig::WinSize.y);
+    assert(nextPosition.x >= 0 && nextPosition.x + m_rect.getWidth() < GameConfig::WinSize.x);
     setPosition(nextPosition);
   }
 
   void EInvader::draw(Graphics & graphics)
   {
-    Rect2D *clip = nullptr;
-
-    switch (m_invaderType)
-    {
-    case EntityType::SmallInvader:
-      clip = &SmallInvaderClipFrames[m_currentFrame];
-      break;
-    case EntityType::MediumInvader:
-      clip = &MediumInvaderClipFrames[m_currentFrame];
-      break;
-    case EntityType::LargeInvader:
-      clip = &LargeInvaderClipFrames[m_currentFrame];
-      break;
-    default:
-      throw new NotSupportedException("The invader type: " + std::to_string(m_invaderType) + " is not supported.");
-    }
-
-    m_spriteSheet->render(getPosition(), *clip);
+    m_spriteSheet->render(getPosition(), getAnimationClipForType(m_invaderType, m_currentFrame));
   }
 
   void EInvader::changeDirection()

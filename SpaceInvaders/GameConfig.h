@@ -19,15 +19,22 @@ namespace SpaceInvaders
     static constexpr Vector2f InitialCannonPosition = Vector2f(GameConfig::WinSize.x / 2, GameConfig::WinSize.y - (CannonSize.y + 10));
     static constexpr float CannonSpeed = 400.0f; // Pixels per second;
     
-    static constexpr Vector2f InvaderLeftVelocity = Vector2f(-1.f, 0.f);
-    static constexpr Vector2f InvaderRightVelocity = Vector2f(1.f, 0.f);
-
+    static constexpr float InvaderVelocity = 30.f;
+    static constexpr Vector2f InvaderLeftVelocity = Vector2f(-1.f*InvaderVelocity, 0.f);
+    static constexpr Vector2f InvaderRightVelocity = Vector2f(InvaderVelocity, 0.f);
     static constexpr uint8_t InvaderAnimFramesCount = 2;
     static constexpr float InvaderHorisontalSpacing = 30.f;
     static constexpr float InvaderVerticalSpacing = 20.f;
     static constexpr int InvaderRows = 5;
     static constexpr int InvaderColumns = 11;
+    static constexpr int InvaderTotalCount = InvaderRows*InvaderColumns;
+    static constexpr float InvaderAnimFrameLength = 500.f; // millisecs
+
     static constexpr Vector2f InvaderGroupStartPos = Vector2f(50.f, 50.f);
+    
+    static constexpr float InvaderGroupWallPadding = 20.f;
+    static constexpr float InvaderGroupLeftWall = 0.f + InvaderGroupWallPadding;
+    static constexpr float InvaderGroupRightWall = WinSize.x- InvaderGroupWallPadding;
 
   private:
     GameConfig() {}
