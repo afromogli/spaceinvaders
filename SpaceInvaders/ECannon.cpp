@@ -20,7 +20,7 @@ namespace SpaceInvaders
 
   void ECannon::draw(Graphics& graphics)
   {
-    m_spriteSheet->render(getPosition(), CannonClip);
+    m_spriteSheet->render(getPosition(), CannonClip, GameConfig::SpriteScale);
   }
 
   Rect2D ECannon::CannonClip = Rect2D(Vector2f(277, 21), 26, 16);

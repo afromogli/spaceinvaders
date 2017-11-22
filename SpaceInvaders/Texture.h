@@ -31,13 +31,14 @@ namespace Common
      * @brief Renders texture at given point and only the part that is is defined by the clip param.
      * @param position The texture position
      * @param clip The rectangle that defines which part (sprite) of the texture to draw
+     * @param scale The scale of the texture, defaults to 1.0f (no scaling)
      */
-    void render(const Vector2f position, const Rect2D& clip) const;
+    void render(const Vector2f position, const Rect2D& clip, const float scale = 1.f) const;
     
     /** 
      * @brief Renders texture at given point
      */
-    void render(const Vector2f position) const;
+    void render(const Vector2f position, const float scale = 1.f) const;
 
     int getWidth() const;
     int getHeight() const;

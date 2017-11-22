@@ -8,11 +8,25 @@ namespace SpaceInvaders
 {
   EInvader::EInvader(const EntityType invaderType, const shared_ptr<Texture> spriteSheet) : m_spriteSheet{ spriteSheet }, m_invaderType{invaderType}, m_currentFrame{0}
   {
-    Rect2D clip = getAnimationClipForType(invaderType, m_currentFrame);
-    m_rect.setSize(clip.getWidth(), clip.getHeight());
+    m_rect.setSize(getSizeForType(invaderType));
     m_velocity = GameConfig::InvaderRightVelocity; // Initial speed
     
     assert(spriteSheet->isLoaded());
+  }
+
+  Vector2f EInvader::getSizeForType(const EntityType invaderType)
+  {
+    switch (invaderType)
+    {
+    case EntityType::SmallInvader:
+      return GameConfig::InvaderSmallSize;
+    case EntityType::MediumInvader:
+      return GameConfig::InvaderMediumSize;
+    case EntityType::LargeInvader:
+      return GameConfig::InvaderLargeSize;
+    default:
+      throw new NotSupportedException("The invader type: " + std::to_string(invaderType) + " is not supported.");
+    }
   }
 
   Rect2D& EInvader::getAnimationClipForType(const EntityType invaderType, const int currentFrame)
@@ -40,7 +54,7 @@ namespace SpaceInvaders
 
   void EInvader::draw(Graphics & graphics)
   {
-    m_spriteSheet->render(getPosition(), getAnimationClipForType(m_invaderType, m_currentFrame));
+    m_spriteSheet->render(getPosition(), getAnimationClipForType(m_invaderType, m_currentFrame), GameConfig::SpriteScale);
   }
 
   void EInvader::changeDirection()

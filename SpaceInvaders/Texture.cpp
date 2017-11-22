@@ -77,24 +77,21 @@ namespace Common
     }
   }
 
-  void Texture::render(const Vector2f position, const Rect2D& clip) const
+  void Texture::render(const Vector2f position, const Rect2D& clip, const float scale) const
   {
     //Set rendering space and render to screen
-    SDL_Rect renderQuad = { int(position.x), int(position.y), clip.getWidth(), clip.getHeight() };
+    SDL_Rect renderQuad = { int(position.x), int(position.y), int(clip.getWidth()*scale), int(clip.getHeight()*scale) };
 
-    ////Set clip rendering dimensions
-    //renderQuad.w = clip.getWidth();
-    //renderQuad.h = clip.getHeight();
-
+    //Set clip rendering dimensions
     SDL_Rect sdlClip = { int(clip.getPosition().x), int(clip.getPosition().y), clip.getWidth(), clip.getHeight() };
     //Render to screen
     SDL_RenderCopy(m_graphics.getRenderer(), m_texture, &sdlClip, &renderQuad);
   }
 
-  void Texture::render(const Vector2f position) const
+  void Texture::render(const Vector2f position, const float scale) const
   {
     // Set rendering space and render to screen
-    SDL_Rect renderQuad = { int(position.x), int(position.y), m_width, m_height };
+    SDL_Rect renderQuad = { int(position.x), int(position.y), int(m_width*scale), int(m_height*scale) };
     // Render to screen
     SDL_RenderCopy(m_graphics.getRenderer(), m_texture, nullptr, &renderQuad);
   }

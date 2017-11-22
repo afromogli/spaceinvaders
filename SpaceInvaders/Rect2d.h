@@ -38,6 +38,12 @@ namespace Common {
       m_height = height;
     }
 
+    void setSize(const Vector2f size)
+    {
+      m_width = int(size.x);
+      m_height = int(size.y);
+    }
+
     Vector2f getCenter() const;
 
   private:

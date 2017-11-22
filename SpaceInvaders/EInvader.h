@@ -28,10 +28,12 @@ namespace SpaceInvaders
 
   private:
     EInvader(EntityType invaderType, const shared_ptr<Texture> spriteSheet);
+    
     const shared_ptr<Texture> m_spriteSheet;
     EntityType m_invaderType;
     int m_currentFrame; // Is either 0 or 1
 
     static Rect2D& getAnimationClipForType(const EntityType entityType, const int currentFrame);
+    static Vector2f getSizeForType(const EntityType invaderType);
   };
 }
