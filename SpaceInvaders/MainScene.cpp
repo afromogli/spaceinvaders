@@ -3,6 +3,7 @@
 #include "MainScene.h"
 #include "Engine.h"
 #include "GameConfig.h"
+#include <iostream>
 
 using namespace Common;
 
@@ -10,15 +11,15 @@ namespace SpaceInvaders
 {
   MainScene::MainScene(Graphics& graphics, AudioLoader& audioSystem) :
     m_graphics{ graphics },
-    m_audioSystem{ audioSystem }    
+    m_audioSystem{ audioSystem }
     /* m_font("Fonts\\iomanoid.ttf", 100),
      m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
   {
     m_spriteSheet = std::make_shared<Texture>(graphics);
     m_spriteSheet->loadFromFile("Textures\\spritesheet.png");
-    
+
     const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetDataPtr = std::make_shared<CreateEntityWithSpritesheetData>(m_spriteSheet);
-   
+
     m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon, spriteSheetDataPtr));
     m_cannon->setPosition(GameConfig::InitialCannonPosition);
     m_allEntities.push_back(m_cannon);
@@ -26,7 +27,7 @@ namespace SpaceInvaders
     m_invaderGroup = std::dynamic_pointer_cast<EInvaderGroup>(Engine::EntityFactoryInstance->createEntity(EntityType::InvaderGroup, std::make_shared<CreateInvaderGroupEntityData>(m_spriteSheet, GameConfig::InvaderGroupStartPos)));
     m_allEntities.push_back(m_invaderGroup);
 
-    for (int i=0; i < HouseCount; i++)
+    for (int i = 0; i < HouseCount; i++)
     {
       m_houses[i] = std::dynamic_pointer_cast<EHouse>(Engine::EntityFactoryInstance->createEntity(EntityType::House, spriteSheetDataPtr));
       m_houses[i]->setPosition(Vector2f(i*(GameConfig::WinSize.x / HouseCount) + GameConfig::HouseSize.x, 0.f) + GameConfig::HouseVerticalOffset);
@@ -36,7 +37,7 @@ namespace SpaceInvaders
     m_cannonRocket = std::dynamic_pointer_cast<ECannonRocket>(Engine::EntityFactoryInstance->createEntity(EntityType::CannonRocket, nullptr));
     m_cannonRocket->setPosition(Vector2f::Zero);
     m_allEntities.push_back(m_cannonRocket);
-     /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
+    /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
   }
 
   MainScene::~MainScene()
@@ -70,6 +71,7 @@ namespace SpaceInvaders
         // Spawn rocket
         m_cannonRocket->setPosition(m_cannon->getRect().getCenter());
         m_cannonRocket->setIsAlive(true);
+        cout << "Rocket spawned\n";
       }
       break;
     case GameOver:
@@ -107,7 +109,7 @@ namespace SpaceInvaders
     for (auto entity : m_allEntities)
     {
       entity->draw(graphics);
-    }   
+    }
 
     if (m_currentState == Win)
     {
@@ -130,6 +132,20 @@ namespace SpaceInvaders
 
     if (m_cannonRocket->isAlive())
     {
+      for (int i = 0; i < HouseCount; i++)
+      {
+        shared_ptr<EHouse> currHouse = m_houses[i];
+        if (currHouse->isAlive() && currHouse->isColliding(m_cannonRocket))
+        {
+          currHouse->decreaseHealth();
+          m_cannonRocket->setIsAlive(false);
+          break;
+        }
+      }
+    }
+
+    if (m_cannonRocket->isAlive())
+    {
       const shared_ptr<EInvader> collidedInvader = m_invaderGroup->isColliding(m_cannonRocket);
       if (collidedInvader != nullptr)
       {
@@ -138,7 +154,7 @@ namespace SpaceInvaders
         // TODO: increase score by checking which invader type that exploded
         collidedInvader->setIsAlive(false);
         m_cannonRocket->setIsAlive(false);
-      } 
+      }
     }
   }
 }

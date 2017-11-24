@@ -4,6 +4,7 @@
 #include "GameConfig.h"
 #include <memory>
 #include "Texture.h"
+#include "ECannonRocket.h"
 
 using namespace Common;
 
@@ -19,6 +20,11 @@ namespace SpaceInvaders
     void update(const float& deltaTime) override;
     void draw(Graphics& graphics) override;
 
+    bool isColliding(const std::shared_ptr<ECannonRocket> rocket) const;
+    void decreaseHealth();
+
+    void setIsAlive(const bool isAlive);
+    bool isAlive() const;
   private:
     EHouse(const shared_ptr<Texture> spriteSheet);
 
@@ -27,5 +33,7 @@ namespace SpaceInvaders
 
     float m_health;
     const shared_ptr<Texture> m_spriteSheet;
+
+    bool m_isAlive;
   };
 }

@@ -25,10 +25,11 @@ namespace SpaceInvaders
     // Cannon rocket
     static constexpr Vector2f CannonRocketVelocity = Vector2f(0.f, -800.f); // Px per sec
     static constexpr Vector2f CannonRocketSize = Vector2f(2.f, 10.f);
-
+    
     // House
     static constexpr int HouseAnimFramesCount = 5;
     static constexpr float HouseMaxHealth = 10.f;
+    static constexpr float HouseCannonRocketDamage = 1.f;
     static constexpr Vector2f HouseSize = Vector2f(44.f, 33.f) * SpriteScale;
     static constexpr Vector2f HouseVerticalOffset = Vector2f(0, WinSize.y - 130.f);
 
@@ -56,7 +57,6 @@ namespace SpaceInvaders
     static constexpr float InvaderGroupRightWall = WinSize.x- InvaderGroupWallPadding;
 
     static constexpr float InvaderGroupMoveDownDistance = InvaderSmallSize.y;
-
   private:
     GameConfig() {}
   };
