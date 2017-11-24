@@ -8,6 +8,7 @@
 #include "EInvaderGroup.h"
 #include "InvalidCastException.h"
 #include "EHouse.h"
+#include "ECannonRocket.h"
 
 namespace SpaceInvaders
 {
@@ -61,6 +62,11 @@ namespace SpaceInvaders
       entity = createHouse(spriteSheetData->SpriteSheet);
       break;
     }
+    case EntityType::CannonRocket:
+    {
+      entity = createCannonRocket();
+      break;
+    }
     default:
       throw new NotSupportedException("The EntityType: " + std::to_string(type) + " is not supported");
     }
@@ -93,6 +99,11 @@ namespace SpaceInvaders
   shared_ptr<Entity> EntityFactory::createHouse(const shared_ptr<Texture> spriteSheet)
   {
     return shared_ptr<Entity>(new EHouse(spriteSheet));
+  }
+
+  shared_ptr<Entity> EntityFactory::createCannonRocket()
+  {
+    return shared_ptr<Entity>(new ECannonRocket());
   }
 }
 

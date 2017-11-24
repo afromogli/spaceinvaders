@@ -80,6 +80,9 @@
     <ClCompile Include="EHouse.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="ECannonRocket.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioLoader.h">
@@ -158,6 +161,9 @@
       <Filter>Source Files\Common\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="EHouse.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="ECannonRocket.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>

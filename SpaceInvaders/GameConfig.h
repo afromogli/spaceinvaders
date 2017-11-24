@@ -20,7 +20,11 @@ namespace SpaceInvaders
     // Cannon
     static constexpr Vector2f CannonSize = Vector2f(26.f * SpriteScale, 16.f * SpriteScale);
     static constexpr Vector2f InitialCannonPosition = Vector2f(GameConfig::WinSize.x / 2, GameConfig::WinSize.y - (CannonSize.y + 10));
-    static constexpr float CannonSpeed = 400.0f; // Pixels per second;
+    static constexpr float CannonSpeed = 400.0f; // Px per sec
+
+    // Cannon rocket
+    static constexpr Vector2f CannonRocketVelocity = Vector2f(0.f, -100.f); // Px per sec
+    static constexpr Vector2f CannonRocketSize = Vector2f(5.f, 15.f);
 
     // House
     static constexpr int HouseAnimFramesCount = 5;
@@ -36,7 +40,7 @@ namespace SpaceInvaders
     static constexpr Vector2f InvaderLeftVelocity = Vector2f(-1.f*InvaderVelocity, 0.f);
     static constexpr Vector2f InvaderRightVelocity = Vector2f(InvaderVelocity, 0.f);
     static constexpr uint8_t InvaderAnimFramesCount = 2;
-    static constexpr float InvaderAnimFrameLength = 500.f; // millisecs
+    static constexpr float InvaderAnimFrameLength = 500.f; // ms
     
     // Invader group
     static constexpr Vector2f InvaderGroupStartPos = Vector2f(50.f, 50.f);
