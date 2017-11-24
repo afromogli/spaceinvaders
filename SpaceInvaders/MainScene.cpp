@@ -4,6 +4,7 @@
 #include "Engine.h"
 #include "GameConfig.h"
 #include <iostream>
+#include "NotSupportedException.h"
 
 using namespace Common;
 
@@ -11,7 +12,8 @@ namespace SpaceInvaders
 {
   MainScene::MainScene(Graphics& graphics, AudioLoader& audioSystem) :
     m_graphics{ graphics },
-    m_audioSystem{ audioSystem }
+    m_audioSystem{ audioSystem },
+    m_score { 0 }
     /* m_font("Fonts\\iomanoid.ttf", 100),
      m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
   {
@@ -71,7 +73,7 @@ namespace SpaceInvaders
         // Spawn rocket
         m_cannonRocket->setPosition(m_cannon->getRect().getCenter());
         m_cannonRocket->setIsAlive(true);
-        cout << "Rocket spawned\n";
+        //cout << "Rocket spawned\n";
       }
       break;
     case GameOver:
@@ -123,6 +125,26 @@ namespace SpaceInvaders
     }
   }
 
+  int MainScene::getInvaderScore(const EntityType killedInvaderType)
+  {
+    int newScore = 0;
+    switch (killedInvaderType)
+    {
+      case EntityType::SmallInvader:
+        newScore = GameConfig::SmallInvaderScore;
+      break;
+      case EntityType::MediumInvader:
+        newScore = GameConfig::MediumInvaderScore;
+        break;
+      case EntityType::LargeInvader:
+        newScore = GameConfig::LargeInvaderScore;
+        break;
+      default:
+        throw new NotSupportedException("Unsupported invader type");
+    }
+    return newScore;
+  }
+
   void MainScene::updatePlayingState(const float deltaTime)
   {
     for (auto entity : m_allEntities)
@@ -151,7 +173,10 @@ namespace SpaceInvaders
       {
         // TODO: play explosion sound
         // TODO: spawn explosion animation or particle effects
-        // TODO: increase score by checking which invader type that exploded
+        // increase score by checking which invader type that exploded
+        m_score += getInvaderScore(collidedInvader->getType());
+        // TODO: add UI for score
+        cout << "Score: " << m_score << "\n";
         collidedInvader->setIsAlive(false);
         m_cannonRocket->setIsAlive(false);
       }

@@ -96,6 +96,11 @@ namespace SpaceInvaders
     m_isAlive = isAlive;
   }
 
+  EntityType EInvader::getType() const
+  {
+    return m_invaderType;
+  }
+
   Rect2D EInvader::SmallInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(7.f, 18.f), 16, 16), Rect2D(Vector2f(40.f, 18.f), 16, 16) };
   Rect2D EInvader::MediumInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(74.f, 18.f), 22, 16), Rect2D(Vector2f(107.f, 18.f), 22, 16) };
   Rect2D EInvader::LargeInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(147.f, 19.f), 24, 16), Rect2D(Vector2f(179.f, 19.f), 24, 16) };

@@ -25,8 +25,10 @@ namespace SpaceInvaders
     void draw(Graphics& graphics) override;
 
   private:
-    enum GameState { Playing, Win, GameOver };
     static constexpr int HouseCount = 4;
+    static int getInvaderScore(EntityType killedInvaderType);
+
+    enum GameState { Playing, Win, GameOver };
 
     void updatePlayingState(const float deltaTime);
 
@@ -42,5 +44,7 @@ namespace SpaceInvaders
     GameState m_currentState = Playing;
 
     shared_ptr<Texture> m_spriteSheet;
+
+    int m_score;
   };
 }

@@ -17,6 +17,12 @@ namespace SpaceInvaders
     // Graphics configuration
     static constexpr float SpriteScale = 2.f;
 
+    // Scores
+    static constexpr int SmallInvaderScore = 40;
+    static constexpr int MediumInvaderScore = 20;
+    static constexpr int LargeInvaderScore = 10;
+    static constexpr int MothershipInvaderScore = 0; // TODO: find out what the secret score is
+
     // Cannon
     static constexpr Vector2f CannonSize = Vector2f(26.f * SpriteScale, 16.f * SpriteScale);
     static constexpr Vector2f InitialCannonPosition = Vector2f(GameConfig::WinSize.x / 2, GameConfig::WinSize.y - (CannonSize.y + 10));
