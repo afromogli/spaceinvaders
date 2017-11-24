@@ -14,6 +14,7 @@ namespace SpaceInvaders
     static constexpr Vector2f WinInitPos = Vector2f(300.f, 300.f);
     static constexpr Vector2f WinSize = Vector2f(1024.f, 768.f);
 
+    // Graphics configuration
     static constexpr float SpriteScale = 2.f;
 
     // Cannon
@@ -40,9 +41,11 @@ namespace SpaceInvaders
     static constexpr int InvaderColumns = 11;
     static constexpr int InvaderTotalCount = InvaderRows*InvaderColumns;
 
-    static constexpr float InvaderGroupWallPadding = 20.f;
+    static constexpr float InvaderGroupWallPadding = 10.f;
     static constexpr float InvaderGroupLeftWall = 0.f + InvaderGroupWallPadding;
     static constexpr float InvaderGroupRightWall = WinSize.x- InvaderGroupWallPadding;
+
+    static constexpr float InvaderGroupMoveDownDistance = InvaderSmallSize.y;
 
   private:
     GameConfig() {}

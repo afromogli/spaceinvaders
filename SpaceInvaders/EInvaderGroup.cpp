@@ -5,6 +5,35 @@ using namespace Common;
 
 namespace SpaceInvaders
 {
+  void EInvaderGroup::update(const float& deltaTime)
+  {
+    const bool changeAnimFrame = isAnimationFrameChangeNeeded(deltaTime);
+    const bool changeDirection = isChangeDirectionNeeded(deltaTime);
+
+    for (int i = 0; i < GameConfig::InvaderTotalCount; i++)
+    {
+      shared_ptr<EInvader> currInvader = m_invaders[i];
+      currInvader->update(deltaTime);
+      if (changeAnimFrame)
+      {
+        currInvader->changeAnimationFrame();
+      }
+      if (changeDirection)
+      {
+        currInvader->changeDirection();
+        currInvader->setPosition(currInvader->getPosition() + Vector2f(0.f, GameConfig::InvaderGroupMoveDownDistance));
+      }
+    }
+  }
+
+  void EInvaderGroup::draw(Graphics& graphics)
+  {
+    for (int i = 0; i < GameConfig::InvaderTotalCount; i++)
+    {
+      m_invaders[i]->draw(graphics);
+    }
+  }
+
   EInvaderGroup::EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos) : 
     m_spriteSheet{ spriteSheet }, 
     m_timeLeftInAnimationFrame{ GameConfig::InvaderAnimFrameLength }, 
@@ -16,19 +45,13 @@ namespace SpaceInvaders
     {
       for (int x = 0; x < GameConfig::InvaderColumns; x++)
       {
-        EntityType type = EntityType::SmallInvader;
-        if (y > 1 && y < 3)
-        {
-          type = EntityType::MediumInvader;
-        }
-        else if (y >= 3)
-        {
-          type = EntityType::LargeInvader;
-        }
-
         const int currIndex = y* GameConfig::InvaderColumns + x;
+
+        const EntityType type = getInvaderType(y);
+        Vector2f posOffset = Vector2f(x*GameConfig::InvaderHorisontalSpacing, y*GameConfig::InvaderVerticalSpacing);
+        centerOffset(type, posOffset);        
         m_invaders[currIndex] = std::dynamic_pointer_cast<EInvader>(Engine::EntityFactoryInstance->createEntity(type, spriteSheetDataPtr));
-        m_invaders[currIndex]->setPosition(Vector2f(upperLeftStartPos.x + x*GameConfig::InvaderHorisontalSpacing, upperLeftStartPos.y + y*GameConfig::InvaderVerticalSpacing));
+        m_invaders[currIndex]->setPosition(Vector2f(upperLeftStartPos.x, upperLeftStartPos.y) + posOffset);
       }
     }
   }
@@ -64,31 +87,29 @@ namespace SpaceInvaders
     return changeDirection;
   }
 
-  void EInvaderGroup::update(const float& deltaTime)
+  EntityType EInvaderGroup::getInvaderType(const int row)
   {
-    const bool changeAnimFrame = isAnimationFrameChangeNeeded(deltaTime);
-    const bool changeDirection = isChangeDirectionNeeded(deltaTime);
-
-    for (int i = 0; i < GameConfig::InvaderTotalCount; i++)
+    EntityType type = EntityType::SmallInvader;
+    if (row > 1 && row < 3)
     {
-      shared_ptr<EInvader> currInvader = m_invaders[i];
-      currInvader->update(deltaTime);
-      if (changeAnimFrame)
-      {
-        currInvader->changeAnimationFrame();
-      }
-      if (changeDirection)
-      {
-        currInvader->changeDirection();
-      }
-    }    
-  }
-
-  void EInvaderGroup::draw(Graphics& graphics)
-  {
-    for (int i = 0; i < GameConfig::InvaderTotalCount; i++)
-    {
-      m_invaders[i]->draw(graphics);
+      type = EntityType::MediumInvader;
     }
+    else if (row >= 3)
+    {
+      type = EntityType::LargeInvader;
+    }
+    return type;
   }
+
+  void EInvaderGroup::centerOffset(const EntityType type, Vector2f& posOffset)
+  {
+    if (type == EntityType::SmallInvader)
+    {
+      posOffset += Vector2f((GameConfig::InvaderLargeSize.x - GameConfig::InvaderSmallSize.x) / 2.f, 0.f);
+    }
+    else if (type == EntityType::MediumInvader)
+    {
+      posOffset += Vector2f((GameConfig::InvaderLargeSize.x - GameConfig::InvaderMediumSize.x) / 2.f, 0.f);
+    }
+  }  
 }
