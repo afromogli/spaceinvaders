@@ -16,7 +16,8 @@ namespace SpaceInvaders
     
     void update(const float& deltaTime) override;
     void draw(Graphics& graphics) override;
-
+    
+    shared_ptr<EInvader> isColliding(const std::shared_ptr<ECannonRocket> rocket);
   private:
     explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
     bool isAnimationFrameChangeNeeded(const float& deltaTime);

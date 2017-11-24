@@ -35,7 +35,7 @@ namespace SpaceInvaders
 
     m_cannonRocket = std::dynamic_pointer_cast<ECannonRocket>(Engine::EntityFactoryInstance->createEntity(EntityType::CannonRocket, nullptr));
     m_cannonRocket->setPosition(Vector2f::Zero);
-
+    m_allEntities.push_back(m_cannonRocket);
      /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
   }
 
@@ -103,11 +103,6 @@ namespace SpaceInvaders
 
   void MainScene::draw(Graphics& graphics)
   {
-    if (m_cannonRocket->isAlive())
-    {
-      m_cannonRocket->draw(graphics);
-    }
-
     /*m_board.draw(graphics);*/
     for (auto entity : m_allEntities)
     {
@@ -128,9 +123,6 @@ namespace SpaceInvaders
 
   void MainScene::updatePlayingState(const float deltaTime)
   {
-    //EBall& ball = *m_ball;
-    //ECannon &cannon = *m_cannon;
-
     for (auto entity : m_allEntities)
     {
       entity->update(deltaTime);
@@ -138,46 +130,16 @@ namespace SpaceInvaders
 
     if (m_cannonRocket->isAlive())
     {
-      m_cannonRocket->update(deltaTime);
+      const shared_ptr<EInvader> collidedInvader = m_invaderGroup->isColliding(m_cannonRocket);
+      if (collidedInvader != nullptr)
+      {
+        // TODO: play explosion sound
+        // TODO: spawn explosion animation or particle effects
+        // TODO: increase score by checking which invader type that exploded
+        collidedInvader->setIsAlive(false);
+        m_cannonRocket->setIsAlive(false);
+      } 
     }
-
-    //if (m_board.doBrickCollisions(ball))
-    //{
-    //   m_brickSound->play();
-    //   if (m_board.hasAnyAliveBricks() == false)
-    //   {
-    //      m_currentState = Win;
-    //      m_winSound->play();
-    //   }
-    //}
-    //const auto result = m_board.doWallCollisions(ball, paddle);
-    //if (result == Walls::OutsideBoard)
-    //{
-    //   m_currentState = GameOver;
-    //   m_gameoverSound->play();
-    //}
-    //else if (result == Walls::Wall)
-    //{
-    //   m_paddleSound->play();
-    //}
-
-
-    //// If ball has not been released from paddle yet, set ball position above paddle
-    //if (ball.isMoving() == false)
-    //{
-    //   positionBallAbovePaddle();
-    //}
-    //else if (m_paddleCooldown <= 0 && m_paddle->isColliding(ball))
-    //{
-    //   m_paddle->doBallCollision(ball);
-    //   m_paddleSound->play();
-    //   m_paddleCooldown = GameConfig::PaddleCooldown;
-    //}
-
-    //if (m_paddleCooldown > 0)
-    //{
-    //   m_paddleCooldown -= deltaTime;
-    //}
   }
 }
 

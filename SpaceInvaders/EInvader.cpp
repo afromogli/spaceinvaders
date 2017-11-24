@@ -6,7 +6,11 @@
 
 namespace SpaceInvaders
 {
-  EInvader::EInvader(const EntityType invaderType, const shared_ptr<Texture> spriteSheet) : m_spriteSheet{ spriteSheet }, m_invaderType{invaderType}, m_currentFrame{0}
+  EInvader::EInvader(const EntityType invaderType, const shared_ptr<Texture> spriteSheet) : 
+    m_spriteSheet{ spriteSheet },
+    m_invaderType { invaderType }, 
+    m_currentFrame { 0 },
+    m_isAlive { true }
   {
     m_rect.setSize(getSizeForType(invaderType));
     m_velocity = GameConfig::InvaderRightVelocity; // Initial speed
@@ -54,7 +58,10 @@ namespace SpaceInvaders
 
   void EInvader::draw(Graphics & graphics)
   {
-    m_spriteSheet->render(getPosition(), getAnimationClipForType(m_invaderType, m_currentFrame), GameConfig::SpriteScale);
+    if (isAlive())
+    {
+      m_spriteSheet->render(getPosition(), getAnimationClipForType(m_invaderType, m_currentFrame), GameConfig::SpriteScale);
+    }
   }
 
   void EInvader::changeDirection()
@@ -72,6 +79,21 @@ namespace SpaceInvaders
   void EInvader::changeAnimationFrame()
   {
     m_currentFrame = ++m_currentFrame % GameConfig::InvaderAnimFramesCount;
+  }
+
+  bool EInvader::isColliding(const shared_ptr<ECannonRocket>& rocket) const
+  {
+    return m_rect.intersects(rocket->getRect());
+  }
+
+  bool EInvader::isAlive() const
+  {
+    return m_isAlive;
+  }
+
+  void EInvader::setIsAlive(const bool isAlive)
+  {
+    m_isAlive = isAlive;
   }
 
   Rect2D EInvader::SmallInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(7.f, 18.f), 16, 16), Rect2D(Vector2f(40.f, 18.f), 16, 16) };

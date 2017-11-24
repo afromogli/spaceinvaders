@@ -34,6 +34,20 @@ namespace SpaceInvaders
     }
   }
 
+  shared_ptr<EInvader> EInvaderGroup::isColliding(const shared_ptr<ECannonRocket> rocket)
+  {
+    // Iterate backwards since rocket will probably hit bottom invaders first
+    for (int i = GameConfig::InvaderTotalCount - 1; i >= 0; i--)
+    {
+      auto currInv = m_invaders[i];
+      if (currInv->isAlive() && currInv->isColliding(rocket))
+      {
+        return currInv;
+      }
+    }
+    return nullptr;
+  }
+
   EInvaderGroup::EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos) : 
     m_spriteSheet{ spriteSheet }, 
     m_timeLeftInAnimationFrame{ GameConfig::InvaderAnimFrameLength }, 
