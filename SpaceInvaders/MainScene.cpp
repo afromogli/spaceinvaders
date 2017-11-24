@@ -32,7 +32,10 @@ namespace SpaceInvaders
       m_houses[i]->setPosition(Vector2f(i*(GameConfig::WinSize.x / HouseCount) + GameConfig::HouseSize.x, 0.f) + GameConfig::HouseVerticalOffset);
       m_allEntities.push_back(m_houses[i]);
     }
-        
+
+    m_cannonRocket = std::dynamic_pointer_cast<ECannonRocket>(Engine::EntityFactoryInstance->createEntity(EntityType::CannonRocket, nullptr));
+    m_cannonRocket->setPosition(Vector2f::Zero);
+
      /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
   }
 
@@ -62,14 +65,12 @@ namespace SpaceInvaders
         m_cannon->setVelocity(Vector2f::Zero);
       }
 
-      /*if (state[SDL_SCANCODE_SPACE])
-          {
-             if (m_ball->getVelocity().length() <= 0)
-             {
-                m_ball->setVelocity(Vector2f(5, -GameConfig::BallSpeed));
-                m_paddleCooldown = GameConfig::PaddleCooldown;
-             }
-          }*/
+      if (state[SDL_SCANCODE_SPACE] && m_cannonRocket->isAlive() == false)
+      {
+        // Spawn rocket
+        m_cannonRocket->setPosition(m_cannon->getRect().getCenter());
+        m_cannonRocket->setIsAlive(true);
+      }
       break;
     case GameOver:
     case Win:
@@ -102,11 +103,16 @@ namespace SpaceInvaders
 
   void MainScene::draw(Graphics& graphics)
   {
+    if (m_cannonRocket->isAlive())
+    {
+      m_cannonRocket->draw(graphics);
+    }
+
     /*m_board.draw(graphics);*/
     for (auto entity : m_allEntities)
     {
       entity->draw(graphics);
-    }
+    }   
 
     if (m_currentState == Win)
     {
@@ -123,11 +129,16 @@ namespace SpaceInvaders
   void MainScene::updatePlayingState(const float deltaTime)
   {
     //EBall& ball = *m_ball;
-    ECannon &paddle = *m_cannon;
+    //ECannon &cannon = *m_cannon;
 
     for (auto entity : m_allEntities)
     {
       entity->update(deltaTime);
+    }
+
+    if (m_cannonRocket->isAlive())
+    {
+      m_cannonRocket->update(deltaTime);
     }
 
     //if (m_board.doBrickCollisions(ball))

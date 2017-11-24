@@ -23,8 +23,8 @@ namespace SpaceInvaders
     static constexpr float CannonSpeed = 400.0f; // Px per sec
 
     // Cannon rocket
-    static constexpr Vector2f CannonRocketVelocity = Vector2f(0.f, -100.f); // Px per sec
-    static constexpr Vector2f CannonRocketSize = Vector2f(5.f, 15.f);
+    static constexpr Vector2f CannonRocketVelocity = Vector2f(0.f, -800.f); // Px per sec
+    static constexpr Vector2f CannonRocketSize = Vector2f(2.f, 10.f);
 
     // House
     static constexpr int HouseAnimFramesCount = 5;

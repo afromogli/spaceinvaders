@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "EInvaderGroup.h"
 #include "EHouse.h"
+#include "ECannonRocket.h"
 
 using namespace std;
 using namespace Common;
@@ -33,6 +34,7 @@ namespace SpaceInvaders
     shared_ptr<ECannon> m_cannon;
     shared_ptr<EInvaderGroup> m_invaderGroup;
     shared_ptr<EHouse> m_houses[HouseCount];
+    shared_ptr<ECannonRocket> m_cannonRocket;
 
     Graphics& m_graphics;
     AudioLoader& m_audioSystem;
