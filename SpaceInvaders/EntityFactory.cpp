@@ -7,6 +7,7 @@
 #include "EInvader.h"
 #include "EInvaderGroup.h"
 #include "InvalidCastException.h"
+#include "EHouse.h"
 
 namespace SpaceInvaders
 {
@@ -14,14 +15,17 @@ namespace SpaceInvaders
   {
   }
 
+
   CreateEntityWithSpritesheetData::CreateEntityWithSpritesheetData(const shared_ptr<Texture> spriteSheet) : SpriteSheet{spriteSheet}
   {
   }
+
 
   CreateInvaderGroupEntityData::CreateInvaderGroupEntityData(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos) : 
     CreateEntityWithSpritesheetData(spriteSheet), UpperLeftStartPos{upperLeftStartPos}
   {
   }
+
 
   shared_ptr<Entity> EntityFactory::createEntity(const EntityType type, const shared_ptr<CreateEntityData> data) const
   {
@@ -29,13 +33,17 @@ namespace SpaceInvaders
     switch (type)
     {
     case EntityType::Cannon:
-      entity = createCannonEntity(std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data)->SpriteSheet);
+      entity = createCannon(std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data)->SpriteSheet);
       break;
     case EntityType::SmallInvader:
     case EntityType::MediumInvader:
     case EntityType::LargeInvader:
-      entity = createInvaderEntity(type, std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data)->SpriteSheet);
+    {
+      const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetData = dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data);
+      checkSpriteSheetDataPtr(spriteSheetData);
+      entity = createInvader(type, std::dynamic_pointer_cast<CreateEntityWithSpritesheetData>(spriteSheetData)->SpriteSheet);
       break;
+    }      
     case EntityType::InvaderGroup:
       {
         const shared_ptr<CreateInvaderGroupEntityData> invaderGroupData = std::dynamic_pointer_cast<CreateInvaderGroupEntityData>(data);
@@ -45,19 +53,34 @@ namespace SpaceInvaders
         }
         entity = createInvaderGroup(invaderGroupData->SpriteSheet, invaderGroupData->UpperLeftStartPos);
         break;
-      }      
+      }
+    case EntityType::House:
+    {
+      const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetData = dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data);
+      checkSpriteSheetDataPtr(spriteSheetData);
+      entity = createHouse(spriteSheetData->SpriteSheet);
+      break;
+    }
     default:
       throw new NotSupportedException("The EntityType: " + std::to_string(type) + " is not supported");
     }
     return entity;
   }
 
-  shared_ptr<Entity> EntityFactory::createCannonEntity(const shared_ptr<Texture> spriteSheet)
+  void EntityFactory::checkSpriteSheetDataPtr(const shared_ptr<CreateEntityWithSpritesheetData>& data)
+  {
+    if (data.use_count() == 0)
+    {
+      throw new InvalidCastException("Invalid CreateEntityData type provided");
+    }
+  }
+
+  shared_ptr<Entity> EntityFactory::createCannon(const shared_ptr<Texture> spriteSheet)
   {
     return shared_ptr<Entity>(new ECannon(spriteSheet));
   }
 
-  shared_ptr<Entity> EntityFactory::createInvaderEntity(const EntityType type, const shared_ptr<Texture> spriteSheet)
+  shared_ptr<Entity> EntityFactory::createInvader(const EntityType type, const shared_ptr<Texture> spriteSheet)
   {
     return shared_ptr<Entity>(new EInvader(type, spriteSheet));
   }
@@ -65,6 +88,11 @@ namespace SpaceInvaders
   shared_ptr<Entity> EntityFactory::createInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos)
   {
     return shared_ptr<Entity>(new EInvaderGroup(spriteSheet, upperLeftStartPos));
+  }
+
+  shared_ptr<Entity> EntityFactory::createHouse(const shared_ptr<Texture> spriteSheet)
+  {
+    return shared_ptr<Entity>(new EHouse(spriteSheet));
   }
 }
 

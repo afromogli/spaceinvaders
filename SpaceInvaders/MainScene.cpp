@@ -21,11 +21,18 @@ namespace SpaceInvaders
    
     m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon, spriteSheetDataPtr));
     m_cannon->setPosition(GameConfig::InitialCannonPosition);
+    m_allEntities.push_back(m_cannon);
 
     m_invaderGroup = std::dynamic_pointer_cast<EInvaderGroup>(Engine::EntityFactoryInstance->createEntity(EntityType::InvaderGroup, std::make_shared<CreateInvaderGroupEntityData>(m_spriteSheet, GameConfig::InvaderGroupStartPos)));
-
-    m_allEntities.push_back(m_cannon);
     m_allEntities.push_back(m_invaderGroup);
+
+    for (int i=0; i < HouseCount; i++)
+    {
+      m_houses[i] = std::dynamic_pointer_cast<EHouse>(Engine::EntityFactoryInstance->createEntity(EntityType::House, spriteSheetDataPtr));
+      m_houses[i]->setPosition(Vector2f(i*(GameConfig::WinSize.x / HouseCount) + GameConfig::HouseSize.x, 0.f) + GameConfig::HouseVerticalOffset);
+      m_allEntities.push_back(m_houses[i]);
+    }
+        
      /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
   }
 

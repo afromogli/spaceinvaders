@@ -27,7 +27,7 @@ namespace Common
          return Vector2f(x*otherVec.x, y*otherVec.y);
       }
 
-      Vector2f operator*(const float value) const 
+      constexpr Vector2f operator*(const float value) const 
       {
          return Vector2f(x*value, y*value);
       }

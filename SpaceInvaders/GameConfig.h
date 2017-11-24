@@ -22,11 +22,17 @@ namespace SpaceInvaders
     static constexpr Vector2f InitialCannonPosition = Vector2f(GameConfig::WinSize.x / 2, GameConfig::WinSize.y - (CannonSize.y + 10));
     static constexpr float CannonSpeed = 400.0f; // Pixels per second;
 
+    // House
+    static constexpr int HouseAnimFramesCount = 5;
+    static constexpr float HouseMaxHealth = 10.f;
+    static constexpr Vector2f HouseSize = Vector2f(44.f, 33.f) * SpriteScale;
+    static constexpr Vector2f HouseVerticalOffset = Vector2f(0, WinSize.y - 130.f);
+
     // Invader
     static constexpr float InvaderVelocity = 30.f;
-    static constexpr Vector2f InvaderSmallSize = Vector2f(16.f * SpriteScale, 16.f * SpriteScale);
-    static constexpr Vector2f InvaderMediumSize = Vector2f(22.f * SpriteScale, 16.f * SpriteScale);
-    static constexpr Vector2f InvaderLargeSize = Vector2f(24.f * SpriteScale, 16.f * SpriteScale);
+    static constexpr Vector2f InvaderSmallSize =  Vector2f(16.f, 16.f) * SpriteScale;
+    static constexpr Vector2f InvaderMediumSize = Vector2f(22.f, 16.f) * SpriteScale;
+    static constexpr Vector2f InvaderLargeSize = Vector2f(24.f, 16.f ) * SpriteScale;
     static constexpr Vector2f InvaderLeftVelocity = Vector2f(-1.f*InvaderVelocity, 0.f);
     static constexpr Vector2f InvaderRightVelocity = Vector2f(InvaderVelocity, 0.f);
     static constexpr uint8_t InvaderAnimFramesCount = 2;
