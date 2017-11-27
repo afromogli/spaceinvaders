@@ -15,7 +15,6 @@ namespace SpaceInvaders
   {
     m_rect.setSize(GameConfig::InvaderRocketSize);
     setVelocity(GameConfig::InvaderRocketVelocity);
-
   }
 
   bool EInvaderRocket::isOutOfView() const
