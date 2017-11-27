@@ -22,7 +22,8 @@ namespace SpaceInvaders
      * @param rocket The rocket
      * @return Returns either the colliding invader or a nullptr
      */
-    EInvader* tryFindCollidingInvader(const ECannonRocket& rocket);
+    EInvader* tryFindCollidingInvader(const ECannonRocket& rocket) const;
+
   private:
     explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
     bool isAnimationFrameChangeNeeded(const float& deltaTime);

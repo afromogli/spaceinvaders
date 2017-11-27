@@ -34,7 +34,7 @@ namespace SpaceInvaders
     }
   }
 
-  EInvader* EInvaderGroup::tryFindCollidingInvader(const ECannonRocket& rocket)
+  EInvader* EInvaderGroup::tryFindCollidingInvader(const ECannonRocket& rocket) const
   {
     // Iterate backwards since rocket will probably hit bottom invaders first
     for (int i = GameConfig::InvaderTotalCount - 1; i >= 0; i--)
