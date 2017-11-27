@@ -9,6 +9,7 @@ using namespace Common;
 
 namespace SpaceInvaders
 {
+  class EInvaderRocket;
   class EntityFactory;
 
   class ECannon : public Entity {
@@ -16,6 +17,7 @@ namespace SpaceInvaders
   public:
     void update(const float& deltaTime) override;
     void draw(Graphics& graphics) override;
+    bool isColliding(const EInvaderRocket& invaderRocket) const;
 
     static Rect2D CannonClip;
 

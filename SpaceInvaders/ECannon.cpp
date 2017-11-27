@@ -1,6 +1,7 @@
 #include "ECannon.h"
 #include "GameConfig.h"
 
+#include "EInvaderRocket.h"
 
 namespace SpaceInvaders
 {
@@ -21,6 +22,11 @@ namespace SpaceInvaders
   void ECannon::draw(Graphics& graphics)
   {
     m_spriteSheet->render(getPosition(), CannonClip, GameConfig::SpriteScale);
+  }
+
+  bool ECannon::isColliding(const EInvaderRocket& invaderRocket) const
+  {
+    return m_rect.intersects(invaderRocket.getRect());
   }
 
   Rect2D ECannon::CannonClip = Rect2D(Vector2f(277, 21), 26, 16);

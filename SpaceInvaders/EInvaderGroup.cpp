@@ -1,5 +1,6 @@
 #include "EInvaderGroup.h"
 #include "Engine.h"
+#include <cassert>
 
 using namespace Common;
 
@@ -48,6 +49,33 @@ namespace SpaceInvaders
     return nullptr;
   }
 
+  EInvader& EInvaderGroup::getClosestAliveInvaderAtPosition(const int column, const int row)
+  {
+    shared_ptr<EInvader> invader = getInvader(column, row);    
+    if (invader->isAlive() == false)
+    {
+      int closestAliveIndex = -1;
+      const float closestDistance = 10000.f;
+
+      for (int y = 0; y < GameConfig::InvaderRows; y++)
+      {
+        for (int x = 0; x < GameConfig::InvaderColumns; x++)
+        {
+          const shared_ptr<EInvader> currInvader = getInvader(x, y);
+          if (currInvader->isAlive() && (invader->getPosition() - currInvader->getPosition()).length() < closestDistance)
+          {
+            closestAliveIndex = y * GameConfig::InvaderColumns + x;
+          }
+        }
+      }
+      
+      assert(closestAliveIndex >= 0);
+      invader = m_invaders[closestAliveIndex];
+      assert(invader->isAlive());
+    }
+    return *invader;
+  }
+
   EInvaderGroup::EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos) : 
     m_spriteSheet{ spriteSheet }, 
     m_timeLeftInAnimationFrame{ GameConfig::InvaderAnimFrameLength }, 
@@ -59,8 +87,7 @@ namespace SpaceInvaders
     {
       for (int x = 0; x < GameConfig::InvaderColumns; x++)
       {
-        const int currIndex = y* GameConfig::InvaderColumns + x;
-
+        const int currIndex = y * GameConfig::InvaderColumns + x;
         const EntityType type = getInvaderType(y);
         Vector2f posOffset = Vector2f(x*GameConfig::InvaderHorisontalSpacing, y*GameConfig::InvaderVerticalSpacing);
         centerOffset(type, posOffset);        
@@ -99,6 +126,11 @@ namespace SpaceInvaders
     }
 
     return changeDirection;
+  }
+
+  shared_ptr<EInvader> EInvaderGroup::getInvader(const int column, const int row) const
+  {
+    return m_invaders[row * GameConfig::InvaderColumns + column];
   }
 
   EntityType EInvaderGroup::getInvaderType(const int row)

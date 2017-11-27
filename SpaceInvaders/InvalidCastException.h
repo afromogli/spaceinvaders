@@ -7,6 +7,6 @@ namespace Common {
   {
   public:
     InvalidCastException() : InvalidCastException("Null reference exception") { }
-    InvalidCastException(const std::string message) : logic_error(message) { }
+    explicit InvalidCastException(const std::string message) : logic_error(message) { }
   };
 }

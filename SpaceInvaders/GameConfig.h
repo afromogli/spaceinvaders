@@ -31,10 +31,6 @@ namespace SpaceInvaders
     // Cannon rocket
     static constexpr Vector2f CannonRocketVelocity = Vector2f(0.f, -800.f); // Px per sec
     static constexpr Vector2f CannonRocketSize = Vector2f(2.f, 10.f);
-    
-    // Invader rocket
-    static constexpr Vector2f InvaderRocketSize = Vector2f(6.f, 12.f) * SpriteScale;
-    static constexpr Vector2f InvaderRocketVelocity = Vector2f(0.f, -300.f); // Px per sec
 
     // House
     static constexpr int HouseAnimFramesCount = 5;
@@ -68,6 +64,12 @@ namespace SpaceInvaders
 
     static constexpr float InvaderGroupMoveDownDistance = InvaderSmallSize.y;
     
+    // Invader rocket
+    static constexpr Vector2f InvaderRocketSize = Vector2f(6.f, 12.f) * SpriteScale;
+    static constexpr Vector2f InvaderRocketVelocity = Vector2f(0.f, 300.f); // Px per sec
+    static constexpr int InvaderRocketsMaxCount = InvaderRows*InvaderColumns / 2;
+    static constexpr float InvaderRocketSpawnMaxCooldown = 3000.f;
+
   private:
     GameConfig() {}
   };

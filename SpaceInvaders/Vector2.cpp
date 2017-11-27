@@ -1,7 +1,7 @@
 #include "Vector2.h"
 #include <random>
-#include "xorshift.h"
 #include <sstream>
+#include "Random.h"
 
 namespace Common
 {
@@ -26,15 +26,7 @@ namespace Common
 
   Vector2f Vector2f::getRandomizedVector(const int xMinValue, const int xMaxValue, const int yMinValue, const int yMaxValue)
   {
-    return Vector2f(float(getRandomValue(xMinValue, xMaxValue)), float(getRandomValue(yMinValue, yMaxValue)));
-  }
-
-  int Vector2f::getRandomValue(const int minValue, const int maxValue)
-  {
-    std::random_device rd;
-    xorshift gen(rd());
-    const std::uniform_int_distribution<> dist(minValue, maxValue);
-    return dist(gen);
+    return Vector2f(float(Random::getValue(xMinValue, xMaxValue)), float(Random::getValue(yMinValue, yMaxValue)));
   }
 
   std::string Vector2f::toString() const
