@@ -81,9 +81,9 @@ namespace SpaceInvaders
     m_currentFrame = ++m_currentFrame % GameConfig::InvaderAnimFramesCount;
   }
 
-  bool EInvader::isColliding(const shared_ptr<ECannonRocket>& rocket) const
+  bool EInvader::isColliding(const ECannonRocket& rocket) const
   {
-    return m_rect.intersects(rocket->getRect());
+    return m_rect.intersects(rocket.getRect());
   }
 
   bool EInvader::isAlive() const

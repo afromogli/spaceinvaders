@@ -157,7 +157,7 @@ namespace SpaceInvaders
       for (int i = 0; i < HouseCount; i++)
       {
         shared_ptr<EHouse> currHouse = m_houses[i];
-        if (currHouse->isAlive() && currHouse->isColliding(m_cannonRocket))
+        if (currHouse->isAlive() && currHouse->isColliding(*m_cannonRocket))
         {
           currHouse->decreaseHealth();
           m_cannonRocket->setIsAlive(false);
@@ -168,7 +168,7 @@ namespace SpaceInvaders
 
     if (m_cannonRocket->isAlive())
     {
-      const shared_ptr<EInvader> collidedInvader = m_invaderGroup->isColliding(m_cannonRocket);
+      EInvader* collidedInvader = m_invaderGroup->tryFindCollidingInvader(*m_cannonRocket);
       if (collidedInvader != nullptr)
       {
         // TODO: play explosion sound

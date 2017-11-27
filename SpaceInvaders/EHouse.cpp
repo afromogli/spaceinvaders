@@ -1,5 +1,4 @@
 #include "EHouse.h"
-#include <iostream>
 
 namespace SpaceInvaders
 {
@@ -17,9 +16,9 @@ namespace SpaceInvaders
     }
   }
 
-  bool EHouse::isColliding(const std::shared_ptr<ECannonRocket> rocket) const
+  bool EHouse::isColliding(const ECannonRocket& rocket) const
   {
-    return m_rect.intersects(rocket->getRect());
+    return m_rect.intersects(rocket.getRect());
   }
 
   void EHouse::decreaseHealth()

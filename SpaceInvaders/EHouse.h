@@ -20,7 +20,7 @@ namespace SpaceInvaders
     void update(const float& deltaTime) override;
     void draw(Graphics& graphics) override;
 
-    bool isColliding(const std::shared_ptr<ECannonRocket> rocket) const;
+    bool isColliding(const ECannonRocket& rocket) const;
     void decreaseHealth();
 
     void setIsAlive(const bool isAlive);

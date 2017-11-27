@@ -24,7 +24,7 @@ namespace SpaceInvaders
     void changeDirection();
     void changeAnimationFrame();
 
-    bool isColliding(const std::shared_ptr<ECannonRocket>& rocket) const;
+    bool isColliding(const ECannonRocket& rocket) const;
 
     bool isAlive() const;
     void setIsAlive(const bool isAlive);

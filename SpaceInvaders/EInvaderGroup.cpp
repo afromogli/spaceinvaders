@@ -34,15 +34,15 @@ namespace SpaceInvaders
     }
   }
 
-  shared_ptr<EInvader> EInvaderGroup::isColliding(const shared_ptr<ECannonRocket> rocket)
+  EInvader* EInvaderGroup::tryFindCollidingInvader(const ECannonRocket& rocket)
   {
     // Iterate backwards since rocket will probably hit bottom invaders first
     for (int i = GameConfig::InvaderTotalCount - 1; i >= 0; i--)
     {
-      auto currInv = m_invaders[i];
+      const shared_ptr<EInvader> currInv = m_invaders[i];
       if (currInv->isAlive() && currInv->isColliding(rocket))
       {
-        return currInv;
+        return currInv.get();
       }
     }
     return nullptr;
