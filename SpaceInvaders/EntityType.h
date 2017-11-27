@@ -2,5 +2,5 @@
 
 namespace SpaceInvaders
 {
-  enum EntityType { Cannon, SmallInvader, MediumInvader, LargeInvader, House, InvaderGroup, CannonRocket };
+  enum EntityType { Cannon, SmallInvader, MediumInvader, LargeInvader, House, InvaderGroup, CannonRocket, InvaderRocket };
 }

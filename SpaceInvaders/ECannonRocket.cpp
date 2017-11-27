@@ -7,14 +7,12 @@ namespace SpaceInvaders
   {
     if (isAlive())
     {
-      // check if rocket is out of screen
-      if (getPosition().y < 0.f)
+      if (isOutOfView())
       {
         setIsAlive(false);
       }
-
       const float deltaSeconds = deltaTime / 1000;
-      setPosition(getPosition() + GameConfig::CannonRocketVelocity*deltaSeconds);
+      setPosition(getPosition() + getVelocity()*deltaSeconds);
     }    
   }
 
@@ -36,9 +34,15 @@ namespace SpaceInvaders
     m_isAlive = isAlive;
   }
 
+  bool ECannonRocket::isOutOfView() const
+  {
+    return getPosition().y < 0.f;
+  }
+
   ECannonRocket::ECannonRocket() : m_isAlive { false }
   {
     m_rect.setSize(GameConfig::CannonRocketSize);
+    setVelocity(GameConfig::CannonRocketVelocity);
   }
 }
 

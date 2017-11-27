@@ -24,7 +24,7 @@ namespace SpaceInvaders
     static constexpr int MothershipInvaderScore = 0; // TODO: find out what the secret score is
 
     // Cannon
-    static constexpr Vector2f CannonSize = Vector2f(26.f * SpriteScale, 16.f * SpriteScale);
+    static constexpr Vector2f CannonSize = Vector2f(26.f, 16.f) * SpriteScale;
     static constexpr Vector2f InitialCannonPosition = Vector2f(GameConfig::WinSize.x / 2, GameConfig::WinSize.y - (CannonSize.y + 10));
     static constexpr float CannonSpeed = 400.0f; // Px per sec
 
@@ -32,6 +32,10 @@ namespace SpaceInvaders
     static constexpr Vector2f CannonRocketVelocity = Vector2f(0.f, -800.f); // Px per sec
     static constexpr Vector2f CannonRocketSize = Vector2f(2.f, 10.f);
     
+    // Invader rocket
+    static constexpr Vector2f InvaderRocketSize = Vector2f(6.f, 12.f) * SpriteScale;
+    static constexpr Vector2f InvaderRocketVelocity = Vector2f(0.f, -300.f); // Px per sec
+
     // House
     static constexpr int HouseAnimFramesCount = 5;
     static constexpr float HouseMaxHealth = 10.f;
@@ -63,6 +67,7 @@ namespace SpaceInvaders
     static constexpr float InvaderGroupRightWall = WinSize.x- InvaderGroupWallPadding;
 
     static constexpr float InvaderGroupMoveDownDistance = InvaderSmallSize.y;
+    
   private:
     GameConfig() {}
   };

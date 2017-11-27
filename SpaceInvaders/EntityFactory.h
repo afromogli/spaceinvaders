@@ -66,6 +66,7 @@ namespace SpaceInvaders
     static shared_ptr<Entity> createInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
     static shared_ptr<Entity> createHouse(const shared_ptr<Texture> spriteSheet);
     static shared_ptr<Entity> createCannonRocket();
+    static shared_ptr<Entity> createInvaderRocket(const shared_ptr<Texture> spriteSheet);
 
     static void checkSpriteSheetDataPtr(const shared_ptr<CreateEntityWithSpritesheetData>& data);
 

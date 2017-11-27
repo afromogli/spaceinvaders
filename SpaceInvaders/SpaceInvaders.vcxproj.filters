@@ -83,6 +83,9 @@
     <ClCompile Include="ECannonRocket.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="EInvaderRocket.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioLoader.h">
@@ -164,6 +167,9 @@
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="ECannonRocket.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EInvaderRocket.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
