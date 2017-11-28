@@ -10,6 +10,7 @@
 #include "EHouse.h"
 #include "ECannonRocket.h"
 #include "EInvaderRocket.h"
+#include "ELife.h"
 
 namespace SpaceInvaders
 {
@@ -75,6 +76,13 @@ namespace SpaceInvaders
       entity = createInvaderRocket(spriteSheetData->SpriteSheet);
       break;
     }
+    case EntityType::Life:
+    {
+      const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetData = dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data);
+      checkSpriteSheetDataPtr(spriteSheetData);
+      entity = createLife(spriteSheetData->SpriteSheet);
+      break;
+    }
     default:
       throw new NotSupportedException("The EntityType: " + std::to_string(type) + " is not supported");
     }
@@ -117,6 +125,11 @@ namespace SpaceInvaders
   shared_ptr<Entity> EntityFactory::createInvaderRocket(const shared_ptr<Texture> spriteSheet)
   {
     return shared_ptr<Entity>(new EInvaderRocket(spriteSheet));
+  }
+
+  shared_ptr<Entity> EntityFactory::createLife(const shared_ptr<Texture> spriteSheet)
+  {
+    return shared_ptr<Entity>(new ELife(spriteSheet));
   }
 }
 

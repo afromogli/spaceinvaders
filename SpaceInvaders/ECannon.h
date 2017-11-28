@@ -21,7 +21,7 @@ namespace SpaceInvaders
 
     static Rect2D CannonClip;
 
-  private:
+  protected:
     ECannon(const shared_ptr<Texture> spriteSheet);
     const shared_ptr<Texture> m_spriteSheet;
   };

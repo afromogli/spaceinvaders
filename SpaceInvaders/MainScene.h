@@ -56,7 +56,8 @@ namespace SpaceInvaders
     shared_ptr<Texture> m_spriteSheet;
 
     int m_score;
-    PlayingUI m_playingUI;
+    int m_livesLeft;
+    unique_ptr<PlayingUI> m_playingUI;
 
     float m_invaderRocketSpawnCooldown;
   };

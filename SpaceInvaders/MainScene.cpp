@@ -16,8 +16,9 @@ namespace SpaceInvaders
     m_graphics{ graphics },
     m_audioSystem{ audioSystem },
     m_score{ 0 }, 
-    m_playingUI { graphics },
-    m_invaderRocketSpawnCooldown { GameConfig::InvaderRocketSpawnMaxCooldown }
+    m_playingUI { nullptr },
+    m_invaderRocketSpawnCooldown { GameConfig::InvaderRocketSpawnMaxCooldown },
+    m_livesLeft { GameConfig::LivesMax }
   //,
     //m_font("Fonts\\iomanoid.ttf", 100),
     /* m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
@@ -25,31 +26,25 @@ namespace SpaceInvaders
     m_spriteSheet = std::make_shared<Texture>(graphics);
     m_spriteSheet->loadFromFile("Textures\\spritesheet.png");
 
-    const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetDataPtr = std::make_shared<
-      CreateEntityWithSpritesheetData>(m_spriteSheet);
+    m_playingUI = std::make_unique<PlayingUI>(graphics, m_spriteSheet, m_livesLeft);
 
-    m_cannon = std::dynamic_pointer_cast<ECannon>(
-      Engine::EntityFactoryInstance->createEntity(EntityType::Cannon, spriteSheetDataPtr));
+    const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetDataPtr = std::make_shared<CreateEntityWithSpritesheetData>(m_spriteSheet);
+
+    m_cannon = std::dynamic_pointer_cast<ECannon>(Engine::EntityFactoryInstance->createEntity(EntityType::Cannon, spriteSheetDataPtr));
     m_cannon->setPosition(GameConfig::InitialCannonPosition);
     m_allEntities.push_back(m_cannon);
 
-    m_invaderGroup = std::dynamic_pointer_cast<EInvaderGroup>(Engine::EntityFactoryInstance->createEntity(
-      EntityType::InvaderGroup,
-      std::make_shared<CreateInvaderGroupEntityData>(m_spriteSheet, GameConfig::InvaderGroupStartPos)));
+    m_invaderGroup = std::dynamic_pointer_cast<EInvaderGroup>(Engine::EntityFactoryInstance->createEntity(EntityType::InvaderGroup, std::make_shared<CreateInvaderGroupEntityData>(m_spriteSheet, GameConfig::InvaderGroupStartPos)));
     m_allEntities.push_back(m_invaderGroup);
 
     for (int i = 0; i < HouseCount; i++)
     {
-      m_houses[i] = std::dynamic_pointer_cast<EHouse>(
-        Engine::EntityFactoryInstance->createEntity(EntityType::House, spriteSheetDataPtr));
-      m_houses[i]->setPosition(
-        Vector2f(i * (GameConfig::WinSize.x / HouseCount) + GameConfig::HouseSize.x, 0.f) + GameConfig::
-        HouseVerticalOffset);
+      m_houses[i] = std::dynamic_pointer_cast<EHouse>(Engine::EntityFactoryInstance->createEntity(EntityType::House, spriteSheetDataPtr));
+      m_houses[i]->setPosition(Vector2f(i * (GameConfig::WinSize.x / HouseCount) + GameConfig::HouseSize.x, 0.f) + GameConfig::HouseVerticalOffset);
       m_allEntities.push_back(m_houses[i]);
     }
 
-    m_cannonRocket = std::dynamic_pointer_cast<ECannonRocket>(
-      Engine::EntityFactoryInstance->createEntity(EntityType::CannonRocket, nullptr));
+    m_cannonRocket = std::dynamic_pointer_cast<ECannonRocket>(Engine::EntityFactoryInstance->createEntity(EntityType::CannonRocket, nullptr));
     m_cannonRocket->setPosition(Vector2f::Zero);
     m_allEntities.push_back(m_cannonRocket);
 
@@ -134,7 +129,7 @@ namespace SpaceInvaders
       entity->draw(graphics);
     }
 
-    m_playingUI.draw(graphics);
+    m_playingUI->draw(graphics);
 
     if (m_currentState == Win)
     {
@@ -187,7 +182,7 @@ namespace SpaceInvaders
         }
         if (currInvRocket.isAlive() && m_cannon->isColliding(currInvRocket))
         {
-          // TODO: kill cannon
+          m_playingUI->setLivesLeft(--m_livesLeft);
           // TODO: show explosion
           currInvRocket.setIsAlive(false);
         }
@@ -217,7 +212,7 @@ namespace SpaceInvaders
         // TODO: spawn explosion animation or particle effects
         // increase score by checking which invader type that exploded
         m_score += getInvaderScore(collidedInvader->getType());
-        m_playingUI.updateScore(m_score);
+        m_playingUI->setScore(m_score);
         collidedInvader->setIsAlive(false);
         m_cannonRocket->setIsAlive(false);
       }
@@ -272,7 +267,7 @@ namespace SpaceInvaders
         return *currRocket;
       }
     }
-    throw new ElementNotFoundInCollectionException("Could not find any dead invader");
+    throw new ElementNotFoundInCollectionException("Could not find any dead invader rocket");
   }
 
   bool MainScene::canSpawnInvaderRocket() const

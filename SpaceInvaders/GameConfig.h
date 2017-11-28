@@ -20,13 +20,14 @@ namespace SpaceInvaders
     // Resource paths
     static constexpr char* GamesFontPath = "Fonts\\Games.ttf";
 
-    // Scores
+    // Scores and lives
     static constexpr int SmallInvaderScore = 40;
     static constexpr int MediumInvaderScore = 20;
     static constexpr int LargeInvaderScore = 10;
-    static constexpr int MothershipInvaderScore = 0; // TODO: find out what the secret score is
+    static constexpr int MothershipInvaderScore = 100; // TODO: find out what the secret score is
+    static constexpr int LivesMax = 3;
 
-    // Cannon
+    // Cannon (player)
     static constexpr Vector2f CannonSize = Vector2f(26.f, 16.f) * SpriteScale;
     static constexpr Vector2f InitialCannonPosition = Vector2f(GameConfig::WinSize.x / 2, GameConfig::WinSize.y - (CannonSize.y + 10));
     static constexpr float CannonSpeed = 400.0f; // Px per sec

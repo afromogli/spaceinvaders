@@ -5,8 +5,8 @@ namespace Common
 {
   Text::Text(const string text, const Color color, const Vector2f position, const int charWidth,
     const int charHeight, Font& font, Graphics& graphics) :
-    m_text {text},
-    m_color {color},
+    m_text{ text },
+    m_color{ color },
     m_charWidth{ charWidth },
     m_charHeight{ charHeight },
     m_texture{ nullptr },
@@ -43,6 +43,16 @@ namespace Common
     m_text = newText;
     m_rect.w = newText.length() * m_charWidth;
     m_texture = createTexture(m_graphics, m_font, m_text, m_color);
+  }
+
+  Vector2f Text::getPosition() const
+  {
+    return Vector2f(float(m_rect.x), float(m_rect.y));
+  }
+
+  float Text::getWidth() const
+  {
+    return float(m_rect.w);
   }
 
   SDL_Texture* Text::createTexture(Graphics& graphics, const Font& font, const string text, const Color color)

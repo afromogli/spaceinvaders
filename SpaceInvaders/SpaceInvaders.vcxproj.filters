@@ -92,6 +92,9 @@
     <ClCompile Include="PlayingUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ELife.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioLoader.h">
@@ -186,6 +189,9 @@
     </ClInclude>
     <ClInclude Include="PlayingUI.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ELife.h">
+      <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
