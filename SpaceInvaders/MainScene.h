@@ -61,5 +61,8 @@ namespace SpaceInvaders
     unique_ptr<PlayingUI> m_playingUI;
 
     float m_invaderRocketSpawnCooldown;
+
+    Font m_gameOverFont;
+    Text m_gameOverText;
   };
 }

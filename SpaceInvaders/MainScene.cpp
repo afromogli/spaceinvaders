@@ -18,9 +18,9 @@ namespace SpaceInvaders
     m_score{ 0 },
     m_playingUI{ nullptr },
     m_invaderRocketSpawnCooldown{ GameConfig::InvaderRocketSpawnMaxCooldown },
-    m_livesLeft{ GameConfig::LivesMax }
-    //m_font("Fonts\\iomanoid.ttf", 100),
-    /* m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
+    m_livesLeft{ GameConfig::LivesMax },
+    m_gameOverFont(GameConfig::GamesFontPath, 100),
+    m_gameOverText("GAME OVER", Colors::Red, Vector2f(GameConfig::WinSize.x / 2 - 144.f, GameConfig::WinSize.y / 2 - 100.f), 36, 100, m_gameOverFont, graphics)
   {
     m_spriteSheet = std::make_shared<Texture>(graphics);
     m_spriteSheet->loadFromFile("Textures\\spritesheet.png");
@@ -140,7 +140,7 @@ namespace SpaceInvaders
       {
         m_houses[i]->draw(graphics);
       }
-        // TODO: Add game over text
+      m_gameOverText.draw(graphics);
       break;
     }
     default:
