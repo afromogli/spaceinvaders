@@ -164,29 +164,48 @@ namespace SpaceInvaders
     return newScore;
   }
 
-  void MainScene::updatePlayingState(const float deltaTime)
+  void MainScene::updateInvaderRockets()
   {
-    for (auto entity : m_allEntities)
+    for (int i = 0; i < GameConfig::InvaderRocketsMaxCount; i++)
     {
-      entity->update(deltaTime);
+      EInvaderRocket& currInvRocket = *m_invaderRockets[i];
+      if (currInvRocket.isAlive())
+      {
+        for (int j = 0; j < HouseCount; j++)
+        {
+          EHouse& currHouse = *m_houses[j];
+          if (currHouse.isAlive() && currHouse.isColliding(currInvRocket))
+          {
+            currHouse.decreaseHealth();
+            currInvRocket.setIsAlive(false);
+            break;
+          }
+        }
+        if (currInvRocket.isAlive() && m_cannon->isColliding(currInvRocket))
+        {
+          // TODO: kill cannon
+          // TODO: show explosion
+          currInvRocket.setIsAlive(false);
+        }
+      }
     }
+  }
 
+  void MainScene::updateCannonRocket()
+  {
     if (m_cannonRocket->isAlive())
     {
       for (int i = 0; i < HouseCount; i++)
       {
-        shared_ptr<EHouse> currHouse = m_houses[i];
-        if (currHouse->isAlive() && currHouse->isColliding(*m_cannonRocket))
+        EHouse& currHouse = *m_houses[i];
+        if (currHouse.isAlive() && currHouse.isColliding(*m_cannonRocket))
         {
-          currHouse->decreaseHealth();
+          currHouse.decreaseHealth();
           m_cannonRocket->setIsAlive(false);
           break;
         }
       }
-    }
 
-    if (m_cannonRocket->isAlive())
-    {
       EInvader* collidedInvader = m_invaderGroup->tryFindCollidingInvader(*m_cannonRocket);
       if (collidedInvader != nullptr)
       {
@@ -200,17 +219,17 @@ namespace SpaceInvaders
         m_cannonRocket->setIsAlive(false);
       }
     }
+  }
 
-    for (int i = 0; i < GameConfig::InvaderRocketsMaxCount; i++)
+  void MainScene::updatePlayingState(const float deltaTime)
+  {
+    for (auto entity : m_allEntities)
     {
-      if (m_invaderRockets[i]->isAlive() && m_cannon->isColliding(*m_invaderRockets[i]))
-      {
-        // TODO: kill cannon
-        // TODO: show explosion
-        m_invaderRockets[i]->setIsAlive(false);
-        break;
-      }
+      entity->update(deltaTime);
     }
+
+    updateCannonRocket();
+    updateInvaderRockets();
 
     if (m_invaderRocketSpawnCooldown <= 0.f && canSpawnInvaderRocket())
     {

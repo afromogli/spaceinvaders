@@ -29,6 +29,8 @@ namespace SpaceInvaders
     static constexpr int HouseCount = 4;
     
     static int getInvaderScore(EntityType killedInvaderType);
+    void updateInvaderRockets();
+    void updateCannonRocket();
 
     enum GameState { Playing, Win, GameOver };
 
