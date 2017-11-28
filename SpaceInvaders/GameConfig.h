@@ -17,6 +17,9 @@ namespace SpaceInvaders
     // Graphics configuration
     static constexpr float SpriteScale = 2.f;
 
+    // Resource paths
+    static constexpr char* GamesFontPath = "Fonts\\Games.ttf";
+
     // Scores
     static constexpr int SmallInvaderScore = 40;
     static constexpr int MediumInvaderScore = 20;

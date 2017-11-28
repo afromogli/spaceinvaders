@@ -4,14 +4,14 @@
 
 namespace Common
 {
-   class Font
-   {
-   public:
-      Font(std::string fontFilePath, const int pointSize);
-      ~Font();
+  class Font
+  {
+  public:
+    Font(std::string fontFilePath, const int pointSize);
+    ~Font();
 
-      TTF_Font* get() const;
-   private:
-      TTF_Font *m_font;
-   };
+    TTF_Font* get() const;
+  private:
+    TTF_Font *m_font;
+  };
 }

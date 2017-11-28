@@ -89,6 +89,9 @@
     <ClCompile Include="Random.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
+    <ClCompile Include="PlayingUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioLoader.h">
@@ -180,6 +183,9 @@
     </ClInclude>
     <ClInclude Include="ElementNotFoundInCollectionException.h">
       <Filter>Source Files\Common\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayingUI.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

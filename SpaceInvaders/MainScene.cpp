@@ -13,12 +13,14 @@ using namespace Common;
 namespace SpaceInvaders
 {
   MainScene::MainScene(Graphics& graphics, AudioLoader& audioSystem) :
-    m_graphics{graphics},
-    m_audioSystem{audioSystem},
-    m_score{0}, 
-    m_invaderRocketSpawnCooldown {GameConfig::InvaderRocketSpawnMaxCooldown}
-  /* m_font("Fonts\\iomanoid.ttf", 100),
-     m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
+    m_graphics{ graphics },
+    m_audioSystem{ audioSystem },
+    m_score{ 0 }, 
+    m_playingUI { graphics },
+    m_invaderRocketSpawnCooldown { GameConfig::InvaderRocketSpawnMaxCooldown }
+  //,
+    //m_font("Fonts\\iomanoid.ttf", 100),
+    /* m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
   {
     m_spriteSheet = std::make_shared<Texture>(graphics);
     m_spriteSheet->loadFromFile("Textures\\spritesheet.png");
@@ -132,6 +134,8 @@ namespace SpaceInvaders
       entity->draw(graphics);
     }
 
+    m_playingUI.draw(graphics);
+
     if (m_currentState == Win)
     {
       /*  m_winText.draw(graphics);
@@ -213,8 +217,7 @@ namespace SpaceInvaders
         // TODO: spawn explosion animation or particle effects
         // increase score by checking which invader type that exploded
         m_score += getInvaderScore(collidedInvader->getType());
-        // TODO: add UI for score
-        cout << "Score: " << m_score << "\n";
+        m_playingUI.updateScore(m_score);
         collidedInvader->setIsAlive(false);
         m_cannonRocket->setIsAlive(false);
       }

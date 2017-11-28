@@ -9,17 +9,17 @@ using namespace Common;
 
 namespace SpaceInvaders
 {
-   class StartScene : public Scene
-   {
-   public:
-      StartScene(Graphics& graphics);
-      void handleInput(const Uint8 *keyboardState) override;
-      void update(const float& deltaTime) override;
-      void draw(Graphics& graphics) override;
+  class StartScene : public Scene
+  {
+  public:
+    StartScene(Graphics& graphics);
+    void handleInput(const Uint8 *keyboardState) override;
+    void update(const float& deltaTime) override;
+    void draw(Graphics& graphics) override;
 
-   private:
-	  Font m_font;
-      Text m_spaceInvadersText;
-      Text m_instructionsText;
-   };
+  private:
+    Font m_font;
+    Text m_spaceInvadersText;
+    Text m_instructionsText;
+  };
 }

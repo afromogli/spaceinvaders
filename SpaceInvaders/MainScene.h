@@ -9,6 +9,7 @@
 #include "EHouse.h"
 #include "ECannonRocket.h"
 #include "EInvaderRocket.h"
+#include "PlayingUI.h"
 
 using namespace std;
 using namespace Common;
@@ -55,6 +56,8 @@ namespace SpaceInvaders
     shared_ptr<Texture> m_spriteSheet;
 
     int m_score;
+    PlayingUI m_playingUI;
+
     float m_invaderRocketSpawnCooldown;
   };
 }
