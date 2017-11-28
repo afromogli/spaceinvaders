@@ -27,6 +27,12 @@ namespace SpaceInvaders
     m_isAlive = m_health > 0.f;
   }
 
+  void EHouse::reset()
+  {
+    m_health = GameConfig::HouseMaxHealth;
+    m_isAlive = true;
+  }
+
   void EHouse::setIsAlive(const bool isAlive)
   {
     m_isAlive = isAlive;

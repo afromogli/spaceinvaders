@@ -29,6 +29,8 @@ namespace SpaceInvaders
     bool isAlive() const;
     void setIsAlive(const bool isAlive);
     EntityType getType() const;
+    
+    int getScore() const;
 
   private:
     EInvader(EntityType invaderType, const shared_ptr<Texture> spriteSheet);

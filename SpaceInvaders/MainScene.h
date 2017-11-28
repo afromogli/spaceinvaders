@@ -29,7 +29,6 @@ namespace SpaceInvaders
   private:
     static constexpr int HouseCount = 4;
     
-    static int getInvaderScore(EntityType killedInvaderType);
     void updateInvaderRockets();
     void updateCannonRocket();
 
@@ -40,6 +39,8 @@ namespace SpaceInvaders
     void spawnInvaderRocket() const;
     EInvaderRocket& getDeadInvaderRocket() const;
     bool canSpawnInvaderRocket() const;
+
+    void resetScene();
 
     vector<shared_ptr<Entity>> m_allEntities;
     shared_ptr<ECannon> m_cannon;

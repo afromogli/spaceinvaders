@@ -2,7 +2,7 @@
 
 #include "EInvader.h"
 #include "GameConfig.h"
-#include "NotSupportedException.h"
+#include "UnsupportedException.h"
 
 namespace SpaceInvaders
 {
@@ -29,7 +29,7 @@ namespace SpaceInvaders
     case EntityType::LargeInvader:
       return GameConfig::InvaderLargeSize;
     default:
-      throw new NotSupportedException("The invader type: " + std::to_string(invaderType) + " is not supported.");
+      throw new UnsupportedException("The invader type: " + std::to_string(invaderType) + " is not supported.");
     }
   }
 
@@ -44,7 +44,7 @@ namespace SpaceInvaders
     case EntityType::LargeInvader:
       return LargeInvaderClipFrames[currentFrame];
     default:
-      throw new NotSupportedException("The invader type: " + std::to_string(invaderType) + " is not supported.");
+      throw new UnsupportedException("The invader type: " + std::to_string(invaderType) + " is not supported.");
     }
   }
 
@@ -99,6 +99,26 @@ namespace SpaceInvaders
   EntityType EInvader::getType() const
   {
     return m_invaderType;
+  }
+
+  int EInvader::getScore() const
+  {
+    int score = 0;
+    switch (getType())
+    {
+    case EntityType::SmallInvader:
+      score = GameConfig::SmallInvaderScore;
+      break;
+    case EntityType::MediumInvader:
+      score = GameConfig::MediumInvaderScore;
+      break;
+    case EntityType::LargeInvader:
+      score = GameConfig::LargeInvaderScore;
+      break;
+    default:
+      throw new UnsupportedException("Unsupported invader type");
+    }
+    return score;
   }
 
   Rect2D EInvader::SmallInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(7.f, 18.f), 16, 16), Rect2D(Vector2f(40.f, 18.f), 16, 16) };

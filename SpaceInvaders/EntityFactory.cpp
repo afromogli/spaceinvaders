@@ -1,6 +1,6 @@
 #include <string>
 
-#include "NotSupportedException.h"
+#include "UnsupportedException.h"
 #include "EntityFactory.h"
 
 #include "ECannon.h"
@@ -84,7 +84,7 @@ namespace SpaceInvaders
       break;
     }
     default:
-      throw new NotSupportedException("The EntityType: " + std::to_string(type) + " is not supported");
+      throw new UnsupportedException("The EntityType: " + std::to_string(type) + " is not supported");
     }
     return entity;
   }

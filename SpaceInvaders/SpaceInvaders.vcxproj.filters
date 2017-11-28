@@ -166,9 +166,6 @@
     <ClInclude Include="NotImplementedException.h">
       <Filter>Source Files\Common\Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="NotSupportedException.h">
-      <Filter>Source Files\Common\Exceptions</Filter>
-    </ClInclude>
     <ClInclude Include="InvalidCastException.h">
       <Filter>Source Files\Common\Exceptions</Filter>
     </ClInclude>
@@ -192,6 +189,9 @@
     </ClInclude>
     <ClInclude Include="ELife.h">
       <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="UnsupportedException.h">
+      <Filter>Source Files\Common\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

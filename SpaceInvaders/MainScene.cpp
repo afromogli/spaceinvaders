@@ -4,9 +4,9 @@
 #include "Engine.h"
 #include "GameConfig.h"
 #include <iostream>
-#include "NotSupportedException.h"
 #include "Random.h"
 #include "ElementNotFoundInCollectionException.h"
+#include "UnsupportedException.h"
 
 using namespace Common;
 
@@ -15,11 +15,10 @@ namespace SpaceInvaders
   MainScene::MainScene(Graphics& graphics, AudioLoader& audioSystem) :
     m_graphics{ graphics },
     m_audioSystem{ audioSystem },
-    m_score{ 0 }, 
-    m_playingUI { nullptr },
-    m_invaderRocketSpawnCooldown { GameConfig::InvaderRocketSpawnMaxCooldown },
-    m_livesLeft { GameConfig::LivesMax }
-  //,
+    m_score{ 0 },
+    m_playingUI{ nullptr },
+    m_invaderRocketSpawnCooldown{ GameConfig::InvaderRocketSpawnMaxCooldown },
+    m_livesLeft{ GameConfig::LivesMax }
     //m_font("Fonts\\iomanoid.ttf", 100),
     /* m_winText("You win!", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 500, 100, m_font, graphics),*/
   {
@@ -99,7 +98,7 @@ namespace SpaceInvaders
         m_currentState = Playing;
         /* m_winSound->stop();
          m_gameoverSound->stop();*/
-         //m_board.reset();
+        resetScene();
       }
       break;
     default:;
@@ -114,8 +113,7 @@ namespace SpaceInvaders
       updatePlayingState(deltaTime);
       break;
     case GameOver:
-      /*m_ball->setVelocity(Vector2f::Zero);
-      positionBallAbovePaddle();*/
+
       break;
     default:;
     }
@@ -123,44 +121,33 @@ namespace SpaceInvaders
 
   void MainScene::draw(Graphics& graphics)
   {
-    /*m_board.draw(graphics);*/
-    for (auto entity : m_allEntities)
+    switch (m_currentState)
     {
-      entity->draw(graphics);
-    }
-
-    m_playingUI->draw(graphics);
-
-    if (m_currentState == Win)
+    case Playing:
     {
-      /*  m_winText.draw(graphics);
-        m_instructionsText.draw(graphics);*/
-    }
-    else if (m_currentState == GameOver)
-    {
-      /*   m_gameoverText.draw(graphics);
-         m_instructionsText.draw(graphics);*/
-    }
-  }
-
-  int MainScene::getInvaderScore(const EntityType killedInvaderType)
-  {
-    int newScore = 0;
-    switch (killedInvaderType)
-    {
-    case EntityType::SmallInvader:
-      newScore = GameConfig::SmallInvaderScore;
+      for (auto entity : m_allEntities)
+      {
+        entity->draw(graphics);
+      }
+      m_playingUI->draw(graphics);
       break;
-    case EntityType::MediumInvader:
-      newScore = GameConfig::MediumInvaderScore;
+    }
+    case GameOver:
+    {
+      m_playingUI->draw(graphics);
+      m_cannon->draw(graphics);
+      for (int i = 0; i < HouseCount; i++)
+      {
+        m_houses[i]->draw(graphics);
+      }
+        // TODO: Add game over text
       break;
-    case EntityType::LargeInvader:
-      newScore = GameConfig::LargeInvaderScore;
-      break;
+    }
     default:
-      throw new NotSupportedException("Unsupported invader type");
+    {
+      throw new UnsupportedException("Unsupported game state");
     }
-    return newScore;
+    }
   }
 
   void MainScene::updateInvaderRockets()
@@ -182,9 +169,13 @@ namespace SpaceInvaders
         }
         if (currInvRocket.isAlive() && m_cannon->isColliding(currInvRocket))
         {
+          currInvRocket.setIsAlive(false);
           m_playingUI->setLivesLeft(--m_livesLeft);
           // TODO: show explosion
-          currInvRocket.setIsAlive(false);
+          if (m_livesLeft == 0)
+          {
+            m_currentState = GameOver;
+          }
         }
       }
     }
@@ -210,8 +201,7 @@ namespace SpaceInvaders
       {
         // TODO: play explosion sound
         // TODO: spawn explosion animation or particle effects
-        // increase score by checking which invader type that exploded
-        m_score += getInvaderScore(collidedInvader->getType());
+        m_score += collidedInvader->getScore();
         m_playingUI->setScore(m_score);
         collidedInvader->setIsAlive(false);
         m_cannonRocket->setIsAlive(false);
@@ -225,10 +215,8 @@ namespace SpaceInvaders
     {
       entity->update(deltaTime);
     }
-
     updateCannonRocket();
     updateInvaderRockets();
-
     if (m_invaderRocketSpawnCooldown <= 0.f && canSpawnInvaderRocket())
     {
       spawnInvaderRocket();
@@ -259,7 +247,7 @@ namespace SpaceInvaders
 
   EInvaderRocket& MainScene::getDeadInvaderRocket() const
   {
-    for (int i=0; i < GameConfig::InvaderRocketsMaxCount; i++)
+    for (int i = 0; i < GameConfig::InvaderRocketsMaxCount; i++)
     {
       const auto currRocket = m_invaderRockets[i];
       if (currRocket->isAlive() == false)
@@ -280,6 +268,23 @@ namespace SpaceInvaders
       }
     }
     return false;
+  }
+
+  void MainScene::resetScene()
+  {
+    m_livesLeft = GameConfig::LivesMax;
+    m_score = 0;
+    m_invaderGroup->reset();
+    m_cannon->setPosition(GameConfig::InitialCannonPosition);
+    for (int i = 0; i < HouseCount; i++) {
+      m_houses[i]->reset();
+    }
+    for (int i = 0; i < GameConfig::InvaderRocketsMaxCount; i++)
+    {
+      m_invaderRockets[i]->setIsAlive(false);
+    }
+    m_playingUI->setLivesLeft(m_livesLeft);
+    m_playingUI->setScore(m_score);
   }
 }
 

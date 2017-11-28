@@ -22,6 +22,7 @@ namespace SpaceInvaders
 
     bool isColliding(const ECannonRocket& rocket) const;
     void decreaseHealth();
+    void reset();
 
     void setIsAlive(const bool isAlive);
     bool isAlive() const;

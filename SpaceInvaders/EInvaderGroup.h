@@ -25,6 +25,7 @@ namespace SpaceInvaders
      */
     EInvader* tryFindCollidingInvader(const ECannonRocket& rocket) const;
     EInvader& getClosestAliveInvaderAtPosition(const int column, const int row);
+    void reset();
 
   private:
     explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
@@ -33,11 +34,13 @@ namespace SpaceInvaders
     shared_ptr<EInvader> getInvader(const int column, const int row) const;
 
     static EntityType getInvaderType(int row);
-    static void centerOffset(const EntityType type, Vector2f& posOffset);
+    static Vector2f centerOffset(const EntityType type, Vector2f posOffset);
+    Vector2f getInvaderStartPosition(const EntityType type, const int row, const int column) const;
 
     shared_ptr<EInvader> m_invaders[GameConfig::InvaderRows* GameConfig::InvaderColumns];
     const shared_ptr<Texture> m_spriteSheet;
     float m_timeLeftInAnimationFrame;
+    const Vector2f m_upperLeftStartPos;
     static constexpr float ChangeDirectionCooldownLength = 2000.f; // millisecs
     float m_changeDirectionCooldown;
   };
