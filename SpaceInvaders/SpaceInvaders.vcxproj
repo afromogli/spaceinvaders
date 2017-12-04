@@ -126,11 +126,13 @@
     <ClCompile Include="EInvaderGroup.cpp" />
     <ClCompile Include="EInvaderRocket.cpp" />
     <ClCompile Include="ELife.cpp" />
+    <ClCompile Include="EMysteryShip.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="ECannon.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="InvaderRocketSpawner.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Random.cpp" />
@@ -152,6 +154,7 @@
     <ClInclude Include="EInvaderRocket.h" />
     <ClInclude Include="ElementNotFoundInCollectionException.h" />
     <ClInclude Include="ELife.h" />
+    <ClInclude Include="EMysteryShip.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
@@ -160,6 +163,7 @@
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameConfig.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="InvaderRocketSpawner.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="NotImplementedException.h" />

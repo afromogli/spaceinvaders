@@ -15,6 +15,7 @@ namespace SpaceInvaders
 
     bool isAlive() const;
     void setIsAlive(bool isAlive);
+
   protected:
     virtual bool isOutOfView() const;
 

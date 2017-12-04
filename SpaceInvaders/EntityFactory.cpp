@@ -11,6 +11,7 @@
 #include "ECannonRocket.h"
 #include "EInvaderRocket.h"
 #include "ELife.h"
+#include "EMysteryShip.h"
 
 namespace SpaceInvaders
 {
@@ -83,6 +84,13 @@ namespace SpaceInvaders
       entity = createLife(spriteSheetData->SpriteSheet);
       break;
     }
+    case EntityType::MysteryShip:
+    {
+      const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetData = dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data);
+      checkSpriteSheetDataPtr(spriteSheetData);
+      entity = createMysteryShip(spriteSheetData->SpriteSheet);
+      break;
+    }
     default:
       throw new UnsupportedException(L"The EntityType: " + std::to_wstring(type) + L" is not supported");
     }
@@ -130,6 +138,11 @@ namespace SpaceInvaders
   shared_ptr<Entity> EntityFactory::createLife(const shared_ptr<Texture> spriteSheet)
   {
     return shared_ptr<Entity>(new ELife(spriteSheet));
+  }
+
+  shared_ptr<Entity> EntityFactory::createMysteryShip(const shared_ptr<Texture> spriteSheet)
+  {
+    return shared_ptr<Entity>(new EMysteryShip(spriteSheet));
   }
 }
 

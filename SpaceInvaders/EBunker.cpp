@@ -11,7 +11,7 @@ namespace SpaceInvaders
     if (m_isAlive)
     {
       // TODO: fix better bunker damaga gfx, looks like crap right now
-      const Rect2D& clip = HouseAnimClipFrames[int((1.f - m_health / GameConfig::BunkerMaxHealth) * GameConfig::BunkerAnimFramesCount)];
+      const Rect2D& clip = BunkerAnimClipFrames[int((1.f - m_health / GameConfig::BunkerMaxHealth) * GameConfig::BunkerAnimFramesCount)];
       m_spriteSheet->render(getPosition(), clip, GameConfig::SpriteScale);
     }
   }
@@ -43,12 +43,12 @@ namespace SpaceInvaders
     return m_isAlive;
   }
 
-  Rect2D EBunker::HouseAnimClipFrames[GameConfig::BunkerAnimFramesCount] = {
-    Rect2D(Vector2f(316.f, 5.f), int(HouseSpriteSize.x), int(HouseSpriteSize.y)),
-    Rect2D(Vector2f(480.f, 3.f), int(HouseSpriteSize.x), int(HouseSpriteSize.y)),
-    Rect2D(Vector2f(480.f, 58.f), int(HouseSpriteSize.x), int(HouseSpriteSize.y)),
-    Rect2D(Vector2f(373.f, 4.f), int(HouseSpriteSize.x), int(HouseSpriteSize.y)),
-    Rect2D(Vector2f(428.f, 3.f), int(HouseSpriteSize.x), int(HouseSpriteSize.y))
+  Rect2D EBunker::BunkerAnimClipFrames[GameConfig::BunkerAnimFramesCount] = {
+    Rect2D(Vector2f(316.f, 5.f), int(BunkerSpriteSize.x), int(BunkerSpriteSize.y)),
+    Rect2D(Vector2f(480.f, 3.f), int(BunkerSpriteSize.x), int(BunkerSpriteSize.y)),
+    Rect2D(Vector2f(480.f, 58.f), int(BunkerSpriteSize.x), int(BunkerSpriteSize.y)),
+    Rect2D(Vector2f(373.f, 4.f), int(BunkerSpriteSize.x), int(BunkerSpriteSize.y)),
+    Rect2D(Vector2f(428.f, 3.f), int(BunkerSpriteSize.x), int(BunkerSpriteSize.y))
   };
 
   EBunker::EBunker(const shared_ptr<Texture> spriteSheet) : 

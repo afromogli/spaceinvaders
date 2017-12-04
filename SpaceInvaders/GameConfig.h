@@ -53,6 +53,9 @@ namespace SpaceInvaders
     static constexpr float InvaderAnimFrameLength = 500.f; // ms
     static constexpr float InvaderDrawingCooldown = 10.f;
 
+    // Mystery ship
+    static constexpr Vector2f MysteryShipSize = Vector2f(48.f, 16.f) * SpriteScale;
+
     // Invader group
     static constexpr Vector2f InvaderGroupStartPos = Vector2f(50.f, 50.f);
     static constexpr float InvaderHorisontalSpacing = InvaderLargeSize.x + 20.f;

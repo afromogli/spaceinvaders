@@ -8,8 +8,8 @@ namespace SpaceInvaders
 {
   EInvader::EInvader(const EntityType invaderType, const shared_ptr<Texture> spriteSheet) : 
     m_spriteSheet{ spriteSheet },
-    m_invaderType { invaderType }, 
-    m_currentFrame { 0 },
+    m_currentFrame { 0 }, 
+    m_invaderType { invaderType },
     m_isAlive { true },
     m_drawingCooldown { 0 }
   {
@@ -29,6 +29,8 @@ namespace SpaceInvaders
       return GameConfig::InvaderMediumSize;
     case EntityType::LargeInvader:
       return GameConfig::InvaderLargeSize;
+    case EntityType::MysteryShip:
+      return GameConfig::MysteryShipSize;
     default:
       throw new UnsupportedException(L"The invader type: " + std::to_wstring(invaderType) + L" is not supported.");
     }

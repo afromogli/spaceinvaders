@@ -37,14 +37,16 @@ namespace SpaceInvaders
      */
     void setDrawingCooldown(const float cooldown);
 
-  private:
+  protected:
     EInvader(EntityType invaderType, const shared_ptr<Texture> spriteSheet);
-    
     const shared_ptr<Texture> m_spriteSheet;
-    EntityType m_invaderType;
-    int m_currentFrame; // Is either 0 or 1
-    bool m_isAlive;
     float m_drawingCooldown;
+
+  private:
+    EntityType m_invaderType;
+    
+    bool m_isAlive;
+    int m_currentFrame; // Is either 0 or 1
 
     static Rect2D SmallInvaderClipFrames[GameConfig::InvaderAnimFramesCount];
     static Rect2D MediumInvaderClipFrames[GameConfig::InvaderAnimFramesCount];

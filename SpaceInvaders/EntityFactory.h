@@ -24,7 +24,7 @@ namespace SpaceInvaders
   };
 
   /**
-   * @brief Used for creating entity that needs spritesheet
+   * @brief Used for creating entity that needs spriteSheet
    */
   class CreateEntityWithSpritesheetData : public CreateEntityData
   {
@@ -67,7 +67,8 @@ namespace SpaceInvaders
     static shared_ptr<Entity> createHouse(const shared_ptr<Texture> spriteSheet);
     static shared_ptr<Entity> createCannonRocket();
     static shared_ptr<Entity> createInvaderRocket(const shared_ptr<Texture> spriteSheet);
-    static shared_ptr<Entity> createLife(const shared_ptr<Texture> spritesheet);
+    static shared_ptr<Entity> createLife(const shared_ptr<Texture> spriteSheet);
+    static shared_ptr<Entity> createMysteryShip(const shared_ptr<Texture> spriteSheet);
 
     static void checkSpriteSheetDataPtr(const shared_ptr<CreateEntityWithSpritesheetData>& data);
 

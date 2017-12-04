@@ -10,6 +10,8 @@
 #include "ECannonRocket.h"
 #include "EInvaderRocket.h"
 #include "PlayingUI.h"
+#include "EMysteryShip.h"
+#include "InvaderRocketSpawner.h"
 
 using namespace std;
 using namespace Common;
@@ -36,10 +38,6 @@ namespace SpaceInvaders
 
     bool hasInvaderGroupHasReachedBottom() const;
     void updatePlayingState(const float deltaTime);
-    EInvader& pickRandomInvader() const;
-    void spawnInvaderRocket() const;
-    EInvaderRocket& getDeadInvaderRocket() const;
-    bool canSpawnInvaderRocket() const;
 
     void resetScene(const bool isGameOver);
 
@@ -48,7 +46,8 @@ namespace SpaceInvaders
     shared_ptr<EInvaderGroup> m_invaderGroup;
     shared_ptr<EBunker> m_bunkers[BunkerCount];
     shared_ptr<ECannonRocket> m_cannonRocket;
-    shared_ptr<EInvaderRocket> m_invaderRockets[GameConfig::InvaderRocketsMaxCount];
+    vector<shared_ptr<EInvaderRocket>> m_invaderRockets;
+    shared_ptr<EMysteryShip> m_mysteryShip;
 
     Graphics& m_graphics;
     AudioLoader& m_audioSystem;
@@ -61,7 +60,7 @@ namespace SpaceInvaders
     int m_livesLeft;
     unique_ptr<PlayingUI> m_playingUI;
 
-    float m_invaderRocketSpawnCooldown;
+    unique_ptr<InvaderRocketSpawner> m_invaderRocketSpawner;
 
     Font m_gameOverFont;
     Text m_gameOverText;

@@ -29,8 +29,8 @@ namespace SpaceInvaders
   private:
     EBunker(const shared_ptr<Texture> spriteSheet);
 
-    static constexpr Vector2f HouseSpriteSize = Vector2f(44.f, 33.f);
-    static Rect2D HouseAnimClipFrames[GameConfig::BunkerAnimFramesCount];
+    static constexpr Vector2f BunkerSpriteSize = Vector2f(44.f, 33.f);
+    static Rect2D BunkerAnimClipFrames[GameConfig::BunkerAnimFramesCount];
 
     float m_health;
     const shared_ptr<Texture> m_spriteSheet;

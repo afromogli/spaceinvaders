@@ -17,7 +17,6 @@ namespace SpaceInvaders
     m_audioSystem{ audioSystem },
     m_score{ 0 },
     m_playingUI{ nullptr },
-    m_invaderRocketSpawnCooldown{ GameConfig::InvaderRocketSpawnMaxCooldown },
     m_livesLeft{ GameConfig::LivesMax },
     m_gameOverFont(GameConfig::GamesFontPath, 100),
     m_gameOverText(L"GAME OVER", Colors::Red, Vector2f(GameConfig::WinSize.x / 2 - 144.f, GameConfig::WinSize.y / 2 - 100.f), 36, 100, m_gameOverFont, graphics)
@@ -51,9 +50,13 @@ namespace SpaceInvaders
     {
       auto newInvaderRocket = std::dynamic_pointer_cast<EInvaderRocket>(Engine::EntityFactoryInstance->createEntity(EntityType::InvaderRocket, spriteSheetDataPtr));
       newInvaderRocket->setIsAlive(false);
-      m_invaderRockets[i] = newInvaderRocket;
+      m_invaderRockets.push_back(newInvaderRocket);
       m_allEntities.push_back(newInvaderRocket);
     }
+
+    m_mysteryShip = std::dynamic_pointer_cast<EMysteryShip>(Engine::EntityFactoryInstance->createEntity(EntityType::MysteryShip, spriteSheetDataPtr));
+
+    m_invaderRocketSpawner = std::make_unique<InvaderRocketSpawner>(m_invaderGroup, m_invaderRockets);
     /*m_gameoverSound = audioSystem.createAndLoadAudioClip("Sounds\\gameover.wav");*/
   }
 
@@ -224,15 +227,7 @@ namespace SpaceInvaders
     }
     updateCannonRocket();
     updateInvaderRockets();
-    if (m_invaderRocketSpawnCooldown <= 0.f && canSpawnInvaderRocket())
-    {
-      spawnInvaderRocket();
-      m_invaderRocketSpawnCooldown = float(Random::getValue(0, int(GameConfig::InvaderRocketSpawnMaxCooldown)));
-    }
-    else
-    {
-      m_invaderRocketSpawnCooldown -= deltaTime;
-    }
+    m_invaderRocketSpawner->trySpawn(deltaTime);
 
     // Check if player won round
     if (m_invaderGroup->areAllInvadersDead())
@@ -247,47 +242,7 @@ namespace SpaceInvaders
     }
   }
 
-  EInvader& MainScene::pickRandomInvader() const
-  {
-    const int col = Random::getValue(0, GameConfig::InvaderColumns - 1);
-    const int row = Random::getValue(0, GameConfig::InvaderRows - 1);
-    EInvader& invader = m_invaderGroup->getClosestAliveInvaderAtPosition(col, row);
-    return invader;
-  }
-
-  void MainScene::spawnInvaderRocket() const
-  {
-    EInvader invader = pickRandomInvader();
-    const Vector2f rocketStartPosition = invader.getRect().getCenter();
-    EInvaderRocket& newRocket = getDeadInvaderRocket();
-    newRocket.setPosition(rocketStartPosition);
-    newRocket.setIsAlive(true);
-  }
-
-  EInvaderRocket& MainScene::getDeadInvaderRocket() const
-  {
-    for (int i = 0; i < GameConfig::InvaderRocketsMaxCount; i++)
-    {
-      const auto currRocket = m_invaderRockets[i];
-      if (currRocket->isAlive() == false)
-      {
-        return *currRocket;
-      }
-    }
-    throw new ElementNotFoundInCollectionException("Could not find any dead invader rocket");
-  }
-
-  bool MainScene::canSpawnInvaderRocket() const
-  {
-    for (int i = 0; i < GameConfig::InvaderRocketsMaxCount; i++)
-    {
-      if (m_invaderRockets[i]->isAlive() == false)
-      {
-        return true;
-      }
-    }
-    return false;
-  }
+  
 
   void MainScene::resetScene(const bool isGameOver)
   {
