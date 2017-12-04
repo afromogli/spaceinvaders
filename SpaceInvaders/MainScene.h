@@ -34,13 +34,14 @@ namespace SpaceInvaders
 
     enum GameState { Playing, Win, GameOver };
 
+    bool hasInvaderGroupHasReachedBottom() const;
     void updatePlayingState(const float deltaTime);
     EInvader& pickRandomInvader() const;
     void spawnInvaderRocket() const;
     EInvaderRocket& getDeadInvaderRocket() const;
     bool canSpawnInvaderRocket() const;
 
-    void resetScene();
+    void resetScene(const bool isGameOver);
 
     vector<shared_ptr<Entity>> m_allEntities;
     shared_ptr<ECannon> m_cannon;

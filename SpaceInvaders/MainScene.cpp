@@ -3,10 +3,10 @@
 #include "MainScene.h"
 #include "Engine.h"
 #include "GameConfig.h"
-#include <iostream>
 #include "Random.h"
 #include "ElementNotFoundInCollectionException.h"
 #include "UnsupportedException.h"
+#include <cassert>
 
 using namespace Common;
 
@@ -98,7 +98,7 @@ namespace SpaceInvaders
         m_currentState = Playing;
         /* m_winSound->stop();
          m_gameoverSound->stop();*/
-        resetScene();
+        resetScene(true);
       }
       break;
     default:;
@@ -209,6 +209,13 @@ namespace SpaceInvaders
     }
   }
 
+  bool MainScene::hasInvaderGroupHasReachedBottom() const
+  {
+    const EInvader* invader = m_invaderGroup->getAliveInvaderAtMostBottomPosition();
+    assert(invader != nullptr);
+    return invader->getPosition().y + invader->getRect().getHeight() >= m_cannon->getPosition().y;
+  }
+
   void MainScene::updatePlayingState(const float deltaTime)
   {
     for (auto entity : m_allEntities)
@@ -225,6 +232,18 @@ namespace SpaceInvaders
     else
     {
       m_invaderRocketSpawnCooldown -= deltaTime;
+    }
+
+    // Check if player won round
+    if (m_invaderGroup->areAllInvadersDead())
+    {
+      resetScene(false);
+      // TODO: increase invader velocity
+    }
+
+    if (hasInvaderGroupHasReachedBottom())
+    {
+      m_currentState = GameOver;
     }
   }
 
@@ -270,21 +289,26 @@ namespace SpaceInvaders
     return false;
   }
 
-  void MainScene::resetScene()
+  void MainScene::resetScene(const bool isGameOver)
   {
-    m_livesLeft = GameConfig::LivesMax;
-    m_score = 0;
-    m_invaderGroup->reset();
-    m_cannon->setPosition(GameConfig::InitialCannonPosition);
-    for (int i = 0; i < HouseCount; i++) {
-      m_houses[i]->reset();
+    if (isGameOver)
+    {
+      m_livesLeft = GameConfig::LivesMax;
+      m_score = 0;
+      m_playingUI->setLivesLeft(m_livesLeft);
+      m_playingUI->setScore(m_score);
+      m_cannon->setPosition(GameConfig::InitialCannonPosition);
+      for (int i = 0; i < HouseCount; i++) {
+        m_houses[i]->reset();
+      }
     }
+
+    m_invaderGroup->reset();
+    
     for (int i = 0; i < GameConfig::InvaderRocketsMaxCount; i++)
     {
       m_invaderRockets[i]->setIsAlive(false);
-    }
-    m_playingUI->setLivesLeft(m_livesLeft);
-    m_playingUI->setScore(m_score);
+    }   
   }
 }
 

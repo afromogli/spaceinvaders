@@ -89,6 +89,34 @@ namespace SpaceInvaders
     }
   }
 
+  EInvader* EInvaderGroup::getAliveInvaderAtMostBottomPosition() const
+  {
+    for (int y = GameConfig::InvaderRows-1; y >= 0; y--)
+    {
+      for (int x = 0; x < GameConfig::InvaderColumns; x++)
+      {
+        auto currInvader = getInvader(x, y);
+        if (currInvader->isAlive())
+        {
+          return currInvader.get();
+        }
+      }
+    }
+    return nullptr;
+  }
+
+  bool EInvaderGroup::areAllInvadersDead() const
+  {
+    for (int i = 0; i < GameConfig::InvaderTotalCount; i++)
+    {
+      if (m_invaders[i]->isAlive())
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+
   EInvaderGroup::EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos) : 
     m_spriteSheet{ spriteSheet }, 
     m_timeLeftInAnimationFrame{ GameConfig::InvaderAnimFrameLength }, 

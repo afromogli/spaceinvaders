@@ -26,6 +26,8 @@ namespace SpaceInvaders
     EInvader* tryFindCollidingInvader(const ECannonRocket& rocket) const;
     EInvader& getClosestAliveInvaderAtPosition(const int column, const int row);
     void reset();
+    EInvader* getAliveInvaderAtMostBottomPosition() const;
+    bool areAllInvadersDead() const;
 
   private:
     explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
