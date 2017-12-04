@@ -55,7 +55,7 @@ namespace SpaceInvaders
     // Invader group
     static constexpr Vector2f InvaderGroupStartPos = Vector2f(50.f, 50.f);
     static constexpr float InvaderHorisontalSpacing = InvaderLargeSize.x + 20.f;
-    static constexpr float InvaderVerticalSpacing = InvaderLargeSize.y + 5.f;
+    static constexpr float InvaderVerticalSpacing = InvaderLargeSize.y + 10.f;
 
     static constexpr int InvaderRows = 5;
     static constexpr int InvaderColumns = 11;

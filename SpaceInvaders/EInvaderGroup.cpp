@@ -14,16 +14,19 @@ namespace SpaceInvaders
     for (int i = 0; i < GameConfig::InvaderTotalCount; i++)
     {
       shared_ptr<EInvader> currInvader = m_invaders[i];
-      currInvader->update(deltaTime);
-      if (changeAnimFrame)
+      if (currInvader->isAlive())
       {
-        currInvader->changeAnimationFrame();
-      }
-      if (changeDirection)
-      {
-        currInvader->changeDirection();
-        currInvader->setPosition(currInvader->getPosition() + Vector2f(0.f, GameConfig::InvaderGroupMoveDownDistance));
-      }
+        currInvader->update(deltaTime);
+        if (changeAnimFrame)
+        {
+          currInvader->changeAnimationFrame();
+        }
+        if (changeDirection)
+        {
+          currInvader->changeDirection();
+          currInvader->setPosition(currInvader->getPosition() + Vector2f(0.f, GameConfig::InvaderGroupMoveDownDistance));
+        }
+      }      
     }
   }
 
@@ -87,7 +90,7 @@ namespace SpaceInvaders
     {
       for (int x = 0; x < GameConfig::InvaderColumns; x++)
       {
-        auto currInvader = m_invaders[y * GameConfig::InvaderColumns + x];
+        shared_ptr<EInvader> currInvader = m_invaders[y * GameConfig::InvaderColumns + x];
         currInvader->setPosition(getInvaderStartPosition(currInvader->getType(), y, x));
         currInvader->setIsAlive(true);
         if (isGameOver)
@@ -98,13 +101,13 @@ namespace SpaceInvaders
     }
   }
 
-  EInvader* EInvaderGroup::getAliveInvaderAtMostBottomPosition() const
+  EInvader* EInvaderGroup::getFirstAliveInvaderFromTheBottom() const
   {
     for (int y = GameConfig::InvaderRows-1; y >= 0; y--)
     {
       for (int x = 0; x < GameConfig::InvaderColumns; x++)
       {
-        auto currInvader = getInvader(x, y);
+        shared_ptr<EInvader> currInvader = getInvader(x, y);
         if (currInvader->isAlive())
         {
           return currInvader.get();
@@ -142,7 +145,7 @@ namespace SpaceInvaders
     m_changeDirectionCooldown{ ChangeDirectionCooldownLength },
     m_currentInvaderVelocity { GameConfig::InvaderStartingVelocity }
   {
-    const auto spriteSheetDataPtr = std::make_shared<CreateEntityWithSpritesheetData>(m_spriteSheet);
+    const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetDataPtr = std::make_shared<CreateEntityWithSpritesheetData>(m_spriteSheet);
 
     for (int y = 0; y < GameConfig::InvaderRows; y++)
     {
@@ -150,7 +153,7 @@ namespace SpaceInvaders
       {
         const int currIndex = y * GameConfig::InvaderColumns + x;
         const EntityType type = getInvaderType(y);
-        auto currInvader = std::dynamic_pointer_cast<EInvader>(Engine::EntityFactoryInstance->createEntity(type, spriteSheetDataPtr));
+        shared_ptr<EInvader> currInvader = std::dynamic_pointer_cast<EInvader>(Engine::EntityFactoryInstance->createEntity(type, spriteSheetDataPtr));
         currInvader->setPosition(getInvaderStartPosition(type, y, x));
         m_invaders[currIndex] = currInvader;
       }
@@ -168,12 +171,48 @@ namespace SpaceInvaders
     return changeAnimFrame;
   }
 
+  const EInvader* EInvaderGroup::getFirstAliveInvaderFromTheLeft() const
+  {
+    for (int x = 0; x < GameConfig::InvaderColumns; x++)
+    {
+      for (int y = 0; y < GameConfig::InvaderRows; y++)
+      {
+        shared_ptr<EInvader> currInv = getInvader(x, y);
+        if (currInv->isAlive())
+        {
+          return currInv.get();
+        }
+      }
+    }
+
+    return nullptr;
+  }
+
+  const EInvader* EInvaderGroup::getFirstAliveInvaderFromTheRight() const
+  {
+    for (int x = GameConfig::InvaderColumns-1; x >= 0; x--)
+    {
+      for (int y = 0; y < GameConfig::InvaderRows; y++)
+      {
+        shared_ptr<EInvader> currInv = getInvader(x, y);
+        if (currInv->isAlive())
+        {
+          return currInv.get();
+        }
+      }
+    }
+    return nullptr;
+  }
+
   bool EInvaderGroup::isChangeDirectionNeeded(const float& deltaTime)
   {
-    const shared_ptr<EInvader> bottomLeftInvader = m_invaders[(GameConfig::InvaderRows - 1) * GameConfig::InvaderColumns];
-    const shared_ptr<EInvader> bottomRightInvader = m_invaders[(GameConfig::InvaderRows - 1) * GameConfig::InvaderColumns + GameConfig::InvaderColumns - 1];
+    const EInvader* mostLeftInvader = getFirstAliveInvaderFromTheLeft();
+    const EInvader* mostRightInvader = getFirstAliveInvaderFromTheRight();
 
-    const bool changeDirection = m_changeDirectionCooldown <= 0 && (bottomLeftInvader->getPosition().x <= GameConfig::InvaderGroupLeftWall || bottomRightInvader->getPosition().x + bottomRightInvader->getRect().getWidth() >= GameConfig::InvaderGroupRightWall);
+    assert(mostLeftInvader != nullptr);
+    assert(mostRightInvader != nullptr);
+
+    const bool changeDirection = m_changeDirectionCooldown <= 0 && (mostLeftInvader->getPosition().x <= GameConfig::InvaderGroupLeftWall || mostRightInvader->getPosition().x + mostRightInvader->getRect().getWidth() >= GameConfig::InvaderGroupRightWall);
 
     if (changeDirection)
     {

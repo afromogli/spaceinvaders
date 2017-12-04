@@ -211,7 +211,7 @@ namespace SpaceInvaders
 
   bool MainScene::hasInvaderGroupHasReachedBottom() const
   {
-    const EInvader* invader = m_invaderGroup->getAliveInvaderAtMostBottomPosition();
+    const EInvader* invader = m_invaderGroup->getFirstAliveInvaderFromTheBottom();
     assert(invader != nullptr);
     return invader->getPosition().y + invader->getRect().getHeight() >= m_cannon->getPosition().y;
   }
