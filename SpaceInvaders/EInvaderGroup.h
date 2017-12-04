@@ -29,6 +29,7 @@ namespace SpaceInvaders
      * @param isGameOver Whether reset is caused by game over state or not.
      */
     void reset(const bool isGameOver);
+    static float getDrawingCooldown(const int column, const int row);
     /**
      * @brief Returns the first alive invader starting from the bottom row and upwards.
      * @return First alive invader starting from the bottom row and upwards.

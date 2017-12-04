@@ -51,7 +51,8 @@ namespace SpaceInvaders
     static constexpr Vector2f InvaderLargeSize = Vector2f(24.f, 16.f ) * SpriteScale;
     static constexpr uint8_t InvaderAnimFramesCount = 2;
     static constexpr float InvaderAnimFrameLength = 500.f; // ms
-    
+    static constexpr float InvaderDrawingCooldown = 10.f;
+
     // Invader group
     static constexpr Vector2f InvaderGroupStartPos = Vector2f(50.f, 50.f);
     static constexpr float InvaderHorisontalSpacing = InvaderLargeSize.x + 20.f;

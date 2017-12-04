@@ -86,19 +86,22 @@ namespace SpaceInvaders
       m_currentInvaderVelocity = GameConfig::InvaderStartingVelocity;
     }
 
-    for (int y = 0; y < GameConfig::InvaderRows; y++)
+    for (int y = GameConfig::InvaderRows-1; y >= 0; y--)
     {
       for (int x = 0; x < GameConfig::InvaderColumns; x++)
       {
-        shared_ptr<EInvader> currInvader = m_invaders[y * GameConfig::InvaderColumns + x];
+        shared_ptr<EInvader> currInvader = getInvader(x, y);
         currInvader->setPosition(getInvaderStartPosition(currInvader->getType(), y, x));
         currInvader->setIsAlive(true);
-        if (isGameOver)
-        {
-          currInvader->setVelocity(Vector2f(m_currentInvaderVelocity, 0));
-        }
+        currInvader->setDrawingCooldown(getDrawingCooldown(x, GameConfig::InvaderRows - 1 - y));
+        currInvader->setVelocity(Vector2f(m_currentInvaderVelocity, 0));
       }
     }
+  }
+  
+  float EInvaderGroup::getDrawingCooldown(const int column, const int row)
+  {
+    return GameConfig::InvaderColumns*row*GameConfig::InvaderDrawingCooldown + column*GameConfig::InvaderDrawingCooldown;
   }
 
   EInvader* EInvaderGroup::getFirstAliveInvaderFromTheBottom() const
@@ -147,7 +150,7 @@ namespace SpaceInvaders
   {
     const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetDataPtr = std::make_shared<CreateEntityWithSpritesheetData>(m_spriteSheet);
 
-    for (int y = 0; y < GameConfig::InvaderRows; y++)
+    for (int y = GameConfig::InvaderRows-1; y >= 0; y--)
     {
       for (int x = 0; x < GameConfig::InvaderColumns; x++)
       {
@@ -155,6 +158,7 @@ namespace SpaceInvaders
         const EntityType type = getInvaderType(y);
         shared_ptr<EInvader> currInvader = std::dynamic_pointer_cast<EInvader>(Engine::EntityFactoryInstance->createEntity(type, spriteSheetDataPtr));
         currInvader->setPosition(getInvaderStartPosition(type, y, x));
+        currInvader->setDrawingCooldown(getDrawingCooldown(x, GameConfig::InvaderRows - 1 - y));
         m_invaders[currIndex] = currInvader;
       }
     }

@@ -10,7 +10,8 @@ namespace SpaceInvaders
     m_spriteSheet{ spriteSheet },
     m_invaderType { invaderType }, 
     m_currentFrame { 0 },
-    m_isAlive { true }
+    m_isAlive { true },
+    m_drawingCooldown { 0 }
   {
     m_rect.setSize(getSizeForType(invaderType));
     m_velocity = Vector2f(GameConfig::InvaderStartingVelocity, 0); // Initial speed
@@ -54,14 +55,19 @@ namespace SpaceInvaders
     const Vector2f nextPosition = getPosition() + m_velocity*deltaSeconds;
     assert(nextPosition.x >= 0 && nextPosition.x + m_rect.getWidth() < GameConfig::WinSize.x);
     setPosition(nextPosition);
+
+    if (m_drawingCooldown > 0)
+    {
+      m_drawingCooldown -= deltaTime;
+    }
   }
 
   void EInvader::draw(Graphics & graphics)
   {
-    if (isAlive())
+    if (isAlive() && m_drawingCooldown <= 0)
     {
       m_spriteSheet->render(getPosition(), getAnimationClipForType(m_invaderType, m_currentFrame), GameConfig::SpriteScale);
-    }
+    }    
   }
 
   void EInvader::changeDirection()
@@ -122,6 +128,11 @@ namespace SpaceInvaders
       throw new UnsupportedException(L"Unsupported invader type");
     }
     return score;
+  }
+
+  void EInvader::setDrawingCooldown(const float cooldown)
+  {
+    m_drawingCooldown = cooldown;
   }
 
   Rect2D EInvader::SmallInvaderClipFrames[GameConfig::InvaderAnimFramesCount] = { Rect2D(Vector2f(7.f, 18.f), 16, 16), Rect2D(Vector2f(40.f, 18.f), 16, 16) };
