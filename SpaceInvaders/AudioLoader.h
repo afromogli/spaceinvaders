@@ -17,7 +17,7 @@ namespace Common
       void play();
       void stop();
 
-      void load(const std::string filePath);
+      void load(const std::wstring filePath);
       void freeMem() const;
 
    private:
@@ -32,7 +32,7 @@ namespace Common
 
       bool init();
 
-      std::shared_ptr<AudioClip> createAndLoadAudioClip(const std::string filePath);
+      std::shared_ptr<AudioClip> createAndLoadAudioClip(const std::wstring filePath);
 
 
    private:

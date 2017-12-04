@@ -18,9 +18,9 @@ namespace Common
       }      
    }
 
-   void AudioClip::load(const std::string filePath)
+   void AudioClip::load(const std::wstring filePath)
    {
-      m_mixChunk = Mix_LoadWAV(filePath.c_str());
+      m_mixChunk = Mix_LoadWAV(std::string(filePath.begin(), filePath.end()).c_str());
    }
    void AudioClip::freeMem() const
    {
@@ -45,9 +45,9 @@ namespace Common
       return true;
    }
 
-   std::shared_ptr<AudioClip> AudioLoader::createAndLoadAudioClip(const std::string filePath)
+   std::shared_ptr<AudioClip> AudioLoader::createAndLoadAudioClip(const std::wstring filePath)
    {
-      std::shared_ptr<AudioClip> newClip = std::shared_ptr<AudioClip>(new AudioClip());
+      std::shared_ptr<AudioClip> newClip = std::make_shared<AudioClip>();
       newClip->load(filePath);
       m_clips.push_back(newClip);
 

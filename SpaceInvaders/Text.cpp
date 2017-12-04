@@ -1,9 +1,10 @@
 #include "Text.h"
 #include <SDL_ttf.h>
+#include "String.h"
 
 namespace Common
 {
-  Text::Text(const string text, const Color color, const Vector2f position, const int charWidth,
+  Text::Text(const wstring text, const Color color, const Vector2f position, const int charWidth,
     const int charHeight, Font& font, Graphics& graphics) :
     m_text{ text },
     m_color{ color },
@@ -34,7 +35,7 @@ namespace Common
     SDL_RenderCopy(graphics.getRenderer(), m_texture, nullptr, &m_rect);
   }
 
-  void Text::setText(const string newText)
+  void Text::setText(const wstring newText)
   {
     if (m_texture != nullptr)
     {
@@ -55,9 +56,9 @@ namespace Common
     return float(m_rect.w);
   }
 
-  SDL_Texture* Text::createTexture(Graphics& graphics, const Font& font, const string text, const Color color)
+  SDL_Texture* Text::createTexture(Graphics& graphics, const Font& font, const wstring text, const Color color)
   {
-    SDL_Surface *surface = TTF_RenderText_Solid(font.get(), text.c_str(), { color.R, color.G, color.B, color.A });
+    SDL_Surface *surface = TTF_RenderText_Solid(font.get(), to_string(text).c_str(), { color.R, color.G, color.B, color.A });
     SDL_Texture* texture = SDL_CreateTextureFromSurface(graphics.getRenderer(), surface);
     SDL_FreeSurface(surface);
     return texture;

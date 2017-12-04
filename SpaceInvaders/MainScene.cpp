@@ -20,10 +20,10 @@ namespace SpaceInvaders
     m_invaderRocketSpawnCooldown{ GameConfig::InvaderRocketSpawnMaxCooldown },
     m_livesLeft{ GameConfig::LivesMax },
     m_gameOverFont(GameConfig::GamesFontPath, 100),
-    m_gameOverText("GAME OVER", Colors::Red, Vector2f(GameConfig::WinSize.x / 2 - 144.f, GameConfig::WinSize.y / 2 - 100.f), 36, 100, m_gameOverFont, graphics)
+    m_gameOverText(L"GAME OVER", Colors::Red, Vector2f(GameConfig::WinSize.x / 2 - 144.f, GameConfig::WinSize.y / 2 - 100.f), 36, 100, m_gameOverFont, graphics)
   {
     m_spriteSheet = std::make_shared<Texture>(graphics);
-    m_spriteSheet->loadFromFile("Textures\\spritesheet.png");
+    m_spriteSheet->loadFromFile(L"Textures\\spritesheet.png");
 
     m_playingUI = std::make_unique<PlayingUI>(graphics, m_spriteSheet, m_livesLeft);
 
@@ -145,7 +145,7 @@ namespace SpaceInvaders
     }
     default:
     {
-      throw new UnsupportedException("Unsupported game state");
+      throw new UnsupportedException(L"Unsupported game state");
     }
     }
   }

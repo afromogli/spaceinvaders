@@ -1,12 +1,13 @@
 #pragma once
 #include <stdexcept>
+#include "String.h"
 
 namespace Common
 {
   class ElementNotFoundInCollectionException : public std::logic_error
   {
   public:
-    explicit ElementNotFoundInCollectionException(const std::string& message) : logic_error(message)
+    explicit ElementNotFoundInCollectionException(const std::wstring& message) : logic_error(Common::to_string(message))
     {
     }
 

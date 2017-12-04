@@ -2,9 +2,9 @@
 
 namespace Common
 {
-  Font::Font(std::string fontFilePath, const int pointSize) : m_font{ nullptr }
+  Font::Font(std::wstring fontFilePath, const int pointSize) : m_font{ nullptr }
   {
-    m_font = TTF_OpenFont(fontFilePath.c_str(), pointSize);
+    m_font = TTF_OpenFont(std::string(fontFilePath.begin(), fontFilePath.end()).c_str(), pointSize);
     if (m_font == nullptr)
     {
       fprintf(stderr, "error: font not found\n");

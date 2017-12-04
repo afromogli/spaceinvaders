@@ -8,7 +8,7 @@ namespace Common
   class Text : public Object
   {
   public:
-    Text(const string text, const Color color, const Vector2f position, const int charWidth, const int charHeight, Font& font, Graphics& graphics);
+    Text(const wstring text, const Color color, const Vector2f position, const int charWidth, const int charHeight, Font& font, Graphics& graphics);
     ~Text();
 
     void update(const float& deltaTime) override;
@@ -18,15 +18,15 @@ namespace Common
       * @brief Sets new text
       * @param newText The new text
       */
-    void setText(const string newText);
+    void setText(const wstring newText);
 
     Vector2f getPosition() const;
     float getWidth() const;
 
   private:
-    static SDL_Texture* createTexture(Graphics& graphics, const Font& font, const string text, const Color color);
+    static SDL_Texture* createTexture(Graphics& graphics, const Font& font, const wstring text, const Color color);
 
-    string m_text;
+    wstring m_text;
     Color m_color;
     int m_charWidth;
     int m_charHeight;

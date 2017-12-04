@@ -7,7 +7,7 @@ namespace Common
   class Font
   {
   public:
-    Font(std::string fontFilePath, const int pointSize);
+    Font(std::wstring fontFilePath, const int pointSize);
     ~Font();
 
     TTF_Font* get() const;

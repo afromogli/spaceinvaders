@@ -18,7 +18,7 @@ namespace Common
     free();
   }
 
-  bool Texture::loadFromFile(std::string path)
+  bool Texture::loadFromFile(std::wstring path)
   {
     //Get rid of preexisting texture
     free();
@@ -27,16 +27,16 @@ namespace Common
     SDL_Texture* newTexture = nullptr;
 
     //Load image at specified path
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+    SDL_Surface* loadedSurface = IMG_Load(std::string(path.begin(), path.end()).c_str());
     if (loadedSurface == nullptr)
     {
-      printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+      printf("Unable to load image %ls! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     }
     else
     {
       //Color key image
       // Png:s have own alpha channel so don't need to set color key (transparent pixel)
-      if (ends_with(to_lower(path), ".png") == false)
+      if (ends_with(to_lower(path), L".png") == false)
       {
         SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
       }
@@ -45,7 +45,7 @@ namespace Common
       newTexture = SDL_CreateTextureFromSurface(m_graphics.getRenderer(), loadedSurface);
       if (newTexture == nullptr)
       {
-        printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+        printf("Unable to create texture from %ws! SDL Error: %s\n", path.c_str(), SDL_GetError());
       }
       else
       {

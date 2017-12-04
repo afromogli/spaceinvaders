@@ -8,9 +8,9 @@ namespace SpaceInvaders
 {
   PlayingUI::PlayingUI(Graphics& graphics, const shared_ptr<Texture> spriteSheet, const int livesLeft) :
     m_font(GameConfig::GamesFontPath, 25),
-    m_scoreLabel("SCORE", Colors::White, Vector2f(20.f, TextUpperPadding), CharWidth, CharHeight, m_font, graphics),
-    m_scoreValue("0", Colors::LawnGreen, Vector2f(20.f + CharWidth*6, TextUpperPadding), CharWidth, CharHeight, m_font, graphics), // TODO: fix proper green color
-    m_livesLeftLabel("LIVES", Colors::White, Vector2f(GameConfig::WinSize.x-300.f, TextUpperPadding), CharWidth, CharHeight, m_font, graphics),
+    m_scoreLabel(L"SCORE", Colors::White, Vector2f(20.f, TextUpperPadding), CharWidth, CharHeight, m_font, graphics),
+    m_scoreValue(L"0", Colors::LawnGreen, Vector2f(20.f + CharWidth*6, TextUpperPadding), CharWidth, CharHeight, m_font, graphics), // TODO: fix proper green color
+    m_livesLeftLabel(L"LIVES", Colors::White, Vector2f(GameConfig::WinSize.x-300.f, TextUpperPadding), CharWidth, CharHeight, m_font, graphics),
     m_livesLeft { livesLeft },
     m_spriteSheet { spriteSheet }
   {
@@ -36,7 +36,7 @@ namespace SpaceInvaders
 
   void PlayingUI::setScore(const int newScore)
   {
-    m_scoreValue.setText(to_string(newScore));
+    m_scoreValue.setText(to_wstring(newScore));
   }
 
   void PlayingUI::setLivesLeft(const int livesLeft)

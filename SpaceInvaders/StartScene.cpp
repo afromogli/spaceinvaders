@@ -6,8 +6,8 @@
 namespace SpaceInvaders
 {
 	StartScene::StartScene(Graphics& graphics) : m_font(GameConfig::GamesFontPath, 200),
-		m_spaceInvadersText("Space Invaders", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 36, 100, m_font, graphics),
-		m_instructionsText("Press enter to start", Colors::White, Vector2f(GameConfig::WinSize.x / 4 + 100, GameConfig::WinSize.y / 2), 16, 60, m_font, graphics)
+		m_spaceInvadersText(L"Space Invaders", Colors::LawnGreen, Vector2f(GameConfig::WinSize.x / 4, GameConfig::WinSize.y / 2 - 100), 36, 100, m_font, graphics),
+		m_instructionsText(L"Press enter to start", Colors::White, Vector2f(GameConfig::WinSize.x / 4 + 100, GameConfig::WinSize.y / 2), 16, 60, m_font, graphics)
 	{
 	}
 

@@ -25,7 +25,7 @@ namespace Common
      * @brief Loads image at specified path
      * @param path The path to the texture file
      */
-    bool loadFromFile(std::string path);
+    bool loadFromFile(std::wstring path);
 
     /** 
      * @brief Renders texture at given point and only the part that is is defined by the clip param.

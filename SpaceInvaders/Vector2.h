@@ -62,6 +62,6 @@ namespace Common
 
     static Vector2f Vector2f::getRandomizedVector(int xMinValue, int xMaxValue, int yMinValue, int yMaxValue);
 
-    std::string toString() const;
+    std::wstring toString() const;
   };
 }

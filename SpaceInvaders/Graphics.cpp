@@ -104,10 +104,10 @@ namespace Common {
     return m_renderer;
   }
 
-  SDL_Texture* Graphics::loadTexture(const std::string &str) const
+  SDL_Texture* Graphics::loadTexture(const std::wstring &str) const
   {
     // Load image as SDL_Surface
-    SDL_Surface* surface = SDL_LoadBMP(str.c_str());
+    SDL_Surface* surface = SDL_LoadBMP(string(str.begin(), str.end()).c_str());
 
     // SDL_Surface is just the raw pixels
     // Convert it to a hardware-optimzed texture so we can render it

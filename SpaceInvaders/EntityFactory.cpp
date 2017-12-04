@@ -52,7 +52,7 @@ namespace SpaceInvaders
       const shared_ptr<CreateInvaderGroupEntityData> invaderGroupData = std::dynamic_pointer_cast<CreateInvaderGroupEntityData>(data);
       if (invaderGroupData.use_count() == 0)
       {
-        throw new InvalidCastException("Invalid CreateEntityData type provided");
+        throw new InvalidCastException(L"Invalid CreateEntityData type provided");
       }
       entity = createInvaderGroup(invaderGroupData->SpriteSheet, invaderGroupData->UpperLeftStartPos);
       break;
@@ -84,7 +84,7 @@ namespace SpaceInvaders
       break;
     }
     default:
-      throw new UnsupportedException("The EntityType: " + std::to_string(type) + " is not supported");
+      throw new UnsupportedException(L"The EntityType: " + std::to_wstring(type) + L" is not supported");
     }
     return entity;
   }
@@ -93,7 +93,7 @@ namespace SpaceInvaders
   {
     if (data.use_count() == 0)
     {
-      throw new InvalidCastException("Invalid CreateEntityData type provided");
+      throw new InvalidCastException(L"Invalid CreateEntityData type provided");
     }
   }
 

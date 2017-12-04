@@ -1,15 +1,23 @@
 #pragma once
 #include <algorithm>
-#include <string>
 
-inline bool ends_with(std::string const & value, std::string const & ending)
+namespace Common
 {
-  if (ending.size() > value.size()) return false;
-  return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
+  static bool ends_with(const std::wstring& value, const std::wstring& ending)
+  {
+    if (ending.size() > value.size()) return false;
+    return equal(ending.rbegin(), ending.rend(), value.rbegin());
+  }
+
+  static std::wstring to_lower(std::wstring value)
+  {
+    transform(value.begin(), value.end(), value.begin(), tolower);
+    return value;
+  }
+
+  static std::string to_string(std::wstring value)
+  {
+    return std::string(value.begin(), value.end());
+  }
 }
 
-inline std::string to_lower(std::string value)
-{
-  std::transform(value.begin(), value.end(), value.begin(), ::tolower);
-  return value;
-}

@@ -29,13 +29,13 @@ namespace Common
     return Vector2f(float(Random::getValue(xMinValue, xMaxValue)), float(Random::getValue(yMinValue, yMaxValue)));
   }
 
-  std::string Vector2f::toString() const
+  std::wstring Vector2f::toString() const
   {
     std::ostringstream outStream;
     outStream << "x: ";
     outStream << x;
     outStream << " y: ";
     outStream << y;
-    return outStream.str();
+    return std::wstring(outStream.str().begin(), outStream.str().end());
   }
 }

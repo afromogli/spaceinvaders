@@ -29,7 +29,7 @@ namespace SpaceInvaders
     case EntityType::LargeInvader:
       return GameConfig::InvaderLargeSize;
     default:
-      throw new UnsupportedException("The invader type: " + std::to_string(invaderType) + " is not supported.");
+      throw new UnsupportedException(L"The invader type: " + std::to_wstring(invaderType) + L" is not supported.");
     }
   }
 
@@ -44,7 +44,7 @@ namespace SpaceInvaders
     case EntityType::LargeInvader:
       return LargeInvaderClipFrames[currentFrame];
     default:
-      throw new UnsupportedException("The invader type: " + std::to_string(invaderType) + " is not supported.");
+      throw new UnsupportedException(L"The invader type: " + std::to_wstring(invaderType) + L" is not supported.");
     }
   }
 
@@ -116,7 +116,7 @@ namespace SpaceInvaders
       score = GameConfig::LargeInvaderScore;
       break;
     default:
-      throw new UnsupportedException("Unsupported invader type");
+      throw new UnsupportedException(L"Unsupported invader type");
     }
     return score;
   }
