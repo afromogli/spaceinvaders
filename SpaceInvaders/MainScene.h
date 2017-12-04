@@ -6,7 +6,7 @@
 #include "ECannon.h"
 #include "Texture.h"
 #include "EInvaderGroup.h"
-#include "EHouse.h"
+#include "EBunker.h"
 #include "ECannonRocket.h"
 #include "EInvaderRocket.h"
 #include "PlayingUI.h"
@@ -27,7 +27,7 @@ namespace SpaceInvaders
     void draw(Graphics& graphics) override;
 
   private:
-    static constexpr int HouseCount = 4;
+    static constexpr int BunkerCount = 4;
     
     void updateInvaderRockets();
     void updateCannonRocket();
@@ -46,7 +46,7 @@ namespace SpaceInvaders
     vector<shared_ptr<Entity>> m_allEntities;
     shared_ptr<ECannon> m_cannon;
     shared_ptr<EInvaderGroup> m_invaderGroup;
-    shared_ptr<EHouse> m_houses[HouseCount];
+    shared_ptr<EBunker> m_bunkers[BunkerCount];
     shared_ptr<ECannonRocket> m_cannonRocket;
     shared_ptr<EInvaderRocket> m_invaderRockets[GameConfig::InvaderRocketsMaxCount];
 

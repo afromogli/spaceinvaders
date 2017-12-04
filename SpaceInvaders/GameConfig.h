@@ -24,7 +24,7 @@ namespace SpaceInvaders
     static constexpr int SmallInvaderScore = 40;
     static constexpr int MediumInvaderScore = 20;
     static constexpr int LargeInvaderScore = 10;
-    static constexpr int MothershipInvaderScore = 100; // TODO: find out what the secret score is
+    static constexpr int MysteryShipMaxScore = 1000;
     static constexpr int LivesMax = 3;
 
     // Cannon (player)
@@ -36,12 +36,12 @@ namespace SpaceInvaders
     static constexpr Vector2f CannonRocketVelocity = Vector2f(0.f, -800.f); // Px per sec
     static constexpr Vector2f CannonRocketSize = Vector2f(2.f, 10.f);
 
-    // House
-    static constexpr int HouseAnimFramesCount = 5;
-    static constexpr float HouseMaxHealth = 10.f;
-    static constexpr float HouseCannonRocketDamage = 1.f;
-    static constexpr Vector2f HouseSize = Vector2f(44.f, 33.f) * SpriteScale;
-    static constexpr Vector2f HouseVerticalOffset = Vector2f(0, WinSize.y - 130.f);
+    // Bunker
+    static constexpr int BunkerAnimFramesCount = 5;
+    static constexpr float BunkerMaxHealth = 10.f;
+    static constexpr float BunkerCannonRocketDamage = 1.f;
+    static constexpr Vector2f BunkerSize = Vector2f(44.f, 33.f) * SpriteScale;
+    static constexpr Vector2f BunkerVerticalOffset = Vector2f(0, WinSize.y - 130.f);
 
     // Invader
     static constexpr float InvaderStartingVelocity = 30.f;

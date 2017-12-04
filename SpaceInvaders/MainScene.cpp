@@ -36,11 +36,11 @@ namespace SpaceInvaders
     m_invaderGroup = std::dynamic_pointer_cast<EInvaderGroup>(Engine::EntityFactoryInstance->createEntity(EntityType::InvaderGroup, std::make_shared<CreateInvaderGroupEntityData>(m_spriteSheet, GameConfig::InvaderGroupStartPos)));
     m_allEntities.push_back(m_invaderGroup);
 
-    for (int i = 0; i < HouseCount; i++)
+    for (int i = 0; i < BunkerCount; i++)
     {
-      m_houses[i] = std::dynamic_pointer_cast<EHouse>(Engine::EntityFactoryInstance->createEntity(EntityType::House, spriteSheetDataPtr));
-      m_houses[i]->setPosition(Vector2f(i * (GameConfig::WinSize.x / HouseCount) + GameConfig::HouseSize.x, 0.f) + GameConfig::HouseVerticalOffset);
-      m_allEntities.push_back(m_houses[i]);
+      m_bunkers[i] = std::dynamic_pointer_cast<EBunker>(Engine::EntityFactoryInstance->createEntity(EntityType::Bunker, spriteSheetDataPtr));
+      m_bunkers[i]->setPosition(Vector2f(i * (GameConfig::WinSize.x / BunkerCount) + GameConfig::BunkerSize.x, 0.f) + GameConfig::BunkerVerticalOffset);
+      m_allEntities.push_back(m_bunkers[i]);
     }
 
     m_cannonRocket = std::dynamic_pointer_cast<ECannonRocket>(Engine::EntityFactoryInstance->createEntity(EntityType::CannonRocket, nullptr));
@@ -136,9 +136,9 @@ namespace SpaceInvaders
     {
       m_playingUI->draw(graphics);
       m_cannon->draw(graphics);
-      for (int i = 0; i < HouseCount; i++)
+      for (int i = 0; i < BunkerCount; i++)
       {
-        m_houses[i]->draw(graphics);
+        m_bunkers[i]->draw(graphics);
       }
       m_gameOverText.draw(graphics);
       break;
@@ -157,9 +157,9 @@ namespace SpaceInvaders
       EInvaderRocket& currInvRocket = *m_invaderRockets[i];
       if (currInvRocket.isAlive())
       {
-        for (int j = 0; j < HouseCount; j++)
+        for (int j = 0; j < BunkerCount; j++)
         {
-          EHouse& currHouse = *m_houses[j];
+          EBunker& currHouse = *m_bunkers[j];
           if (currHouse.isAlive() && currHouse.isColliding(currInvRocket))
           {
             currHouse.decreaseHealth();
@@ -185,9 +185,9 @@ namespace SpaceInvaders
   {
     if (m_cannonRocket->isAlive())
     {
-      for (int i = 0; i < HouseCount; i++)
+      for (int i = 0; i < BunkerCount; i++)
       {
-        EHouse& currHouse = *m_houses[i];
+        EBunker& currHouse = *m_bunkers[i];
         if (currHouse.isAlive() && currHouse.isColliding(*m_cannonRocket))
         {
           currHouse.decreaseHealth();
@@ -298,8 +298,8 @@ namespace SpaceInvaders
       m_playingUI->setLivesLeft(m_livesLeft);
       m_playingUI->setScore(m_score);
       m_cannon->setPosition(GameConfig::InitialCannonPosition);
-      for (int i = 0; i < HouseCount; i++) {
-        m_houses[i]->reset();
+      for (int i = 0; i < BunkerCount; i++) {
+        m_bunkers[i]->reset();
       }
     }
 

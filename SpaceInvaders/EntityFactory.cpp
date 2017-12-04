@@ -7,7 +7,7 @@
 #include "EInvader.h"
 #include "EInvaderGroup.h"
 #include "InvalidCastException.h"
-#include "EHouse.h"
+#include "EBunker.h"
 #include "ECannonRocket.h"
 #include "EInvaderRocket.h"
 #include "ELife.h"
@@ -57,7 +57,7 @@ namespace SpaceInvaders
       entity = createInvaderGroup(invaderGroupData->SpriteSheet, invaderGroupData->UpperLeftStartPos);
       break;
     }
-    case EntityType::House:
+    case EntityType::Bunker:
     {
       const shared_ptr<CreateEntityWithSpritesheetData> spriteSheetData = dynamic_pointer_cast<CreateEntityWithSpritesheetData>(data);
       checkSpriteSheetDataPtr(spriteSheetData);
@@ -114,7 +114,7 @@ namespace SpaceInvaders
 
   shared_ptr<Entity> EntityFactory::createHouse(const shared_ptr<Texture> spriteSheet)
   {
-    return shared_ptr<Entity>(new EHouse(spriteSheet));
+    return shared_ptr<Entity>(new EBunker(spriteSheet));
   }
 
   shared_ptr<Entity> EntityFactory::createCannonRocket()

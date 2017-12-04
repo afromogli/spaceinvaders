@@ -120,7 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ECannonRocket.cpp" />
-    <ClCompile Include="EHouse.cpp" />
+    <ClCompile Include="EBunker.cpp" />
     <ClCompile Include="EInvader.cpp" />
     <ClCompile Include="AudioLoader.cpp" />
     <ClCompile Include="EInvaderGroup.cpp" />
@@ -144,7 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECannonRocket.h" />
-    <ClInclude Include="EHouse.h" />
+    <ClInclude Include="EBunker.h" />
     <ClInclude Include="EInvader.h" />
     <ClInclude Include="AudioLoader.h" />
     <ClInclude Include="Color.h" />
