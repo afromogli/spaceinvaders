@@ -303,7 +303,7 @@ namespace SpaceInvaders
       }
     }
 
-    m_invaderGroup->reset();
+    m_invaderGroup->reset(isGameOver);
     
     for (int i = 0; i < GameConfig::InvaderRocketsMaxCount; i++)
     {

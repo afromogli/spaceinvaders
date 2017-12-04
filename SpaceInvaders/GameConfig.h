@@ -44,18 +44,17 @@ namespace SpaceInvaders
     static constexpr Vector2f HouseVerticalOffset = Vector2f(0, WinSize.y - 130.f);
 
     // Invader
-    static constexpr float InvaderVelocity = 30.f;
+    static constexpr float InvaderStartingVelocity = 30.f;
+    static constexpr float InvaderVelocityIncrease = 0.75f * InvaderStartingVelocity;
     static constexpr Vector2f InvaderSmallSize =  Vector2f(16.f, 16.f) * SpriteScale;
     static constexpr Vector2f InvaderMediumSize = Vector2f(22.f, 16.f) * SpriteScale;
     static constexpr Vector2f InvaderLargeSize = Vector2f(24.f, 16.f ) * SpriteScale;
-    static constexpr Vector2f InvaderLeftVelocity = Vector2f(-1.f*InvaderVelocity, 0.f);
-    static constexpr Vector2f InvaderRightVelocity = Vector2f(InvaderVelocity, 0.f);
     static constexpr uint8_t InvaderAnimFramesCount = 2;
     static constexpr float InvaderAnimFrameLength = 500.f; // ms
     
     // Invader group
     static constexpr Vector2f InvaderGroupStartPos = Vector2f(50.f, 50.f);
-    static constexpr float InvaderHorisontalSpacing = InvaderLargeSize.x + 5.f;
+    static constexpr float InvaderHorisontalSpacing = InvaderLargeSize.x + 20.f;
     static constexpr float InvaderVerticalSpacing = InvaderLargeSize.y + 5.f;
 
     static constexpr int InvaderRows = 5;

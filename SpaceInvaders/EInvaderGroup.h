@@ -25,9 +25,11 @@ namespace SpaceInvaders
      */
     EInvader* tryFindCollidingInvader(const ECannonRocket& rocket) const;
     EInvader& getClosestAliveInvaderAtPosition(const int column, const int row);
-    void reset();
+    void reset(const bool isGameOver);
     EInvader* getAliveInvaderAtMostBottomPosition() const;
     bool areAllInvadersDead() const;
+
+    void increaseInvaderVelocity();
 
   private:
     explicit EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos);
@@ -45,5 +47,6 @@ namespace SpaceInvaders
     const Vector2f m_upperLeftStartPos;
     static constexpr float ChangeDirectionCooldownLength = 2000.f; // millisecs
     float m_changeDirectionCooldown;
+    float m_currentInvaderVelocity;
   };
 }

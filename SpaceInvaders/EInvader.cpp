@@ -13,7 +13,7 @@ namespace SpaceInvaders
     m_isAlive { true }
   {
     m_rect.setSize(getSizeForType(invaderType));
-    m_velocity = GameConfig::InvaderRightVelocity; // Initial speed
+    m_velocity = Vector2f(GameConfig::InvaderStartingVelocity, 0); // Initial speed
     
     assert(spriteSheet->isLoaded());
   }
@@ -66,13 +66,16 @@ namespace SpaceInvaders
 
   void EInvader::changeDirection()
   {
-    if (m_velocity == GameConfig::InvaderLeftVelocity)
+    const Vector2f invaderLeftVelocity = Vector2f(-1.f, 0.f) * m_velocity;
+    const Vector2f invaderRightVelocity = m_velocity;
+
+    if (m_velocity == invaderLeftVelocity)
     {
-      m_velocity = GameConfig::InvaderRightVelocity;
+      m_velocity = invaderRightVelocity;
     }
     else
     {
-      m_velocity = GameConfig::InvaderLeftVelocity;
+      m_velocity = invaderLeftVelocity;
     }
   }
 

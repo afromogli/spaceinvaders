@@ -76,8 +76,13 @@ namespace SpaceInvaders
     return *invader;
   }
 
-  void EInvaderGroup::reset()
+  void EInvaderGroup::reset(const bool isGameOver)
   {
+    if (isGameOver)
+    {
+      m_currentInvaderVelocity = GameConfig::InvaderStartingVelocity;
+    }
+
     for (int y = 0; y < GameConfig::InvaderRows; y++)
     {
       for (int x = 0; x < GameConfig::InvaderColumns; x++)
@@ -85,6 +90,10 @@ namespace SpaceInvaders
         auto currInvader = m_invaders[y * GameConfig::InvaderColumns + x];
         currInvader->setPosition(getInvaderStartPosition(currInvader->getType(), y, x));
         currInvader->setIsAlive(true);
+        if (isGameOver)
+        {
+          currInvader->setVelocity(Vector2f(m_currentInvaderVelocity, 0));
+        }
       }
     }
   }
@@ -117,11 +126,21 @@ namespace SpaceInvaders
     return true;
   }
 
+  void EInvaderGroup::increaseInvaderVelocity()
+  {
+    m_currentInvaderVelocity += GameConfig::InvaderVelocityIncrease;
+    for (int i = 0; i < GameConfig::InvaderTotalCount; i++)
+    {
+      m_invaders[i]->setVelocity(Vector2f(m_currentInvaderVelocity, 0.f));
+    }
+  }
+
   EInvaderGroup::EInvaderGroup(const shared_ptr<Texture> spriteSheet, const Vector2f upperLeftStartPos) : 
     m_spriteSheet{ spriteSheet }, 
     m_timeLeftInAnimationFrame{ GameConfig::InvaderAnimFrameLength }, 
     m_upperLeftStartPos(upperLeftStartPos), 
-    m_changeDirectionCooldown{ ChangeDirectionCooldownLength }
+    m_changeDirectionCooldown{ ChangeDirectionCooldownLength },
+    m_currentInvaderVelocity { GameConfig::InvaderStartingVelocity }
   {
     const auto spriteSheetDataPtr = std::make_shared<CreateEntityWithSpritesheetData>(m_spriteSheet);
 
