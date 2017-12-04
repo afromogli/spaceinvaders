@@ -238,7 +238,7 @@ namespace SpaceInvaders
     if (m_invaderGroup->areAllInvadersDead())
     {
       resetScene(false);
-      // TODO: increase invader velocity
+      m_invaderGroup->increaseInvaderVelocity();
     }
 
     if (hasInvaderGroupHasReachedBottom())

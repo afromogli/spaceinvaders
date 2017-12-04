@@ -21,10 +21,10 @@ namespace SpaceInvaders
     static constexpr wchar_t* GamesFontPath = L"Fonts\\Games.ttf";
 
     // Scores and lives
-    static constexpr int SmallInvaderScore = 40;
+    static constexpr int SmallInvaderScore = 30;
     static constexpr int MediumInvaderScore = 20;
     static constexpr int LargeInvaderScore = 10;
-    static constexpr int MysteryShipMaxScore = 1000;
+    static constexpr int MysteryShipMaxScore = 300;
     static constexpr int LivesMax = 3;
 
     // Cannon (player)
