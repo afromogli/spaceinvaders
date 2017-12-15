@@ -55,6 +55,10 @@ namespace SpaceInvaders
 
     // Mystery ship
     static constexpr Vector2f MysteryShipSize = Vector2f(48.f, 16.f) * SpriteScale;
+    static constexpr float MysteryShipMinSpawnWaitTime = 8000.f; // ms
+    static constexpr float MysteryShipMaxSpawnWaitTime = 12000.f; // ms
+    static constexpr float MysteryShipSpeed = 200.f;
+
 
     // Invader group
     static constexpr Vector2f InvaderGroupStartPos = Vector2f(50.f, 50.f);

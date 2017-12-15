@@ -101,6 +101,9 @@
     <ClCompile Include="InvaderRocketSpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MysteryShipSpawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioLoader.h">
@@ -203,6 +206,9 @@
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="InvaderRocketSpawner.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MysteryShipSpawner.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

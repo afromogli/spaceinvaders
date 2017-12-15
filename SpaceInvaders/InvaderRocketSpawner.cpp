@@ -7,10 +7,10 @@ namespace SpaceInvaders
   InvaderRocketSpawner::InvaderRocketSpawner(const shared_ptr<EInvaderGroup> invaderGroup, const vector<shared_ptr<EInvaderRocket>>& invaderRockets) :
     m_invaderRocketSpawnCooldown { GameConfig::InvaderRocketSpawnMaxCooldown }
   {
-    m_invaderGroup = invaderGroup;
+    m_currInvaderGroup = invaderGroup;
     for (const auto rocket : invaderRockets)
     {
-      m_invaderRockets.push_back(shared_ptr<EInvaderRocket>(rocket));
+      m_invaderRocketsPool.push_back(shared_ptr<EInvaderRocket>(rocket));
     }
   }
 
@@ -31,7 +31,7 @@ namespace SpaceInvaders
   {
     const int col = Random::getValue(0, GameConfig::InvaderColumns - 1);
     const int row = Random::getValue(0, GameConfig::InvaderRows - 1);
-    EInvader& invader = m_invaderGroup->getClosestAliveInvaderAtPosition(col, row);
+    EInvader& invader = m_currInvaderGroup->getClosestAliveInvaderAtPosition(col, row);
     return invader;
   }
 
@@ -46,7 +46,7 @@ namespace SpaceInvaders
 
   EInvaderRocket& InvaderRocketSpawner::getDeadInvaderRocket() const
   {
-    for (const auto rocket : m_invaderRockets)
+    for (const auto rocket : m_invaderRocketsPool)
     {
       if (rocket->isAlive() == false)
       {
@@ -58,7 +58,7 @@ namespace SpaceInvaders
 
   bool InvaderRocketSpawner::canSpawnInvaderRocket() const
   {
-    for (const auto rocket : m_invaderRockets)
+    for (const auto rocket : m_invaderRocketsPool)
     {
       if (rocket->isAlive() == false)
       {
