@@ -7,7 +7,7 @@ namespace SpaceInvaders
   MysteryShipSpawner::MysteryShipSpawner(const std::shared_ptr<EMysteryShip> mysteryShip)
   {
     m_mysteryShip = mysteryShip;
-    m_timeLeftUntilNextSpawn = getRandomTimeLeftUntilNextSpawn();
+    m_timeLeftUntilNextSpawn = getNewRandomTimeLeft();
   }
 
   void MysteryShipSpawner::trySpawn(const float deltaTime)
@@ -26,11 +26,11 @@ namespace SpaceInvaders
       m_mysteryShip->setPosition(Vector2f(direction < 0 ? -GameConfig::MysteryShipSize.x : GameConfig::WinSize.x + GameConfig::MysteryShipSize.x, GameConfig::InvaderGroupStartPos.y / 2));
       m_mysteryShip->setVelocity(Vector2f(1 * direction, 0) * GameConfig::MysteryShipSpeed);
       
-      m_timeLeftUntilNextSpawn = getRandomTimeLeftUntilNextSpawn();
+      m_timeLeftUntilNextSpawn = getNewRandomTimeLeft();
     }
   }
 
-  float MysteryShipSpawner::getRandomTimeLeftUntilNextSpawn()
+  float MysteryShipSpawner::getNewRandomTimeLeft()
   {
     return Random::getValue(GameConfig::MysteryShipMinSpawnWaitTime, GameConfig::MysteryShipMaxSpawnWaitTime);
   }

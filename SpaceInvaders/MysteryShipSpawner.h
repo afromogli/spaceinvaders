@@ -11,7 +11,7 @@ namespace SpaceInvaders
 
     void trySpawn(const float deltaTime);
   private:
-    static float getRandomTimeLeftUntilNextSpawn();
+    static float getNewRandomTimeLeft();
 
     float m_timeLeftUntilNextSpawn;
     std::shared_ptr<EMysteryShip> m_mysteryShip;
